@@ -122,5 +122,11 @@ aspell check foo.txt
 %% convert octal to hexadecimal
 echo "obase=16; ibase=8; octal-number-here" | bc
 
-%%find keycodes and and key symbols
+%% find keycodes and and key symbols
 xev
+
+%% sort by 2nd field
+sort -k 2
+
+%% format as a table
+column -t
