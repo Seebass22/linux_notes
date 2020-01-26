@@ -64,11 +64,19 @@ gq
 %% go to last edited line
 g;
 
+# VISUAL MODE
 %% start visual mode with the last selection
 gv
-
+%% start visual mode on next search result
+gn
 %% move to other end of visual selection
 o
+
+%% change 0 to 1 (while visually selected)
+%%        0    2
+%%        0    3
+g_CTRL-a
+
 
 %% invert case of letter
 ~
@@ -82,6 +90,7 @@ o
 %% search for blank line
 /^$
 
+# WINDOWS
 %% split into 2 windows
 :split
 <C-w> s
@@ -135,7 +144,7 @@ C
 :Gdiff
 
 %% show previous versions (git repo)
-:Glog
+:0Glog
 %% go back one commit
 :cn[ext]
 %% forward (newer)
@@ -161,6 +170,14 @@ dp
 %% to stage index (on index buffer)
 :w
 
+
+%% search files and populate quickfix list with results
+:vim[grep] /pattern/ FILES...
+%% example
+:vim /print\S/ *.cpp *.h
+%% use external grep
+:grep -E -w '\<int\S' *.cpp
+
 %% open quickfix window if available
 :cwin
 %% go to error [nr] or first error if [nr] is omitted
@@ -172,17 +189,19 @@ dp
 :bufdo
 %% "" every file in arglist
 :argdo
-
-%% change 0 to 1 (while visually selected)
-%%        0    2
-%%        0    3
-g_CTRL-a
+%% populate arglist
+:args *.cpp
 
 %% open file under cursor
 gf
 
 %% show manpage for word under cursor
 K
+
+%% send lines to external program and echo result
+:[range]w !wc
+%% filter lines through external program (replace them with result)
+:[range] !sort
 
 %% show word count for paragraph
 vip:w !wc -w
@@ -286,3 +305,18 @@ ctags -f .git/tags *.c
 :terminal
 %% exit to normal mode
 <C-\><C-n>
+
+# COMMANDLINE MODE
+%% open commandline window
+q:
+%% open search history window
+q/
+%% open commandline window from prompt
+<C-f>
+
+# EX COMMANDS
+%% where file name is expected:
+%% current file
+%
+%% argument list
+##
