@@ -122,6 +122,10 @@ g_CTRL-a
 
 %% center screen around cursor
 zz
+%% keep cursor position, top of screen
+zt
+%% keep cursor position, bottom of screen
+zb
 
 %% move to next paragraph/code block (separated by empty line)
 }
@@ -320,3 +324,11 @@ q/
 %
 %% argument list
 ##
+
+# FZF.VIM
+%% fuzzy search help pages
+:Helptags
+%% fullscreen fuzzy search
+!
+%% example:
+:Lines!
