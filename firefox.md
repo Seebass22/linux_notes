@@ -1,8 +1,14 @@
 %% address bar
-<Ctr>l
+ctrl l
 
 %% undo close tab
-<shift><ctr>t
+shift ctrl t
+
+%% open history
+ctrl h
+
+%% (while in addr. bar)
+shift enter
 
 # tridactyl
 %%decrement/increment url number

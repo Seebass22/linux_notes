@@ -130,3 +130,6 @@ sort -k 2
 
 %% format as a table
 column -t
+
+%% print line length, full line
+awk '{print length, $0}'

@@ -64,6 +64,9 @@ gq
 %% go to last edited line
 g;
 
+%% jump to middle of buffer
+50%
+
 # VISUAL MODE
 %% start visual mode with the last selection
 gv
@@ -98,7 +101,10 @@ g_CTRL-a
 <C-w> <C-v>
 :vsplit
 %% resize windows
+%% vertical size
 :resize +5
+%% horizontal size
+:vertical reize +5
 %% close all windows but current one
 <C-w>o
     or
@@ -135,6 +141,10 @@ yap}p
 
 %% save as (save as <FILE> and switch current buffer to <FILE>)
 :sav[eas]
+
+%% edit file remotely
+vim scp://remoteuser@server.tld//absolute/path/to/document
+:e scp://remoteuser@server.tld//absolute/path/to/document
 
 # VIM FUGITIVE
 %% git status
@@ -188,6 +198,13 @@ dp
 :cc [nr]
 %% show all errors in quickfix list
 :clist
+%% show all quickfix lists
+:chi[story]
+%% prev, next list
+:colder
+:cnewer
+%% do not overwrite newer list
+:cnewer 99
 
 %% ex command on every buffer
 :bufdo
@@ -332,3 +349,9 @@ q/
 !
 %% example:
 :Lines!
+
+# SESSIONS
+%% create Session.vim
+:mks[ession]
+%% restore session
+:source Session.vim

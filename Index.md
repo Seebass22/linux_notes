@@ -4,6 +4,7 @@
 # CLI PROGRAMS
 [general](general)
 
+[pulseaudio](pulseaudio)
 [dnf](dnf)
 [ffmpeg](ffmpeg)
 [gdb](gdb)
