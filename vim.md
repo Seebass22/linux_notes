@@ -100,6 +100,10 @@ g_CTRL-a
 %% vertically
 <C-w> <C-v>
 :vsplit
+%% split and edit empty file
+<C-w> N
+%% split and view tag
+<C-w> ]
 %% resize windows
 %% vertical size
 :resize +5
@@ -303,10 +307,11 @@ ctags -f .git/tags *.c
 %% insert character above cursor (insert mode)
 <C-y>
 
-%% insert character with decimal number (insert mode)
+%% (insert mode)
+%% enter character literally
+%% or
+%% enter character with ascii decimal value
 <C-v>
-%% insert & character (ascii value 38)
-<C-v>38
 
 %% enable virtual editing for easy editing of tables
 %% (place cursor where there is no actual character)
