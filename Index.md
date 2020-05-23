@@ -3,6 +3,7 @@
 
 # CLI PROGRAMS
 [general](general)
+[fun stuff](fun stuff)
 
 [pulseaudio](pulseaudio)
 [dnf](dnf)
