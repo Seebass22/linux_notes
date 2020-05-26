@@ -329,8 +329,19 @@ ctags -f .git/tags *.c
 
 %% interactive terminal
 :terminal
+%% split and run top
+:split term://top
+
 %% exit to normal mode
 <C-\><C-n>
+
+# DEBUGGING
+%% start debugging session with ./out
+:packadd termdebug
+:Termdebug ./out
+
+%% inspect variable under cursor (editor, normal mode)
+K
 
 # COMMANDLINE MODE
 %% open commandline window
