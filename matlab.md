@@ -94,6 +94,11 @@ ylabel('sin(x)')
 ## legend
 legend('sin')
 
+## overlay more plots
+hold on
+## stop overlay
+hold off
+
 ##polynomial curve fitting
 ### return coefficients of polynomial p(x) of degree n
 p = polyfit(x, y, n)
