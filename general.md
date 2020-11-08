@@ -146,3 +146,8 @@ date -d 'now + 2 hours'
 
 %% list files linewise (nicer than find)
 for i in author-signature.xml signature*.xml; do echo $i; done
+
+%% IFS
+%% change separator to +
+w(){ (IFS=+; curl wttr.in/"$*";); }
+w new york

@@ -72,6 +72,8 @@ g;
 gv
 %% start visual mode on next search result
 gn
+%% -> change next search result (repeatable with .)
+cgn
 %% move to other end of visual selection
 o
 
@@ -115,6 +117,8 @@ g_CTRL-a
 :only
 %% increase current window by one line
 <C-w>+
+%% move current window to far left (do this for debugging!)
+<C-w> H
 
 
 %% jump to definition or to help file
@@ -262,6 +266,7 @@ zo  // open fold
 zC  // close all folds under cursor
 zO  // open all folds under cursor
 zn  // disable folding
+zx  // update folds
 
 # BUFFERS
 %%switch to buffer 5

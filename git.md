@@ -6,8 +6,12 @@ git checkout <deleting_commit>^ -- <file_path>
 %% replay commit on current branch
 git cherry-pick <SHA>
 
+# LOG
 %% simple log
 git log --oneline
+
+%% only show changed files
+git log --name-only
 
 %% undo last commit but keep changes (add --hard to discard changes)
 git reset HEAD~1
