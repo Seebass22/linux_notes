@@ -4,7 +4,6 @@ A = [1 2 3 4 5];
 B = [9 7 5 3 1];
 C = [2 4];
 
-
 ## matrices
 D_m = [2 5 2
        1 2 3
@@ -47,9 +46,11 @@ sqrt(f)
 sqrt(A)
 sqrt(D_m)
 
-## indexing
-A(2) % 2
-D_m(3, 1) % 4
+## indexing (y, x)
+A(2)        % 2
+D_m(3, 1)   % 4
+D_m(2:3, 3) % columns 2-3, row 3
+D_m(:, 1:2) % all columns, rows 1-2
 
 ## generate points from 0 to 2pi with steps of 0.01
 x = start:step:end
@@ -57,6 +58,9 @@ x = start:step:end
 x = linspace(x1, x2)
 ## generate n evenly spaced points between x1 and x1
 x = linspace(x1, x2, n)
+
+## get matrix/array dimensions
+size(A)
 
 %% -----------------------------------------------------------------------------
 # LOOPS AND CONDITIONALS 
@@ -84,6 +88,7 @@ elseif
 else
 	statements
 end
+
 %% -----------------------------------------------------------------------------
 # PLOTS
 ## plot and label
@@ -99,7 +104,7 @@ hold on
 ## stop overlay
 hold off
 
-##polynomial curve fitting
+## polynomial curve fitting
 ### return coefficients of polynomial p(x) of degree n
 p = polyfit(x, y, n)
 ### return values of polynomial p at each point in x
