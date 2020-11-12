@@ -62,6 +62,15 @@ x = linspace(x1, x2, n)
 ## get matrix/array dimensions
 size(A)
 
+## get number of array elements
+numel(A)
+
+## reshape array/matrix
+### to have 2 colmuns
+reshape(Arr, [], 2)
+### to have 4 rows
+reshape(Arr, 4, [])
+
 %% -----------------------------------------------------------------------------
 # LOOPS AND CONDITIONALS 
 ## for loop
@@ -91,10 +100,24 @@ end
 
 %% -----------------------------------------------------------------------------
 # PLOTS
+
+## multiple plot windows
+figure(1)
+plot(...)
+figure(2)
+plot(...)
+
+## multiple plots in one window
+### m-by-n grid, position = index of next plot
+subplot(m, n, position)
+
 ## plot and label
 plot(x, y)
 xlabel('x')
 ylabel('sin(x)')
+
+# enable grid
+grid on
 
 ## legend
 legend('sin')
@@ -111,3 +134,18 @@ p = polyfit(x, y, n)
 vals = polyval(p,x)
 ### plot
 plot(x, vals)
+
+%% -----------------------------------------------------------------------------
+# IMAGES
+pkg load image
+
+## read image
+img = imread('pic1.ppm')
+
+## convert to grayscale
+g_img = rgb2gray(img)
+
+## calculate histogram, return counts and bin locations
+[counts, binLocations] = imhist(g_img)
+## display histogram
+imhist(g_img)
