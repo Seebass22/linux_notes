@@ -1,19 +1,19 @@
-%% resize window to fit image
+# resize window to fit image
 ctrl j
 
-%% redo
+# redo
 ctrl y
 
-%% invert selection
+# invert selection
 ctrl i
 
-%% set fg and bg colour to default
+# set fg and bg colour to default
 d
-%% switch between bg and fg colour
+# switch between bg and fg colour
 x
 
-%% paste as a new image
+# paste as a new image
 shift ctrl v
 
-%% open as a layer
+# open as a layer
 ctrl alt o

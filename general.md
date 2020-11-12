@@ -6,148 +6,148 @@
 [a-g]           matches any character a-g
 {txt,jpg,bmp}   matches anything in the list
 
-%% nvim file.c file.h
+# nvim file.c file.h
 nvim file.[ch]
 
-%% nvim file.cpp file.h
+# nvim file.cpp file.h
 nvim file.{cpp,h}
 
 # LaTeX
-%% automatic latex compilation
+# automatic latex compilation
 latexmk -pvc -pdf filename
 
-%% remove latex compile files
-latexmk -c  %% keep pdf
-latexmk -C  %% delete pdf
+# remove latex compile files
+latexmk -c  # keep pdf
+latexmk -C  # delete pdf
 
-%% latex documentation
+# latex documentation
 texdoc {packagename}
 
-%% programming & terminal help
+# programming & terminal help
 curl cheat.sh/c++
 
-%% show audio sources
+# show audio sources
 pacmd list-sources
 
-%% search installed packages
+# search installed packages
 apt-cache search
 
-%% find directory of program
+# find directory of program
 which
 whereis
 
-%% create a symbolic link
+# create a symbolic link
 ln -s file1 file2
 
-%% display tree view of filesystem
+# display tree view of filesystem
 tree
-tree -d     %% only directories
+tree -d     # only directories
 
-%% find files
+# find files
 locate
 locate term1 | grep term2
     or
-find /usr -type f -name gcc     %% searches in usr for files called gcc
+find /usr -type f -name gcc     # searches in usr for files called gcc
 (slower than locate)
 
-%% find documentation
+# find documentation
 whatis      or      man -f
 apropos     or      man -k      // all man pages discussing a topic
 info                            // GNU info pages
 
-%% match exact string
+# match exact string
 grep -w "string"
 grep "\<string\>"
 
-%% display filetype information
+# display filetype information
 file <files>
 
-%% show word count and more
+# show word count and more
 wc
 
-%% close frozen SSH session
+# close frozen SSH session
 <enter>
 ~
 .
 
-%% reset terminal
+# reset terminal
 reset
 
-%% kill last suspended job
-kill %%
+# kill last suspended job
+kill #
 
-%% read core file (debug)
+# read core file (debug)
 gdb /path/to/application /path/to/corefile
 
-%% show environment variables
+# show environment variables
 env
 
-%% invert grep
+# invert grep
 grep -v
 
-%% update mpd db
+# update mpd db
 mpc update
 
-%% change keyboard layout
+# change keyboard layout
 setxkbmap us
 
-%% connect to known wifi network
+# connect to known wifi network
 nmcli connection up <network-name>
 
-%% kill flatpak app
+# kill flatpak app
 flatpak kill org.riot.Riot
 
-%% show window info
+# show window info
 xwininfo
 xprop
 
-%% unhighlight search in less
+# unhighlight search in less
 ESC u
 
-%% indicate end of args
+# indicate end of args
 --
-%%example:
+#example:
 man grep | grep -C5 -- '-C'
 
-%% save to clipboard
+# save to clipboard
 echo asdf | xclip -selection clipboard
-%% save to primary selection
+# save to primary selection
 echo adsf | xclip
-%% paste from primary selection
+# paste from primary selection
 <middle mouse button>
 
-%% check spelling of text file
+# check spelling of text file
 aspell check foo.txt
 
-%% convert octal to hexadecimal
+# convert octal to hexadecimal
 echo "obase=16; ibase=8; octal-number-here" | bc
 
-%% find keycodes and and key symbols
+# find keycodes and and key symbols
 xev
 
-%% sort by 2nd field
+# sort by 2nd field
 sort -k 2
 
-%% format as a table
+# format as a table
 column -t
 
-%% print line length, full line
+# print line length, full line
 awk '{print length, $0}'
 
-%% note on redirection
-%% redirect operators for each side are evaluated from left to right, and the current settings are used whenever duplication of the descriptor occurs. 
-%% `command 2>&1 >/dev/null | grep 'something'`
-    %% a pipe (fifo) is created. "command FD1" is pointed to this pipe. "grep FD0" also is pointed to this pipe
-    %% "command FD2" is pointed to where "command FD1" currently points (the pipe)
-    %% "command FD1" is pointed to /dev/null
+# note on redirection
+# redirect operators for each side are evaluated from left to right, and the current settings are used whenever duplication of the descriptor occurs. 
+# `command 2>&1 >/dev/null | grep 'something'`
+    # a pipe (fifo) is created. "command FD1" is pointed to this pipe. "grep FD0" also is pointed to this pipe
+    # "command FD2" is pointed to where "command FD1" currently points (the pipe)
+    # "command FD1" is pointed to /dev/null
 	
-%% date fun
+# date fun
 date -d 'now + 2 hours'
 
-%% list files linewise (nicer than find)
+# list files linewise (nicer than find)
 for i in author-signature.xml signature*.xml; do echo $i; done
 
-%% IFS
-%% change separator to +
+# IFS
+# change separator to +
 w(){ (IFS=+; curl wttr.in/"$*";); }
 w new york

@@ -1,43 +1,43 @@
-%% vi-copy mode
+# vi-copy mode
 prefix [
-%% paste
+# paste
 prefix ]
 
-%%split horizontally, vertically
+#split horizontally, vertically
 prefix %
 prefix "
 
-%% sync panes
+# sync panes
 :set synchronize-panes on
 
-%% rename window
+# rename window
 prefix ,
     or
 :rename-window
 
-%% rename session
+# rename session
 prefix $
     or
 :rename-session
 
-%% resize pane
+# resize pane
 prefix ctrl arrow_key
-%% resize pane (up, 5 lines)
+# resize pane (up, 5 lines)
 :resize-pane -U 5
 
-%% switch to prev session
+# switch to prev session
 prefix (
-%% interactively select session
+# interactively select session
 prefix s
 
-%% list and interactively select windows
+# list and interactively select windows
 prefix w
 
-%% move window to index (prompt)
+# move window to index (prompt)
 prefix .
 
-%% briefly display pane indexes
+# briefly display pane indexes
 prefix q
 
-%% rotate panes in curent window
+# rotate panes in curent window
 prefix ctrl o

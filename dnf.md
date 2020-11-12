@@ -1,10 +1,10 @@
-%% find package that provides specific file
+# find package that provides specific file
 dnf provides */whatever.h
-%% list files in package
+# list files in package
 dnf repoquery -l <packagename>
-%% find package that provides specific executable
+# find package that provides specific executable
 dnf whatprovides xxd
-%% list packages from repo
+# list packages from repo
 dnf repository-packages <repo-name> list
-%% remove packages from repo
+# remove packages from repo
 dnf repository-packages <repo-name> remove

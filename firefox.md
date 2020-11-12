@@ -1,22 +1,22 @@
-%% address bar
+# address bar
 ctrl l
 
-%% undo close tab
+# undo close tab
 shift ctrl t
 
-%% open history
+# open history
 ctrl h
 
-%% (while in addr. bar)
+# (while in addr. bar)
 shift enter
 
-%% close tab
+# close tab
 middle mouse button
 
 # tridactyl
-%%decrement/increment url number
+#decrement/increment url number
 [c
 ]c
 
-%%tablist
+#tablist
 b

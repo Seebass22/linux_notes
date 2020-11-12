@@ -1,33 +1,33 @@
-%% delete line 1-3 in file
+# delete line 1-3 in file
 sed -e '1,3d' file
 
-%% sed REGEX
+# sed REGEX
 \b      // word boundary
 \B      // not word boundary
 \<  \>  // start & end of word
 .       // matches any character once (incl. newline)
-%% ERE, BRE
+# ERE, BRE
 |     \|      // logical OR    -> sed -E 's/red|blue/green/'
-%% quantifiers (ERE, BRE)
+# quantifiers (ERE, BRE)
 ?     \?      // 0 or 1 time
 *     *       // 0 or more times
 +     \+      // 1 or more times
 {x}   \{x}    // exactly x times
 {a,b} \{a,b}  // a to b times
 
-%% grouping example (ERE)
-bat(wo)?man   %% matches batman and batwoman
+# grouping example (ERE)
+bat(wo)?man   # matches batman and batwoman
 
-%% lines consisting only of numbers >= 100 (ERE)
+# lines consisting only of numbers >= 100 (ERE)
 ^[0-9]{3,0}$
-%% lines consisting only of hexadecimal numbers (ERE)
+# lines consisting only of hexadecimal numbers (ERE)
 ^[0-9a-fA-F]+$
-%% 4 letter words with 'no' or 'on' in the middle (ERE)
+# 4 letter words with 'no' or 'on' in the middle (ERE)
 \b[a-z](on|no)[a-z]\b
 
-%% back reference (ERE)
-%% matches aaba, ccic...
+# back reference (ERE)
+# matches aaba, ccic...
 ([a-z])\1.\1
 
-%% remove escape sequences
+# remove escape sequences
 sed "s,\x1B\[[0-9;]*[a-zA-Z],,g"

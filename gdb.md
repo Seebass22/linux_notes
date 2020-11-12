@@ -25,12 +25,12 @@ info threads     // show all threads being run
 
 thread <num>     // switch to thread
 
-%% set variables
+# set variables
 set variable i = 40
-%% or
+# or
 set (i = 40)
 
-%% to look at prev variables
+# to look at prev variables
 frame <num> // traverse call stack (0 = current, 1 = parent, 2 = parent's parent)
 
 bt          // print backtrace of stack frames
@@ -39,13 +39,13 @@ bt full     // print backtrace of stack frames and values of local variables
 list        // show C source
 disass      // show assembly
 
-%% commands at breakpoint
+# commands at breakpoint
 commands <breakpoint-number>
 <commmands...>
 end
 
-%% use silent as first command to suppress gdb output
-%% use continue as last command to continue to next iteration of loop automatically
+# use silent as first command to suppress gdb output
+# use continue as last command to continue to next iteration of loop automatically
 
 # assembly
 nexti       // next instruction
@@ -66,8 +66,8 @@ rsp  // stack pointer
 rbp  // base pointer
 
 # other
-%% toggle TUI
+# toggle TUI
 CTRL x a
 
-%% conditional watchpoint
+# conditional watchpoint
 watch (z > 28)

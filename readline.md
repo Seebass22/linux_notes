@@ -1,26 +1,26 @@
-%% move to end of line
+# move to end of line
 <ctr>e
 
-%% kill last word
+# kill last word
 <ctrl>w
 
-%% clear
+# clear
 <ctrl>l
 
-%% undo
+# undo
 <ctr>_
 
-%% paste last deleted text
+# paste last deleted text
 <ctrl>y
 
-%% swap last two args
+# swap last two args
 <meta>t
 
-%% paste last arg of last command
+# paste last arg of last command
 <meta>_
     or
 <meta>.
 
-%% command history (arrow keys)
+# command history (arrow keys)
 <ctrl>p
 <ctrl>n

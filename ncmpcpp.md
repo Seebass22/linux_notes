@@ -1,4 +1,4 @@
-%% select range
+# select range
 ctrl v
-%% locate song in media library
+# locate song in media library
 ~
