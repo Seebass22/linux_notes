@@ -54,7 +54,7 @@ sqrt(D_m)
 A(2)        % 2
 D_m(3, 1)   % 4
 D_m(2:3, 3) % row 2-3, column 3
-D_m(:, 1:2) % all rows, column 1-2
+D_m(:, 1:2) % all rows, columns 1-2
 
 ## generate points from 0 to 2pi with steps of 0.01
 x = start:step:end
@@ -112,6 +112,10 @@ c{1} = []
 
 ## convert cell array to array
 a = cell2mat(b)
+
+## convert binary to decimal
+a = '1011'
+bin2dec(a)
 
 # -----------------------------------------------------------------------------
 # LOOPS AND CONDITIONALS 
@@ -199,3 +203,24 @@ g_img = rgb2gray(img)
 [counts, binLocations] = imhist(g_img)
 ## display histogram
 imhist(g_img)
+
+# -----------------------------------------------------------------------------
+# FUNCTIONS
+
+function e = entropy_(d)
+    e = sum(d.*log2(1./d));
+end
+
+## nested functions
+## both nested and the containing function can access variables declared in either
+
+# -----------------------------------------------------------------------------
+# MISC
+
+## sort array of structs based on value of struct member
+cells = struct2cell(struct_array);
+sortvals = cells(2,1,:);
+mat = cell2mat(sortvals);
+mat = squeeze(mat);
+[sorted, ix] = sort(mat, 'descend');
+struct_array = struct_array(ix);
