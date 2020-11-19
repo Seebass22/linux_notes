@@ -32,4 +32,4 @@ git bisect
 
 # rewrite history (change commit message, split commits, etc)
 # [modify last 8 commits]
-git rebase --interactive HEAD~8
+git rebase -i HEAD~8
