@@ -53,8 +53,8 @@ sqrt(D_m)
 ## indexing (y, x)
 A(2)        % 2
 D_m(3, 1)   % 4
-D_m(2:3, 3) % columns 2-3, row 3
-D_m(:, 1:2) % all columns, rows 1-2
+D_m(2:3, 3) % row 2-3, column 3
+D_m(:, 1:2) % all rows, column 1-2
 
 ## generate points from 0 to 2pi with steps of 0.01
 x = start:step:end
