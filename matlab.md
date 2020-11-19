@@ -18,6 +18,10 @@ f = 5;
 z = 2 + 4i;
 zz = 1 + 5i;
 
+## struct
+person.name = 'bob';
+person.age = 55;
+
 ## sum vector
 sum(A)
 
@@ -62,7 +66,7 @@ x = linspace(x1, x2, n)
 ## get matrix/array dimensions
 size(A)
 
-## get number of array elements
+## get number of array elements (length)
 numel(A)
 
 ## reshape array/matrix
@@ -70,6 +74,44 @@ numel(A)
 reshape(Arr, [], 2)
 ### to have 4 rows
 reshape(Arr, 4, [])
+
+## get max (or min) in array
+max(A)
+## get max (or min) and index in array
+[max_size, max_index] = max(A)
+
+## sort rows of matrix, table or cell array
+sortrows(A)
+## sort by column 2
+sortrows(A, [2])
+## sort by column 2, then 4
+sortrows(A, [2, 4])
+
+## get data type of variable
+class(A)
+
+## print variable (incl. strings)
+disp(A)
+
+# -----------------------------------------------------------------------------
+# CELL ARRAYS
+
+## create cell array
+c = {}
+c = {1, [1 2 3], 'bob', true}
+
+## access cell 1
+c(1)
+## access contents of cell 1
+c{1}
+
+## delete cell 1
+c(1) = []
+## delete contents of cell 1 -> empty cell
+c{1} = []
+
+## convert cell array to array
+a = cell2mat(b)
 
 # -----------------------------------------------------------------------------
 # LOOPS AND CONDITIONALS 
@@ -90,13 +132,21 @@ break
 continue
 
 ## if, else statement
-if expression
+if expression && expression
 	statements
-elseif
+elseif expression
 	statements
 else
 	statements
 end
+
+## equality
+==
+## inequality
+~=
+
+## determine if variable has specified data type
+isa(A, 'double')
 
 # -----------------------------------------------------------------------------
 # PLOTS
