@@ -79,6 +79,10 @@ reshape(Arr, 4, [])
 max(A)
 ## get max (or min) and index in array
 [max_size, max_index] = max(A)
+## get max (or min) in matrix
+max(max(M))
+### or
+max(M(:))
 
 ## sort rows of matrix, table or cell array
 sortrows(A)
@@ -92,6 +96,12 @@ class(A)
 
 ## print variable (incl. strings)
 disp(A)
+
+## time things
+### start timer
+tic
+### stop timer
+toc
 
 # -----------------------------------------------------------------------------
 # CELL ARRAYS
@@ -213,6 +223,14 @@ end
 
 ## nested functions
 ## both nested and the containing function can access variables declared in either
+
+# global variables
+# must be declared in any function using them
+global x = 5;
+function n func
+	global x
+	n = x + 2;
+end
 
 # -----------------------------------------------------------------------------
 # MISC
