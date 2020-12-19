@@ -127,6 +127,10 @@ a = cell2mat(b)
 a = '1011'
 bin2dec(a)
 
+## convert decimal to binary
+## optional: specify minimum number of digits
+dec2bin(a, 8)
+
 # -----------------------------------------------------------------------------
 # LOOPS AND CONDITIONALS 
 ## for loop

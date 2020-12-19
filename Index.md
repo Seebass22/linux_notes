@@ -1,7 +1,8 @@
 # NOTES
 [vim](vim)
 [matlab](matlab)
-
+[R](R)
+[python](python)
 
 # CLI PROGRAMS
 [general](general)
