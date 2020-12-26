@@ -1,12 +1,3 @@
-# find commit where file was deleted
-git log --diff-filter=D -- path/to/file
-# checkout version at the commit before
-git checkout <deleting_commit>^ -- <file_path>
-
-# replay commit on current branch
-git cherry-pick <SHA>
-
-
 # LOG
 # FORMATTING
 # simple log
@@ -47,6 +38,7 @@ git log --no-merges
 git log --merges
 
 
+# MISC
 # undo last commit but keep changes (add --hard to discard changes)
 git reset HEAD~1
 
@@ -67,3 +59,14 @@ git bisect
 # rewrite history (change commit message, split commits, etc)
 # [modify last 8 commits]
 git rebase -i HEAD~8
+
+# find commit where file was deleted
+git log --diff-filter=D -- path/to/file
+# checkout version at the commit before
+git checkout <deleting_commit>^ -- <file_path>
+
+# replay commit on current branch
+git cherry-pick <SHA>
+
+# ignore changes to tracked file locally
+git update-index --skip-worktree <file_path>
