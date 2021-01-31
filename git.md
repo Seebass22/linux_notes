@@ -70,3 +70,7 @@ git cherry-pick <SHA>
 
 # ignore changes to tracked file locally
 git update-index --skip-worktree <file_path>
+
+# abort merge after pulling
+## clear editor window
+git merge --abort
