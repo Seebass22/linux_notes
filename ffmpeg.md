@@ -10,6 +10,11 @@ ffmpeg -i input.mp4 -filter_complex "[0:v]reverse,fifo[r];[0:v][r] concat=n=2:v=
 # overlay image
 ffmpeg -i video.mp4 -i image.png -filter_complex "[0:v][1:v] overlay" output.mp4
 
+# overlay text
+# scroll up from bottom of frame
+# show text at center
+ffmpeg -i video.mp4 -vf drawtext="text='asdf': fontsize=52: x=(w-text_w)/2: y=h-20*t" output.mp4
+
 # scale to 1/4 size, preserve aspect ratio
 ffmpeg -i input -vf scale=iw/4:-1 output
 

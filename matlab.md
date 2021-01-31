@@ -104,6 +104,19 @@ tic
 toc
 
 # -----------------------------------------------------------------------------
+# STRINGS
+## convert int to string
+chr = int2str(N);
+
+## concatenate string
+filename = strcat('img_', int2str(i), '.ppm');
+
+# -----------------------------------------------------------------------------
+# FILE IO
+## create a folder
+mkdir('images');
+
+# -----------------------------------------------------------------------------
 # CELL ARRAYS
 
 ## create cell array
