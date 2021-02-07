@@ -103,6 +103,9 @@ tic
 ### stop timer
 toc
 
+## run script
+<name of script without .m>
+
 # -----------------------------------------------------------------------------
 # STRINGS
 ## convert int to string
@@ -114,7 +117,7 @@ filename = strcat('img_', int2str(i), '.ppm');
 # -----------------------------------------------------------------------------
 # FILE IO
 ## create a folder
-mkdir('images');
+mkdir('pics');
 
 # -----------------------------------------------------------------------------
 # CELL ARRAYS
@@ -231,6 +234,9 @@ g_img = rgb2gray(img)
 ## display histogram
 imhist(g_img)
 
+## write image to file
+imwrite(data, filename)
+
 # -----------------------------------------------------------------------------
 # FUNCTIONS
 
@@ -247,6 +253,12 @@ global x = 5;
 function n func
 	global x
 	n = x + 2;
+end
+
+## check if argument has been set (for optional arguments)
+function f(opt)
+	if (exist('opt', 'var'))
+	end
 end
 
 # -----------------------------------------------------------------------------
