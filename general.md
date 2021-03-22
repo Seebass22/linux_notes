@@ -135,12 +135,12 @@ column -t
 awk '{print length, $0}'
 
 # note on redirection
-# redirect operators for each side are evaluated from left to right, and the current settings are used whenever duplication of the descriptor occurs. 
+# redirect operators for each side are evaluated from left to right, and the current settings are used whenever duplication of the descriptor occurs.
 # `command 2>&1 >/dev/null | grep 'something'`
     # a pipe (fifo) is created. "command FD1" is pointed to this pipe. "grep FD0" also is pointed to this pipe
     # "command FD2" is pointed to where "command FD1" currently points (the pipe)
     # "command FD1" is pointed to /dev/null
-	
+
 # date fun
 date -d 'now + 2 hours'
 
@@ -151,3 +151,7 @@ for i in author-signature.xml signature*.xml; do echo $i; done
 # change separator to +
 w(){ (IFS=+; curl wttr.in/"$*";); }
 w new york
+
+# print ascii values in decimal or hexadecimal
+echo Apple | od -An -vtu1
+echo Apple | xxd

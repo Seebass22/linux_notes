@@ -155,12 +155,14 @@ vim scp://remoteuser@server.tld//absolute/path/to/document
 :e scp://remoteuser@server.tld//absolute/path/to/document
 
 # VIM FUGITIVE
-# git status
-:Gstatus
-# run 'git add --patch' for file on line
-p
-# invoke :Gcommit
-C
+# open git status window
+:Git
+# open inline diff for file under curor
+=
+# stage file under cursor
+s
+# unstage file under cursor
+u
 
 # vimdiff with index version
 :Gdiff
@@ -269,10 +271,10 @@ zn  // disable folding
 zx  // update folds
 
 # BUFFERS
-#switch to buffer 5
+# switch to buffer 5
 5<C-^>
 
-#interactive bufferlist
+# interactive bufferlist
 :b <tab>
 
 
