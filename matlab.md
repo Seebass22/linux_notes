@@ -148,7 +148,7 @@ bin2dec(a)
 dec2bin(a, 8)
 
 # -----------------------------------------------------------------------------
-# LOOPS AND CONDITIONALS 
+# LOOPS AND CONDITIONALS
 ## for loop
 for n = 2:6
 	x(n) = % something
@@ -260,6 +260,23 @@ function f(opt)
 	if (exist('opt', 'var'))
 	end
 end
+
+# -----------------------------------------------------------------------------
+# CONTROL SYSTEMS
+pkg load control
+
+s = tf('s');
+Gs = 10^9 / ((s + 20)*(s + 500))
+
+## calculate phase and magnitude at frequency wc
+[mag phase] = bode(Gs, wc)
+
+## bode plot
+## from frequency 1 to 100000
+bode(Gs, {1, 100000})
+
+## step response
+% step(Gs)
 
 # -----------------------------------------------------------------------------
 # MISC
