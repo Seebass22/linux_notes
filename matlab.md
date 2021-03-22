@@ -275,8 +275,11 @@ Gs = 10^9 / ((s + 20)*(s + 500))
 ## from frequency 1 to 100000
 bode(Gs, {1, 100000})
 
+## bode plot with phase margin
+margin(Gs)
+
 ## step response
-% step(Gs)
+step(Gs)
 
 # -----------------------------------------------------------------------------
 # MISC
