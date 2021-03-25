@@ -269,7 +269,10 @@ s = tf('s');
 Gs = 10^9 / ((s + 20)*(s + 500))
 
 ## calculate phase and magnitude at frequency wc
+## (magnitude not in dB)
 [mag phase] = bode(Gs, wc)
+## convert to dB
+mag = 20 * log10(mag)
 
 ## bode plot
 ## from frequency 1 to 100000
@@ -277,6 +280,9 @@ bode(Gs, {1, 100000})
 
 ## bode plot with phase margin
 margin(Gs)
+
+## calculate phase margin and omega_c
+[ignore, marg, ignore2, wc] = margin(Gs)
 
 ## step response
 step(Gs)
