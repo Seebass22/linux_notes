@@ -112,3 +112,8 @@ re.split(r'(\d+)', string)
 ## simple http server
 - runs hosts content of current director
 python3 -m http.server
+
+# ------------------------------------------------------------------------------
+# ADDITIONAL TOOLS
+## PEP8 code style checker
+- pycodestyle
