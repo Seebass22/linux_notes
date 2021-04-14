@@ -1,0 +1,7 @@
+# close frozen SSH session
+<enter>
+~
+.
+
+# copy keys to other machine (with password login enabled)
+ssh-copy-id user@ip

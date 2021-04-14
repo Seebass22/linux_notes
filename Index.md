@@ -8,6 +8,7 @@
 [general](general)
 [fun stuff](fun stuff)
 
+[ssh](ssh)
 [pulseaudio](pulseaudio)
 [dnf](dnf)
 [ffmpeg](ffmpeg)
