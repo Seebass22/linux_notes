@@ -16,6 +16,9 @@
 ## integer division
 a %/% b
 
+## integration
+integrate(f, lower, upper)
+
 # ------------------------------------------------------------------------------
 # COMBINATORICS
 ## calculate binomial coefficient
@@ -25,7 +28,7 @@ choose(n,k)
 ## probability of k ourcomes in n trials, where probability of outcome is p
 ## dbinom(n, k, p)
 
-## quiz with 12 questions, 5 choices, probablity of exactly 4 correct answers
+## quiz with 12 questions, 5 choices, probability of exactly 4 correct answers
 dbinom(4, 12, 0.2)
 ## probability of 4 or less correct answers
 pbinom(4, 12, 0.2)
@@ -33,6 +36,11 @@ pbinom(4, 12, 0.2)
 ## sum 1 to 100
 ## pbinom(q, size, prob, lower.tail=TRUE)
 pbinom(0, 100, 0.00720, lower.tail=FALSE)
+
+## beta distribution probability density function
+## dbeta(p, α, β)
+## coin flip with 109 heads, 111 tails. probability that chance of heads is 45-55%
+integrate(function(p) dbeta(p, 109, 111), 0.45, 0.55)
 
 # ------------------------------------------------------------------------------
 # RANDOM VALUES
