@@ -48,11 +48,6 @@ git checkout <SHA>    and    git checkout -b <new branch name>
     or
 git reset --hard <SHA>
 
-# check for whitespace errors or conflict markers
-git diff --check
-# giff staged files
-git diff --staged
-
 # find bug through binary search
 git bisect
 
@@ -74,3 +69,15 @@ git update-index --skip-worktree <file_path>
 # abort merge after pulling
 ## clear editor window
 git merge --abort
+
+# check for whitespace errors or conflict markers
+git diff --check
+# giff staged files
+git diff --staged
+
+# create source tarball (prints to stdout by default)
+git archive <revision>
+## use tar.gz format
+git archive --format=tar.gz HEAD > source_code.tar.gz
+## output zip, infer output format by extension
+git archive -o latest.zip HEAD
