@@ -26,3 +26,4 @@
 # GUI PROGRAMS
 [gimp](gimp)
 [firefox](firefox)
+[OBS](OBS)
