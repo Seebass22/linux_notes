@@ -30,3 +30,8 @@ dnf history
 # undo or redo transaction
 dnf history undo <id>
 dnf history redo <id>
+
+# list enabled repositories
+dnf repolist --enabled
+# more detailed info
+dnf repolist --enabled -v
