@@ -75,6 +75,9 @@ git diff --check
 # giff staged files
 git diff --staged
 
+# local gitignore (not tracked)
+.git/info/exclude
+
 # create source tarball (prints to stdout by default)
 git archive <revision>
 ## use tar.gz format
