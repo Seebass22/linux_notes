@@ -43,16 +43,30 @@ shirts = [(color, size) for color in colors for size in sizes]
 
 # ------------------------------------------------------------------------------
 # FILE IO
-## read file to string
+## open file for reading only
+## creates file if does not exist, replaces content of existing file
 f = open('filename.txt', 'r')
+
+## open for both read and write
+f = open('filename.txt', 'r+')
+
+## read file to string
 text = f.read()
 
 ## read lines of file to list of strings
-f = open('filename.txt', 'r')
 line_list = f.readlines()
+
+## close file
+f.close()
+## automatically close file
+with open('file.txt') as f:
+	data = f.read()
 
 # ------------------------------------------------------------------------------
 # STRINGS
+# int to string
+str(42)
+
 ## split string into list
 txt = "one two three four"
 txt2 = "one#two#three#four"
@@ -90,6 +104,39 @@ lstrip
 a = 'magenta bags'
 a.rstrip(' bags')
 ## => magent
+
+# ------------------------------------------------------------------------------
+# ARGUMENT PARSING
+
+import argparse
+parser = argparse.ArgumentParser()
+# add arguments, then
+args = parser.parse_args()
+
+## add positional argument "start", set help text
+parser.add_argument("echo", help="thing to echo")
+
+## optional argument
+parser.add_argument("--verbose", help="display verbose output")
+
+## set variable to true if argument exists
+parser.add_argument("--verbose", action="store_true")
+if args.verbose:
+	print("verbose output enabled")
+	
+## short and long options
+parser.add_argument("-v", "--verbose")
+	
+## argument with optional parameter, const on empty
+## set name of parameter in usage message
+parser.add_argument('--start', nargs='?', const='', metavar='activity')
+
+## restrict to int, 3 choices
+parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2])
+
+## count argument, for example "-v" x3 = "-vvv", default value 0 (if arg not used)
+parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase output verbosity")
+print(args.verbosity)
 
 # ------------------------------------------------------------------------------
 # REGULAR EXPRESSIONS (regex)
