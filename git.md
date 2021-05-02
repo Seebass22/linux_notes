@@ -39,6 +39,9 @@ git log --merges
 
 
 # MISC
+# add everything on root dir
+git add :/
+
 # undo last commit but keep changes (add --hard to discard changes)
 git reset HEAD~1
 
