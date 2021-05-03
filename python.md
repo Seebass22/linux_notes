@@ -50,7 +50,7 @@ class dog():
 	# class variable shared by all instances
 	kind = 'canine'
 
-	# contructor (with default parameter)
+	# constructor (with default parameter)
 	def __init__(self, name, age=5):
 		# initialize data attributes (member variables)
 		# unique to each instance

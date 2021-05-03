@@ -1,15 +1,15 @@
-# add a sink (to record an application)
+# create a null sink to record from and listen at the same time
+# to allow recording of audio from specific applications, and not others
+
+# find your output sink
+# pacmd list-sinks | grep name:
+headphones="alsa_output.usb-Yoyodyne_Consulting_UAC1_DAC-01.analog-stereo"
+
 pacmd load-module module-null-sink sink_name=MySink
 pacmd update-sink-proplist MySink device.description=MySink
+pacmd load-module module-combine sink_name=combined slaves=$headphones,MySink
+# to use, select combined sink as output for desired applications (e.g. using pavucontrol), record monitor of null sink
 
-# add a loopback device (to record mic)
-pacmd load-module module-loopback sink=MySink
-
-# remove loopback
-pacmd unload-module module-loopback
-
-# monitor null-sink (to record and listen at the same time)
-pacmd load-module module-loopback sink=$output_sink source=MySink.monitor
-
-# combine 2 sinks (to record and listen at the same time
-pacmd load-module module-combine sink_name=combiled slaves=$headphones,MySink
+# to clean up (remove modules)
+pacmd unload-module module-null-sink
+pacmd unload-module module-combine
