@@ -21,7 +21,7 @@ b = copy.deepcopy(a)
 
 # return multiple items
 def rotateRight(x, y):
-    return y, -x
+	return y, -x
 x, y = rotateRight(x, y)
 
 # convert to binary
@@ -43,6 +43,27 @@ shirts = [(color, size) for color in colors for size in sizes]
 
 # get type of object
 type(obj)
+
+# ------------------------------------------------------------------------------
+# CLASSES
+class dog():
+	# class variable shared by all instances
+	kind = 'canine'
+
+	# contructor (with default parameter)
+	def __init__(self, name, age=5):
+		# initialize data attributes (member variables)
+		# unique to each instance
+		self.name = name
+		self.age = age
+
+	def sit(self):
+		print(f'{self.name} is now sitting.')
+
+# data attributes spring in to existence when they're assigned to
+x = dog()
+x.is_friend = True
+print(x.is_friend)
 
 # ------------------------------------------------------------------------------
 # FILE IO
@@ -95,6 +116,7 @@ print('nr of rows:{rows}, nr of columns:{columns}'.format(rows=r, columns=c))
 print('nr of rows:{rows}, nr of columns:{columns}'.format(r, c))
 ## or
 print(f'nr of rows:{rows}, nr of columns:{columns}')
+## to escape brackets, write 2 brackets
 
 ## strip characters from end of string
 ## strip newlines from string (does not cause error if no nl in string)
@@ -127,7 +149,7 @@ x.strftime('%Y-%m-%d')
 ## load json file as dictionary
 with open('test.json', 'r') as infile:
 	a = json.load(infile)
-	
+
 ## write python object to json file
 with open('test.json', 'w') as output:
 	json.dump(a, output, indent=4)
@@ -149,10 +171,10 @@ parser.add_argument("--verbose", help="display verbose output")
 parser.add_argument("--verbose", action="store_true")
 if args.verbose:
 	print("verbose output enabled")
-	
+
 ## short and long options
 parser.add_argument("-v", "--verbose")
-	
+
 ## argument with optional parameter, const on empty
 ## set name of parameter in usage message
 parser.add_argument('--start', nargs='?', const='', metavar='activity')
@@ -165,7 +187,7 @@ parser.add_argument("-v", "--verbosity", action="count", default=0, help="increa
 print(args.verbosity)
 
 # ------------------------------------------------------------------------------
-# REGULAR EXPRESSIONS (regex)
+# REGULAR EXPRESSIONS (REGEX)
 string = "#49ffd2xxx"
 ## match string
 re.match(r'#[0-9a-f]{6}', string)
@@ -179,6 +201,38 @@ re.findall(r'\d+', string)
 re.split(r'\d+', string)
 ## (include delimiter)
 re.split(r'(\d+)', string)
+
+# ------------------------------------------------------------------------------
+# UNIT TESTS (PYTEST)
+## create filename starting with test_
+vi test_add.py
+
+## create functions starting with test_
+def test_addition():
+	expected = 5
+	result = cut.add(2, 3)
+
+	## verify with asserts
+	assert result == expected, "result of addition incorrect"
+
+## run tests
+python -m pytest
+
+## fixtures
+## fixtures are called when passed as arguments to test functions
+@pytest.fixture
+def current_date():
+	return datetime.datetime.now().strftime('%Y-%m-%d')
+
+## clean up with fixture
+## code before yield performs setup
+## code after yield runs on exit
+@pytest.fixture
+def setup():
+	_driver = Chrome()
+	timestamp = time.time()
+	yield _driver, timestamp
+	_driver.quit()
 
 # ------------------------------------------------------------------------------
 # BUILT IN MODULES
