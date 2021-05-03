@@ -41,6 +41,9 @@ colors = ['black', 'white']
 sizes = ['S', 'M', 'L']
 shirts = [(color, size) for color in colors for size in sizes]
 
+# get type of object
+type(obj)
+
 # ------------------------------------------------------------------------------
 # FILE IO
 ## open file for reading only
@@ -106,11 +109,34 @@ a.rstrip(' bags')
 ## => magent
 
 # ------------------------------------------------------------------------------
-# ARGUMENT PARSING
+# TIME AND DATE
+import time
+import datetime
 
+## get unix time in seconds (as float)
+time.time()
+
+## get current date and time
+x = datetime.datetime.now()
+
+## format datetime to string
+x.strftime('%Y-%m-%d')
+
+# ------------------------------------------------------------------------------
+# JSON
+## load json file as dictionary
+with open('test.json', 'r') as infile:
+	a = json.load(infile)
+	
+## write python object to json file
+with open('test.json', 'w') as output:
+	json.dump(a, output, indent=4)
+
+# ------------------------------------------------------------------------------
+# ARGUMENT PARSING
 import argparse
 parser = argparse.ArgumentParser()
-# add arguments, then
+## add arguments
 args = parser.parse_args()
 
 ## add positional argument "start", set help text
