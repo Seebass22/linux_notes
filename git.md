@@ -42,6 +42,9 @@ git log --merges
 # add everything on root dir
 git add :/
 
+# remove file from index but not working tree
+git rm --cached <file>
+
 # undo last commit but keep changes (add --hard to discard changes)
 git reset HEAD~1
 
