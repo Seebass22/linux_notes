@@ -1,4 +1,4 @@
-# GENERAL
+## GENERAL
 ## copy list
 newlist = list(A)
 
@@ -43,6 +43,11 @@ shirts = [(color, size) for color in colors for size in sizes]
 
 # get type of object
 type(obj)
+
+# ------------------------------------------------------------------------------
+# DICTIONARIES
+# iterate over dictionary key, value pairs
+for key, value in d.items():
 
 # ------------------------------------------------------------------------------
 # CLASSES
@@ -147,11 +152,11 @@ x.strftime('%Y-%m-%d')
 # ------------------------------------------------------------------------------
 # JSON
 ## load json file as dictionary
-with open('test.json', 'r') as infile:
+with open('example.json', 'r') as infile:
 	a = json.load(infile)
 
 ## write python object to json file
-with open('test.json', 'w') as output:
+with open('example.json', 'w') as output:
 	json.dump(a, output, indent=4)
 
 # ------------------------------------------------------------------------------
@@ -234,10 +239,22 @@ def setup():
 	yield _driver, timestamp
 	_driver.quit()
 
+# parameterize test
+TEST_DATA = [
+		(15, '15s'),
+		(66, '1m 6s'),
+		(3635, '1h 0m 35s'),
+]
+
+@pytest.mark.parametrize('seconds,expected', TEST_TO_TIME_STRING_DATA)
+def test_to_time_string(seconds, expected):
+	result = history.to_time_string(seconds)
+	assert result == expected
+
 # ------------------------------------------------------------------------------
 # BUILT IN MODULES
 ## simple http server
-- runs hosts content of current director
+- hosts content of current directory
 python3 -m http.server
 
 # ------------------------------------------------------------------------------
