@@ -1,10 +1,10 @@
-## GENERAL
-## copy list
+# GENERAL
+# copy list
 newlist = list(A)
 
-## array slicing
-## [start:stop:step]
-## stop does not include the element at which it stops
+# array slicing
+# [start:stop:step]
+# stop does not include the element at which it stops
 a = [0, 1, 2, 3, 4, 5]
 a[1:3] # => [1, 2]
 
@@ -32,7 +32,7 @@ b = '1011'
 int(b, 2)
 
 # list comprehensions (listcomps)
-## quickly fill a list
+# quickly fill a list
 lst = [5, 1, 4, 9]
 l = [func(x) for x in lst]
 
@@ -43,6 +43,29 @@ shirts = [(color, size) for color in colors for size in sizes]
 
 # get type of object
 type(obj)
+
+# ------------------------------------------------------------------------------
+# PATHS AND FILE OPERATIONS
+from pathlib import Path
+# get home dir path (as path object), works on every OS
+home = Path.home()
+
+# convert path to string
+str(home)
+
+# create child paths
+game_dir = home / 'Downloads/games'
+
+# create folder with all parents, do not error if exists
+game_dir.mkdir(parents=True, exist_ok=True)
+
+# check if file exists
+game_dir.exists()
+# check if file is directory
+game_dir.is_dir()
+
+# delete file, do not error if file does not exist
+out_file.unlink(missing_ok=True)
 
 # ------------------------------------------------------------------------------
 # DICTIONARIES
@@ -72,22 +95,24 @@ print(x.is_friend)
 
 # ------------------------------------------------------------------------------
 # FILE IO
-## open file for reading only
-## creates file if does not exist, replaces content of existing file
+# open file for reading only
+# creates file if does not exist, replaces content of existing file
 f = open('filename.txt', 'r')
+# or call open on a path object
+f = file_path.open('r')
 
-## open for both read and write
+# open for both read and write
 f = open('filename.txt', 'r+')
 
-## read file to string
+# read file to string
 text = f.read()
 
-## read lines of file to list of strings
+# read lines of file to list of strings
 line_list = f.readlines()
 
-## close file
+# close file
 f.close()
-## automatically close file
+# automatically close file
 with open('file.txt') as f:
 	data = f.read()
 
@@ -96,66 +121,69 @@ with open('file.txt') as f:
 # int to string
 str(42)
 
-## split string into list
+# split string into list
 txt = "one two three four"
 txt2 = "one#two#three#four"
-## default separator is any whitespace
+# default separator is any whitespace
 x = txt.split()
 x2 = txt.split("#")
-## result ['one', 'two', 'three', 'four']
+# result ['one', 'two', 'three', 'four']
 
-## raw string literals
-## treat backslash literally (no escapes, other than terminating quotes)
+# raw string literals
+# treat backslash literally (no escapes, other than terminating quotes)
 r'your string here'
 
-## split string of numbers into list of ints
+# split string of numbers into list of ints
 A = '1, 2, 3, 4'
 B = [int(x) for x in A.split(',')]
-## result: [1, 2, 3, 4]
+# result: [1, 2, 3, 4]
 
-## print format string
+# print format string
 r = 5
 c = 2
 print('nr of rows:{rows}, nr of columns:{columns}'.format(rows=r, columns=c))
-## or
+# or
 print('nr of rows:{rows}, nr of columns:{columns}'.format(r, c))
-## or
+# or
 print(f'nr of rows:{rows}, nr of columns:{columns}')
-## to escape brackets, write 2 brackets
+# to escape brackets, write 2 brackets
 
-## strip characters from end of string
-## strip newlines from string (does not cause error if no nl in string)
+# strip characters from end of string
+# strip newlines from string (does not cause error if no nl in string)
 a = 'asdf\n'
 a.rstrip('\n')
-## strip something from left of string
+# strip something from left of string
 lstrip
-## rstrip and lstrip remove all combinations of supplied characters
-## the characters are not a suffix string! for example:
+# rstrip and lstrip remove all combinations of supplied characters
+# the characters are not a suffix string! for example:
 a = 'magenta bags'
 a.rstrip(' bags')
-## => magent
+# => magent
 
 # ------------------------------------------------------------------------------
 # TIME AND DATE
 import time
 import datetime
 
-## get unix time in seconds (as float)
+# get unix time in seconds (as float)
 time.time()
 
-## get current date and time
+# get current date and time
 x = datetime.datetime.now()
 
-## format datetime to string
+# add/subtract dates (ignores timezones, can cause errors around DST transitions)
+x += datetime.timedelta(days=5, hours=-3)
+
+# format datetime to string
 x.strftime('%Y-%m-%d')
 
 # ------------------------------------------------------------------------------
 # JSON
-## load json file as dictionary
+# load json file as dictionary
 with open('example.json', 'r') as infile:
 	a = json.load(infile)
 
-## write python object to json file
+# write python object to json file
 with open('example.json', 'w') as output:
 	json.dump(a, output, indent=4)
 
@@ -163,75 +191,75 @@ with open('example.json', 'w') as output:
 # ARGUMENT PARSING
 import argparse
 parser = argparse.ArgumentParser()
-## add arguments
+# add arguments
 args = parser.parse_args()
 
-## add positional argument "start", set help text
+# add positional argument "start", set help text
 parser.add_argument("echo", help="thing to echo")
 
-## optional argument
+# optional argument
 parser.add_argument("--verbose", help="display verbose output")
 
-## set variable to true if argument exists
+# set variable to true if argument exists
 parser.add_argument("--verbose", action="store_true")
 if args.verbose:
 	print("verbose output enabled")
 
-## short and long options
+# short and long options
 parser.add_argument("-v", "--verbose")
 
-## argument with optional parameter, const on empty
-## set name of parameter in usage message
+# argument with optional parameter, const on empty
+# set name of parameter in usage message
 parser.add_argument('--start', nargs='?', const='', metavar='activity')
 
-## restrict to int, 3 choices
+# restrict to int, 3 choices
 parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2])
 
-## count argument, for example "-v" x3 = "-vvv", default value 0 (if arg not used)
+# count argument, for example "-v" x3 = "-vvv", default value 0 (if arg not used)
 parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase output verbosity")
 print(args.verbosity)
 
 # ------------------------------------------------------------------------------
 # REGULAR EXPRESSIONS (REGEX)
 string = "#49ffd2xxx"
-## match string
+# match string
 re.match(r'#[0-9a-f]{6}', string)
-## match whole string
+# match whole string
 re.fullmatch(r'#[0-9a-f]{6}', string)
-## return list of all matches
+# return list of all matches
 re.findall(r'\d+', string)
 
-## split string by occurences of pattern
-## (do not include delimiter pattern)
+# split string by occurences of pattern
+# (do not include delimiter pattern)
 re.split(r'\d+', string)
-## (include delimiter)
+# (include delimiter)
 re.split(r'(\d+)', string)
 
 # ------------------------------------------------------------------------------
 # UNIT TESTS (PYTEST)
-## create filename starting with test_
+# create filename starting with test_
 vi test_add.py
 
-## create functions starting with test_
+# create functions starting with test_
 def test_addition():
 	expected = 5
 	result = cut.add(2, 3)
 
-	## verify with asserts
+	# verify with asserts
 	assert result == expected, "result of addition incorrect"
 
-## run tests
+# run tests
 python -m pytest
 
-## fixtures
-## fixtures are called when passed as arguments to test functions
+# fixtures
+# fixtures are called when passed as arguments to test functions
 @pytest.fixture
 def current_date():
 	return datetime.datetime.now().strftime('%Y-%m-%d')
 
-## clean up with fixture
-## code before yield performs setup
-## code after yield runs on exit
+# clean up with fixture
+# code before yield performs setup
+# code after yield runs on exit
 @pytest.fixture
 def setup():
 	_driver = Chrome()
@@ -253,11 +281,11 @@ def test_to_time_string(seconds, expected):
 
 # ------------------------------------------------------------------------------
 # BUILT IN MODULES
-## simple http server
+# simple http server
 - hosts content of current directory
 python3 -m http.server
 
 # ------------------------------------------------------------------------------
 # ADDITIONAL TOOLS
-## PEP8 code style checker
+# PEP8 code style checker
 - pycodestyle
