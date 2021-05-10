@@ -44,6 +44,11 @@ shirts = [(color, size) for color in colors for size in sizes]
 # get type of object
 type(obj)
 
+# get random element from sequence
+import random
+objs = ['a', 'asdf', 'jkl', 'hmm']
+rand = random.choice(objs)
+
 # ------------------------------------------------------------------------------
 # PATHS AND FILE OPERATIONS
 from pathlib import Path

@@ -90,3 +90,6 @@ git archive <revision>
 git archive --format=tar.gz HEAD > source_code.tar.gz
 ## output zip, infer output format by extension
 git archive -o latest.zip HEAD
+## create a zip that contains directory with source
+--prefix=dirname/
+git archive --prefix=latext/ -o latest.zip HEAD
