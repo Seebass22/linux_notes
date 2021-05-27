@@ -91,5 +91,6 @@ git archive --format=tar.gz HEAD > source_code.tar.gz
 ## output zip, infer output format by extension
 git archive -o latest.zip HEAD
 ## create a zip that contains directory with source
+## this will only add files relative to directory it is run in, so run it from repo root 
 --prefix=dirname/
-git archive --prefix=latext/ -o latest.zip HEAD
+git archive --prefix=latest/ -o latest.zip HEAD
