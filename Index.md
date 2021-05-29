@@ -6,6 +6,7 @@
 
 # CLI PROGRAMS
 [general](general)
+[bash](bash)
 [fun stuff](fun stuff)
 
 [ssh](ssh)
