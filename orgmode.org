@@ -1,3 +1,16 @@
+* general
+** change TODO keywords
+   shift-right
+
+** change global visibility
+   shift-tab
+
+** local visibility
+   tab
+
+** add checkbox
+   C-c C-x C-b
+
 * schedules
   - schedule something
   C-c C-s
@@ -5,18 +18,6 @@
   C-c C-d
   - view agenda
   M-x org-agenda
-
-* change TODO keywords
-  shift-right
-
-* change global visibility
-  shift-tab
-
-* local visibility
-  tab
-
-* add checkbox
-  C-c C-x C-b
 
 * checklists
 ** check box, update progress indicator
@@ -36,3 +37,26 @@
    C-c C-x C-s
    or
    C-x $
+
+* exporting
+  C-c C-e
+
+* timers
+** start timer that counts down
+   <count> C-c C-x ;
+
+** pause timer
+   C-c C-x ,
+** stop timer
+   M-x org-timer-stop
+
+** simple timestamp
+   C-c C-x .
+** description timestamp
+   C-c C-x -
+
+* clocking
+** clock-in task under cursor
+   C-c C-x C-i
+** clock-out task under cursor
+   C-c C-x C-o
