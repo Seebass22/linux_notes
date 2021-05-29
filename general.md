@@ -59,6 +59,9 @@ info                            // GNU info pages
 grep -w "string"
 grep "\<string\>"
 
+# only print matching part
+grep -o
+
 # display filetype information
 file <files>
 
