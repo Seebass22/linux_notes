@@ -1,0 +1,32 @@
+# NOTES
+[[vim.org]]
+[[emacs.org]]
+[[orgmode.org]]
+[[matlab.org]]
+[[R.org]]
+[[python.org]]
+
+# CLI PROGRAMS
+[[general.org]]
+[[bash.org]]
+[[fun_stuff.org]]
+
+[[ssh.org]]
+[[pulseaudio.org]]
+[[dnf.org]]
+[[ffmpeg.org]]
+[[gdb.org]]
+[[ghdl.org]]
+[[git.org]]
+[[imagemagick.org]]
+[[ncmpcpp.org]]
+[[readline.org]]
+[[rsync.org]]
+[[sed.org]]
+[[tmux.org]]
+[[weechat.org]]
+
+# GUI PROGRAMS
+[[gimp.org]]
+[[firefox.org]]
+[[OBS.org]]

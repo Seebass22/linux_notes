@@ -1,0 +1,11 @@
+* parameter expansion
+  [[https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html]]
+
+* remove suffix
+  - % operator
+  x="asdf.pdf"
+  echo ${x%.pdf}
+  # -> asdf
+
+* length of parameter
+  - ${#parameter}
