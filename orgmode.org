@@ -1,0 +1,38 @@
+* schedules
+  - schedule something
+  C-c C-s
+  - add deadline
+  C-c C-d
+  - view agenda
+  M-x org-agenda
+
+* change TODO keywords
+  shift-right
+
+* change global visibility
+  shift-tab
+
+* local visibility
+  tab
+
+* add checkbox
+  C-c C-x C-b
+
+* checklists
+** check box, update progress indicator
+   C-c C-c
+
+   #+BEGIN_EXAMPLE
+   * write time tracking program [/]
+   #+END_EXAMPLE
+
+* archiving
+** title bar
+   #+BEGIN_EXAMPLE
+   #+ARCHIVE:%s_archive::
+   #+END_EXAMPLE
+
+** archive item to external file
+   C-c C-x C-s
+   or
+   C-x $
