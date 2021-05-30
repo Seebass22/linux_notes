@@ -1,34 +1,71 @@
 * general
 ** change TODO keywords
    shift-right
-
 ** change global visibility
    shift-tab
-
 ** local visibility
    tab
+** increase headline level
+   M-right
 
+** add item at current level, include checkbox (bullet point, etc)
+   M-shift-enter
+** add bullet point 
+   M-enter
+
+** refile block
+   C-c C-w
+
+* code blocks
+  #+BEGIN_EXAMPLE
+  #+BEGIN_SRC python
+    def do_stuff(a):
+	print(a + 5)
+  #+END_SRC
+  #+END_EXAMPLE
+** edit code snippet
+   C-c '
+** insert code snippet
+   C-c C-,
+
+* tables
+** insert table (enter dimensions)
+   C-c |
+** update table
+   C-c C-c
+** jump to next entry
+   tab
+** convert to table.el
+   C-c ~
+
+* schedules
+** schedule something
+   C-c C-s
+** add deadline
+   C-c C-d
+
+* agenda
+** view agenda
+   M-x org-agenda
+** navigate forward or backwards in agenda view
+   f, b
+
+* checklists
 ** add checkbox
    C-c C-x C-b
 
-* schedules
-  - schedule something
-  C-c C-s
-  - add deadline
-  C-c C-d
-  - view agenda
-  M-x org-agenda
-
-* checklists
-** check box, update progress indicator
+** tick box, update progress indicator
    C-c C-c
 
    #+BEGIN_EXAMPLE
-   * write time tracking program [/]
+   ** write time tracking program [/]
+    - [ ] json exporter
+    - [ ] daemon
    #+END_EXAMPLE
 
 * archiving
 ** title bar
+   save archive as <filename>_archive
    #+BEGIN_EXAMPLE
    #+ARCHIVE:%s_archive::
    #+END_EXAMPLE
