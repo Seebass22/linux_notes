@@ -1,3 +1,7 @@
+* general
+** switch buffer (interactively)
+   C-x b
+
 * magit
 ** magit status
    C-x g
