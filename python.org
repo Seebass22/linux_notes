@@ -1,84 +1,125 @@
-* GENERAL
-** copy list
-   newlist = list(A)
-
+* general
 ** array slicing
    - [start:stop:step]
    - stop does not include the element at which it stops
-     a = [0, 1, 2, 3, 4, 5]
-     a[1:3] # => [1, 2]
+     #+begin_src python
+       a = [0, 1, 2, 3, 4, 5]
+       a[1:3] # => [1, 2]
+     #+end_src
 
-     | -4 | -3 | -2 | -1 | # negative indexes
-     | A  | B  | C  | D  | # sequence elements
-     | 0  | 1  | 2  | 3  | # positive indexes
-     | 0:3:1 ...... |
+   +-------------------+-------+----+----+----+
+   | negative indexes  |    -4 | -3 | -3 | -1 |
+   +-------------------+-------+----+----+----+
+   | sequence elements |     A |  B |  C |  D |
+   +-------------------+-------+----+----+----+
+   | positive indexes  |     0 |  1 |  2 |  3 |
+   +-------------------+-------+----+----+----+
+   |                   | 0:1:2           |    |
+   +-------------------+-------+----+----+----+
 
 ** copy list (does not deep-copy contained lists)
-   b = a.copy()
+   #+begin_src python
+     b = a.copy()
+   #+end_src
 ** deep-copying
-   import copy
-   b = copy.deepcopy(a)
+   #+begin_src python
+     import copy
+     b = copy.deepcopy(a)
+   #+end_src
 
 ** return multiple items
-   def rotateRight(x, y):
-   return y, -x
-   x, y = rotateRight(x, y)
+   #+begin_src python
+     def rotateRight(x, y):
+	 return y, -x
+
+     x, y = rotateRight(x, y)
+   #+end_src
 
 ** convert to binary
-   bin(3)
+   #+begin_src python
+     bin(3)
+   #+end_src
 
 ** convert binary to int
-   b = '1011'
-   int(b, 2)
+   #+begin_src python
+     b = '1011'
+     int(b, 2)
+   #+end_src
 
 ** list comprehensions (listcomps)
-   # quickly fill a list
-   lst = [5, 1, 4, 9]
-   l = [func(x) for x in lst]
+   #+begin_src python
+     # quickly fill a list
+     lst = [5, 1, 4, 9]
+     l = [func(x) for x in lst]
+   #+end_src
 
 ** use a list comprehension as cartesian product
-   colors = ['black', 'white']
-   sizes = ['S', 'M', 'L']
-   shirts = [(color, size) for color in colors for size in sizes]
+   #+begin_src python
+     colors = ['black', 'white']
+     sizes = ['S', 'M', 'L']
+     shirts = [(color, size) for color in colors for size in sizes]
+   #+end_src
 
 ** get type of object
-   type(obj)
+   #+begin_src python
+     type(obj)
+   #+end_src
 
 ** get random element from sequence
-   import random
-   objs = ['a', 'asdf', 'jkl', 'hmm']
-   rand = random.choice(objs)
+   #+begin_src python
+     import random
+     objs = ['a', 'asdf', 'jkl', 'hmm']
+     rand = random.choice(objs)
+   #+end_src
 
-* PATHS AND FILE OPERATIONS
-
+* paths and file operations
+  #+begin_src python
   from pathlib import Path
+  #+end_src
 ** get home dir path (as path object), works on every OS
-   home = Path.home()
+   #+begin_src python
+     home = Path.home()
+   #+end_src
 
 ** convert path to string
-   str(home)
+   #+begin_src python
+     str(home)
+   #+end_src
 
 ** create child paths
-   game_dir = home / 'Downloads/games'
+   #+begin_src python
+     game_dir = home / 'Downloads/games'
+   #+end_src
 
 ** create folder with all parents, do not error if exists
-   game_dir.mkdir(parents=True, exist_ok=True)
+   #+begin_src python
+     game_dir.mkdir(parents=True, exist_ok=True)
+   #+end_src
 
 ** check if file exists
-   game_dir.exists()
+   #+begin_src python
+     game_dir.exists()
+   #+end_src
+
 ** check if file is directory
-   game_dir.is_dir()
+   #+begin_src python
+     game_dir.is_dir()
+   #+end_src
 
 ** delete file, do not error if file does not exist
-   out_file.unlink(missing_ok=True)
+   #+begin_src python
+     out_file.unlink(missing_ok=True)
+   #+end_src
 
-* DICTIONARIES
+* dictionaries
 ** iterate over dictionary key, value pairs
-   for key, value in d.items():
+   #+begin_src python
+     for key, value in d.items():
+   #+end_src
 
-* CLASSES
-  #+BEGIN_SRC python
-    class dog():
+* classes
+  #+begin_src python
+    Class dog():
 	  #class variable shared by all instances
 	  kind = 'canine'
 
@@ -91,188 +132,270 @@
 
 	  def sit(self):
 		print(f'{self.name} is now sitting.')
-  #+END_SRC
+  #+end_src
 
 ** data attributes spring in to existence when they're assigned to
-   x = dog()
-   x.is_friend = True
-   print(x.is_friend)
+   #+begin_src python
+     x = dog()
+     x.is_friend = True
+     print(x.is_friend)
+   #+end_src
 
-* FILE IO
+* file io
 ** open file for reading only
    # creates file if does not exist, replaces content of existing file
-   f = open('filename.txt', 'r')
+   #+begin_src python
+     f = open('filename.txt', 'r')
+   #+end_src
 ** or call open on a path object
-   f = file_path.open('r')
+   #+begin_src python
+     f = file_path.open('r')
+   #+end_src
 
 ** open for both read and write
-   f = open('filename.txt', 'r+')
+   #+begin_src python
+     f = open('filename.txt', 'r+')
+   #+end_src
 
 ** read file to string
-   text = f.read()
+   #+begin_src python
+     text = f.read()
+   #+end_src
 
 ** read lines of file to list of strings
-   line_list = f.readlines()
+   #+begin_src python
+     line_list = f.readlines()
+   #+end_src
 
 ** close file
-   f.close()
+   #+begin_src python
+     f.close()
+   #+end_src
 ** automatically close file
-   with open('file.txt') as f:
-   data = f.read()
+   #+begin_src python
+     with open('file.txt') as f:
+	 data = f.read()
+   #+end_src
 
-* STRINGS
+* strings
 ** int to string
-   str(42)
+   #+begin_src python
+     str(42)
+   #+end_src
 
 ** split string into list
-   txt = "one two three four"
-   txt2 = "one*two#three#four"
+   #+begin_src python
+     txt = "one two three four"
+     txt2 = "one*two#three#four"
+   #+end_src
 ** default separator is any whitespace
-   x = txt.split()
-   x2 = txt.split("*")
-** result ['one', 'two', 'three', 'four']
+   #+begin_src python
+     x = txt.split()
+     x2 = txt.split("*")
+     # result ['one', 'two', 'three', 'four']
+   #+end_src
 
 ** raw string literals
    # treat backslash literally (no escapes, other than terminating quotes)
-   r'your string here'
+   #+begin_src python
+     r'your string here'
+   #+end_src
 
 ** split string of numbers into list of ints
-   A = '1, 2, 3, 4'
-   B = [int(x) for x in A.split(',')]
-** result: [1, 2, 3, 4]
+   #+begin_src python
+     A = '1, 2, 3, 4'
+     B = [int(x) for x in A.split(',')]
+     # result: [1, 2, 3, 4]
+   #+end_src
 
 ** print format string
-   r = 5
-   c = 2
-   print('nr of rows:{rows}, nr of columns:{columns}'.format(rows=r, columns=c))
-** or
-   print('nr of rows:{rows}, nr of columns:{columns}'.format(r, c))
-** or
-   print(f'nr of rows:{rows}, nr of columns:{columns}')
-** to escape brackets, write 2 brackets
+   #+begin_src python
+     r = 5
+     c = 2
+     print('nr of rows:{rows}, nr of columns:{columns}'.format(rows=r, columns=c))
+     # or
+     print('nr of rows:{rows}, nr of columns:{columns}'.format(r, c))
+     # or
+     print(f'nr of rows:{rows}, nr of columns:{columns}')
+   #+end_src
+   - to escape brackets, write 2 brackets
 
 ** strip characters from end of string
    # strip newlines from string (does not cause error if no nl in string)
-   a = 'asdf\n'
-   a.rstrip('\n')
+   #+begin_src python
+     a = 'asdf\n'
+     a.rstrip('\n')
+   #+end_src
 ** strip something from left of string
-   lstrip
+   #+begin_src python
+     lstrip
+   #+end_src
 ** rstrip and lstrip remove all combinations of supplied characters
    # the characters are not a suffix string! for example:
-   a = 'magenta bags'
-   a.rstrip(' bags')
-** => magent
+   #+begin_src python
+     a = 'magenta bags'
+     a.rstrip(' bags')
+     # => magent
+   #+end_src
 
-* TIME AND DATE
-  import time
-  import datetime
+* time and date
+  #+begin_src python
+    import time
+    import datetime
+  #+end_src
 
 ** get unix time in seconds (as float)
-   time.time()
+   #+begin_src python
+     time.time()
+   #+end_src
 
 ** get current date and time
-   x = datetime.datetime.now()
+   #+begin_src python
+     x = datetime.datetime.now()
+   #+end_src
 
 ** add/subtract dates (ignores timezones, can cause errors around DST transitions)
-   x += datetime.timedelta(days=5, hours=-3)
+   #+begin_src python
+     x += datetime.timedelta(days=5, hours=-3)
+   #+end_src
 
 ** format datetime to string
-   x.strftime('%Y-%m-%d')
+   #+begin_src python
+     x.strftime('%Y-%m-%d')
+   #+end_src
 
-* JSON
+* json
 ** load json file as dictionary
-   with open('example.json', 'r') as infile:
-   a = json.load(infile)
+   #+begin_src python
+     with open('example.json', 'r') as infile:
+	 a = json.load(infile)
+   #+end_src
 
 ** write python object to json file
-   with open('example.json', 'w') as output:
-   json.dump(a, output, indent=4)
+   #+begin_src python
+     with open('example.json', 'w') as output:
+	 json.dump(a, output, indent=4)
+   #+end_src
 
-* ARGUMENT PARSING
-  import argparse
-  parser = argparse.ArgumentParser()
+* argument parsing
+  #+begin_src python
+    import argparse
+    parser = argparse.ArgumentParser()
+  #+end_src
 ** add arguments
-   args = parser.parse_args()
+   #+begin_src python
+     args = parser.parse_args()
+   #+end_src
 
 ** add positional argument "start", set help text
-   parser.add_argument("echo", help="thing to echo")
+   #+begin_src python
+     parser.add_argument("echo", help="thing to echo")
+   #+end_src
 
 ** optional argument
-   parser.add_argument("--verbose", help="display verbose output")
+   #+begin_src python
+     parser.add_argument("--verbose", help="display verbose output")
+   #+end_src
 
 ** set variable to true if argument exists
-   parser.add_argument("--verbose", action="store_true")
-   if args.verbose:
-   print("verbose output enabled")
+   #+begin_src python
+     parser.add_argument("--verbose", action="store_true")
+     if args.verbose:
+	 print("verbose output enabled")
+   #+end_src
 
 ** short and long options
-   parser.add_argument("-v", "--verbose")
+   #+begin_src python
+     parser.add_argument("-v", "--verbose")
+   #+end_src
 
 ** argument with optional parameter, const on empty
    # set name of parameter in usage message
-   parser.add_argument('--start', nargs='?', const='', metavar='activity')
+   #+begin_src python
+     parser.add_argument('--start', nargs='?', const='', metavar='activity')
+   #+end_src
 
 ** restrict to int, 3 choices
-   parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2])
+   #+begin_src python
+     parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2])
+   #+end_src
 
 ** count argument, for example "-v" x3 = "-vvv", default value 0 (if arg not used)
-   parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase output verbosity")
-   print(args.verbosity)
+   #+begin_src python
+     parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase output verbosity")
+     print(args.verbosity)
+   #+end_src
 
-* REGULAR EXPRESSIONS (REGEX)
-  string = "*49ffd2xxx"
+* regular expressions (regex)
+  #+begin_src python
+    string = "*49ffd2xxx"
+  #+end_src
 ** match string
-   re.match(r'*[0-9a-f]{6}', string)
+   #+begin_src python
+     re.match(r'*[0-9a-f]{6}', string)
+   #+end_src
 ** match whole string
-   re.fullmatch(r'*[0-9a-f]{6}', string)
+   #+begin_src python
+     re.fullmatch(r'*[0-9a-f]{6}', string)
+   #+end_src
 ** return list of all matches
-   re.findall(r'\d+', string)
+   #+begin_src python
+     re.findall(r'\d+', string)
+   #+end_src
 
 ** split string by occurences of pattern
    # (do not include delimiter pattern)
-   re.split(r'\d+', string)
+   #+begin_src python
+     re.split(r'\d+', string)
+   #+end_src
 ** (include delimiter)
-   re.split(r'(\d+)', string)
+   #+begin_src python
+     re.split(r'(\d+)', string)
+   #+end_src
 
-* UNIT TESTS (PYTEST)
+* unit tests (pytest)
 ** create filename starting with test_
-   vi test_add.py
+   #+begin_src sh
+     vi test_add.py
+   #+end_src
 
 ** create functions starting with test_
-   #+BEGIN_SRC python
+   #+begin_src python
      def test_addition():
 	 expected = 5
 	 result = cut.add(2, 3)
 
 	 # verify with asserts
-       assert result == expected, "result of addition incorrect"
-   #+END_SRC
+	 assert result == expected, "result of addition incorrect"
+   #+end_src
 
 ** run tests
-   python -m pytest
+   #+begin_src sh
+     python -m pytest
+   #+end_src
 
 ** fixtures
    - fixtures are called when passed as arguments to test functions
-     #+BEGIN_SRC python
+     #+begin_src python
        @pytest.fixture
        def current_date():
 	   return datetime.datetime.now().strftime('%Y-%m-%d')
-     #+END_SRC
+     #+end_src
 
 ** clean up with fixture
    - code before yield performs setup
    - code after yield runs on exit
-     #+BEGIN_SRC python
+     #+begin_src python
        @pytest.fixture
        def setup():
 	   _driver = Chrome()
 	   timestamp = time.time()
 	   yield _driver, timestamp
 	   _driver.quit()
-     #+END_SRC
+     #+end_src
 
 ** parameterize test
-   #+BEGIN_SRC python
+   #+begin_src python
      TEST_DATA = [
 	 (15, '15s'),
 	 (66, '1m 6s'),
@@ -283,13 +406,15 @@
      def test_to_time_string(seconds, expected):
 	 result = history.to_time_string(seconds)
 	 assert result == expected
-   #+END_SRC
+   #+end_src
 
-* BUILT IN MODULES
+* built in modules
 ** simple http server
    - hosts content of current directory
-   python3 -m http.server
+   #+begin_src sh
+     python3 -m http.server
+   #+end_src
 
-* ADDITIONAL TOOLS
+* additional tools
 ** PEP8 code style checker
    pycodestyle
