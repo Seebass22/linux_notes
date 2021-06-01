@@ -1,26 +1,29 @@
 * move to end of line
-  <ctr>e
+  C-e
 
 * kill last word
-  <ctrl>w
+  C-w
+
+* kill to beginning of line
+  C-u
 
 * clear
-  <ctrl>l
+  C-l
 
 * undo
-  <ctr>_
+  C-_
 
 * paste last deleted text
-  <ctrl>y
+  C-y
 
 * swap last two args
-  <meta>t
+  M-t
 
 * paste last arg of last command
-  <meta>_
+  M-_
   or
-  <meta>.
+  M-.
 
 * command history (arrow keys)
-  <ctrl>p
-  <ctrl>n
+  C-p
+  C-n
