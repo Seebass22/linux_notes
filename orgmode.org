@@ -45,6 +45,8 @@
    C-c C-d
 ** add timestamp
    C-c .
+   or
+   org-time-stamp
 
 * agenda
 ** view agenda

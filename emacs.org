@@ -3,20 +3,24 @@
    C-x b
 
 * magit
-** magit status
-   C-x g
+** general
+*** magit status
+    C-x g
+*** expand diff
+    tab
+*** stage, unstage
+    s, u
+*** ignore
+    i
+*** trash (revert change or delete file)
+    x
 
-** expand diff
-   tab
-
-** stage, unstage
-   s, u
-
-** ignore
-   i
-
-** trash (revert change or delete file)
-   x
+** misc
+*** view log for file
+    M-x magit-log-buffer-file
+*** view file at commit
+    M-x magit-find-file
+    - run from log to choose revision easily
 
 * client/server
 ** connect to server (do not wait to finish)
