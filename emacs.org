@@ -12,6 +12,12 @@
 ** stage, unstage
    s, u
 
+** ignore
+   i
+
+** trash (revert change or delete file)
+   x
+
 * client/server
 ** connect to server (do not wait to finish)
    emacsclient -n
