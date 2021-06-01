@@ -43,12 +43,14 @@
    C-c C-s
 ** add deadline
    C-c C-d
+** add timestamp
+   C-c .
 
 * agenda
 ** view agenda
    M-x org-agenda
-** navigate forward or backwards in agenda view
-   f, b
+** go forward in time (next week/month)
+   M-x org-agenda-later (evil-org: ]])
 
 * checklists
 ** add checkbox
