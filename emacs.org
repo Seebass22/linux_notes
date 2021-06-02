@@ -22,6 +22,30 @@
     M-x magit-find-file
     - run from log to choose revision easily
 
+* dired
+** go up a directory
+   ^
+** open file in other buffer
+   shift-RET
+** marking
+*** mark, unmark file
+    m, u
+*** invert selection
+    t
+*** unmark all
+    U
+*** mark via regex
+    %m
+*** mark executables, directories, certain extension, etc
+    *
+** open dired, with current file selected
+   M-x dired-jump
+
+* terminal modes
+  - M-x term
+  - M-x ansi-term
+  - M-x eshell
+
 * client/server
 ** connect to server (do not wait to finish)
    emacsclient -n
@@ -32,3 +56,7 @@
 * misc
 ** evaluate lisp statement under cursor
    C-x C-e
+
+* built-in commands
+** IRC client
+   M-x erc-tls
