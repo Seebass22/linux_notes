@@ -408,6 +408,16 @@
 	 assert result == expected
    #+end_src
 
+* virtual environments
+** creating a virtual environment
+   #+begin_src shell
+     python3 -m venv /path/to/new/virtual/environment
+   #+end_src
+** activate virtual environment
+   #+begin_src shell
+     source <venv>/bin/activate
+   #+end_src
+
 * built in modules
 ** simple http server
    - hosts content of current directory
