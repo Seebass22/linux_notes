@@ -3,16 +3,22 @@
    :%s/\s\+$//e
 
 ** convert tab indents to spaces
+   #+begin_src
    :set expandtab // or set et
    :retab!
+   #+end_src
 
 ** convert space indents to tabs
+   #+begin_src
    :set noexpandtab // or set noet
    :retab!
+   #+end_src
 
 ** " to select register
+   #+begin_src
    "0p     // paste from yank register
    "+y     // yank to clipboard
+   #+end_src
 
 ** yank line 12 to pointer
    :12t.
@@ -23,7 +29,7 @@
    vi}
 
 ** search for word under cursor
-   *
+   '*'
 
 ** go to local declaration of variable under cursor (C)
    gd
@@ -35,12 +41,16 @@
    :noh
 
 ** completetion (insert mode)
+   #+begin_src
    <C-x><C-p> previous (context aware)
    <C-x><C-l> line (context aware)
+   #+end_src
 
 ** forward, back
+   #+begin_src
    <C-n>
    <C-p>
+   #+end_src
 ** accept suggestion
    <C-y>
 ** cancel
@@ -83,14 +93,18 @@
    <C-]>
 
 ** move back and forward in jumplist
+   #+begin_src
    <C-o>
    <C-i>
+   #+end_src
 
 ** special characters :h digraphs
+   #+begin_src
    <C-k> :o   //ö
    <C-k> :a   //ä
    <C-k> ss   //ß
    <C-k> `a   //à
+   #+end_src
 
 ** center screen around cursor
    zz
@@ -109,14 +123,20 @@
    :sav[eas]
 
 ** edit file remotely
+   #+begin_src
    vim scp://remoteuser@server.tld//absolute/path/to/document
    :e scp://remoteuser@server.tld//absolute/path/to/document
+   #+end_src
 ** search files and populate quickfix list with results
    :vim[grep] /pattern/ FILES...
-** example
-   :vim /print\S/ *.cpp *.h
+*** example
+    #+begin_src
+    :vim /print\S/ *.cpp *.h
+    #+end_src
 ** use external grep
+   #+begin_src
    :grep -E -w '\<int\S' *.cpp
+   #+end_src
 
 ** open quickfix window if available
    :cwin
@@ -127,8 +147,10 @@
 ** show all quickfix lists
    :chi[story]
 ** prev, next list
+   #+begin_src
    :colder
    :cnewer
+   #+end_src
 ** do not overwrite newer list
    :cnewer 99
 
@@ -154,20 +176,24 @@
    vip:w !wc -w
 
 ** rounding
-   round()  // to nearest integer
-   ceil()   // up
-   float()  // down
+   - round()  // to nearest integer
+   - ceil()   // up
+   - float()  // down
 
 ** change dir, pwd
+   #+begin_src
    :cd
    :pwd
+   #+end_src
 
 ** show tabs
    set list
 
 ** spellcheck
+   #+begin_src
    :set spell
    :set spelllang=de
+   #+end_src
 *** next mistake
     ]s
 *** fix last mistake (insert mode)
@@ -190,7 +216,7 @@
    <C-v>
 
 ** enable virtual editing for easy editing of tables
-** (place cursor where there is no actual character)
+   - (place cursor where there is no actual character)
    :set virtualedit=all
 ** go back to non-virtual editing
    :set virtualedit=
@@ -200,16 +226,18 @@
    gv
 ** start visual mode on next search result
    gn
-** -> change next search result (repeatable with .)
+** change next search result (repeatable with .)
    cgn
 ** move to other end of visual selection
    o
 
 ** incrementing (while visually selected)
-   #          to
-   #        0    1
-   #        0    2
-   #        0    3
+   #+begin_src
+    change   to
+           0    1
+           0    2
+           0    3
+   #+end_src
    g_CTRL-a
 
 * WINDOWS
@@ -246,10 +274,8 @@
    s
 ** unstage file under cursor
    u
-
 ** vimdiff with index version
    :Gdiff
-
 ** show previous versions (git repo)
    :0Glog
 ** go back one commit
@@ -264,31 +290,34 @@
    :Gedit
 
 ** vim diffs
-** take change to current buffer
-   :diffget
-   or
-   do
-** put change in other buffer
-   :diffput
-   or
-   dp
-** update diff colours
-   :diffupdate
+*** take change to current buffer
+    #+begin_src
+    :diffget
+    or
+    do
+    #+end_src
+*** put change in other buffer
+    #+begin_src
+    :diffput
+    or
+    dp
+    #+end_src
+*** update diff colours
+    :diffupdate
 ** to stage index (on index buffer)
    :w
 
 * FOLDS
 ** create folds by syntax
    :set foldmethod=syntax
-
-   zM  // max fold level
-   zR  // min fold level (open all)
-   zc  // close fold
-   zo  // open fold
-   zC  // close all folds under cursor
-   zO  // open all folds under cursor
-   zn  // disable folding
-   zx  // update folds
+   - zM  // max fold level
+   - zR  // min fold level (open all)
+   - zc  // close fold
+   - zo  // open fold
+   - zC  // close all folds under cursor
+   - zO  // open all folds under cursor
+   - zn  // disable folding
+   - zx  // update folds
 
 * BUFFERS
 ** switch to buffer 5
@@ -302,22 +331,30 @@
    ctags -f .git/tags *.c
 
 ** open preview window and display function "write_char"
+   #+begin_src
    :ptag write_char
-   or
+   # or
    <C-w>}
+   #+end_src
 ** close preview window
    :pclose
 
 * REGEX
-  \zs     mark start of match
-  \ze     mark end of match
-  *example: vimcasts.com -> vimcasts.org
+  #+begin_src
+  \zs     # mark start of match
+  \ze     # mark end of match
+  #+end_src
+  example: vimcasts.com -> vimcasts.org
+  #+begin_src
   :s/vimcasts.\zscom/org
+  #+end_src
 
-  - (caps invert)
-  \d      digits
-  \s      whilespace
-  \{n}    n matches
+  #+begin_src
+  \d      # digits
+  \s      # whitespace
+  \{n}    # n matches
+  #+end_src
+  (caps invert)
   
 ** example: searches for ****
    /\V****
@@ -334,9 +371,11 @@
    <C-\><C-n>
 
 * DEBUGGING
-** start debugging session with ./out
+** start debugging session with ./out (neovim)
+   #+begin_src
    :packadd termdebug
    :Termdebug ./out
+   #+end_src
 
 ** inspect variable under cursor (editor, normal mode)
    K
@@ -351,10 +390,10 @@
 
 * EX COMMANDS
 ** where file name is expected:
-** current file
-   %
-** argument list
-   **
+*** current file
+    %
+*** argument list
+    **
 
 * FZF.VIM
 ** fuzzy search help pages
