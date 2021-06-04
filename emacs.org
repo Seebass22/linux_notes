@@ -57,6 +57,32 @@
 ** evaluate lisp statement under cursor
    C-x C-e
 
+* ERC
+** jump to ERC buffer with activity
+   C-c C-SPC
+
+* AUCTeX
+** insert
+*** section (or subsection, etc)
+    C-c C-s
+*** environment
+    C-c C-e
+*** LaTeX macros
+    C-c C-m
+** change font
+   C-c C-f
+   - C-b bold
+   - C-i italics
+   - C-e emphasized
+** inserting quotes
+   - just use " - they will automatically be converted to `` and ''
+   - type "" to insert a regular "
+** compiling
+*** compile whole document, run as many times as needed
+    C-c C-a (Tex-command-run-all)
+*** compile selected region
+    C-c C-r
+
 * built-in commands
 ** IRC client
    M-x erc-tls
