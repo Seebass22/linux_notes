@@ -33,63 +33,66 @@
     git log --no-merges
     git log --merges
 
-* find commit that modifies particular line of code
-  - example: find all commits that modified/added/removed a line containing Debug.Log
-  git log -S"Debug.Log"
-
 * MISC
-* add everything on root dir
-  git add :/
+** find commit that modifies particular line of code
+   - example: find all commits that modified/added/removed a line containing Debug.Log
+   git log -S"Debug.Log"
 
-* remove file from index but not working tree
-  git rm --cached <file>
+** add everything on root dir
+   git add :/
 
-* undo last commit but keep changes (add --hard to discard changes)
-  git reset HEAD~1
+** remove file from index but not working tree
+   git rm --cached <file>
 
-* undo git reset (restore changes)
-  git reflog
-  git checkout <SHA>    and    git checkout -b <new branch name>
-  or
-  git reset --hard <SHA>
+** undo last commit but keep changes (add --hard to discard changes)
+   git reset HEAD~1
 
-* find bug through binary search
-  git bisect
+** undo git reset (restore changes)
+   git reflog
+   git checkout <SHA>    and    git checkout -b <new branch name>
+   or
+   git reset --hard <SHA>
 
-* rewrite history (change commit message, split commits, etc)
-  - [modify last 8 commits]
-    git rebase -i HEAD~8
+** find bug through binary search
+   git bisect
 
-* find commit where file was deleted
-  git log --diff-filter=D -- path/to/file
-* checkout version at the commit before
-  git checkout <deleting_commit>^ -- <file_path>
+** rewrite history (change commit message, split commits, etc)
+   - [modify last 8 commits]
+     git rebase -i HEAD~8
 
-* replay commit on current branch
-  git cherry-pick <SHA>
+** find commit where file was deleted
+   git log --diff-filter=D -- path/to/file
+** checkout version at the commit before
+   git checkout <deleting_commit>^ -- <file_path>
 
-* ignore changes to tracked file locally
-  git update-index --skip-worktree <file_path>
+** replay commit on current branch
+   git cherry-pick <SHA>
 
-* abort merge after pulling
-  - clear editor window
-  git merge --abort
+** ignore changes to tracked file locally
+   git update-index --skip-worktree <file_path>
 
-* check for whitespace errors or conflict markers
-  git diff --check
-* giff staged files
-  git diff --staged
+** abort merge after pulling
+   - clear editor window
+   git merge --abort
 
-* local gitignore (not tracked)
-  .git/info/exclude
+** check for whitespace errors or conflict markers
+   git diff --check
+** diff staged files
+   git diff --staged
 
-* create source tarball (prints to stdout by default)
-  git archive <revision>
-  - use tar.gz format
-  git archive --format=tar.gz HEAD > source_code.tar.gz
-  - output zip, infer output format by extension
-  git archive -o latest.zip HEAD
-  - create a zip that contains directory with source
-  - this will only add files relative to directory it is run in, so run it from repo root 
-  --prefix=dirname/
-  git archive --prefix=latest/ -o latest.zip HEAD
+** local gitignore (not tracked)
+   .git/info/exclude
+
+** create source tarball (prints to stdout by default)
+   git archive <revision>
+   - use tar.gz format
+   git archive --format=tar.gz HEAD > source_code.tar.gz
+   - output zip, infer output format by extension
+   git archive -o latest.zip HEAD
+   - create a zip that contains directory with source
+   - this will only add files relative to directory it is run in, so run it from repo root 
+   --prefix=dirname/
+   git archive --prefix=latest/ -o latest.zip HEAD
+
+** enable autocrlf for current repo
+   git config --local core.autocrlf true
