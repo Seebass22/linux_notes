@@ -7,15 +7,9 @@
        a[1:3] # => [1, 2]
      #+end_src
 
-   +-------------------+-------+----+----+----+
-   | negative indexes  |    -4 | -3 | -3 | -1 |
-   +-------------------+-------+----+----+----+
-   | sequence elements |     A |  B |  C |  D |
-   +-------------------+-------+----+----+----+
-   | positive indexes  |     0 |  1 |  2 |  3 |
-   +-------------------+-------+----+----+----+
-   |                   | 0:1:2           |    |
-   +-------------------+-------+----+----+----+
+     | negative indices  | -4 | -3 | -3 | -1 |
+     | sequence elements |  A |  B |  C |  D |
+     | positive indices  |  0 |  1 |  2 |  3 |
 
 ** copy list (does not deep-copy contained lists)
    #+begin_src python
