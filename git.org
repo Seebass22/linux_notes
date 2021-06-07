@@ -96,3 +96,9 @@
 
 ** enable autocrlf for current repo
    git config --local core.autocrlf true
+
+** per-directory gitconfig
+   #+begin_src
+   [includeIf "gitdir:/home/seb/Documents/uni"]
+       path = ~/.gitconfig_uni
+   #+end_src
