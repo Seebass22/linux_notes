@@ -61,17 +61,17 @@
    #+begin_src octave
      f^2
    #+end_src
-** (quadratische Matrix mit sich selbst multiplizieren)
+** multiply square matrix with itself
    #+begin_src octave
      D_m^2
    #+end_src
 
-** (elementweise potenzieren)
+** element-wise exponentiation
    #+begin_src octave
      D_m.^2
    #+end_src
 
-** square root (wurzeln)
+** square root
    #+begin_src octave
      sqrt(f)
    #+end_src
