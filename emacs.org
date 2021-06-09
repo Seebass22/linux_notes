@@ -51,6 +51,7 @@
 * terminal modes
   - M-x term
   - M-x ansi-term
+  - M-x shell
   - M-x eshell
 
 * client/server
@@ -63,6 +64,12 @@
 * misc
 ** evaluate lisp statement under cursor
    C-x C-e
+
+* TRAMP
+** open remote file (or directory) via ssh
+   C-x C-e /:ssh:remotehost:filename
+** open remote shell
+   C-u M-x shell
 
 * ERC
 ** jump to ERC buffer with activity
