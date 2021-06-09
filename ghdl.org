@@ -1,11 +1,17 @@
 * syntax check
-  ghdl -s file.vhd
+  #+begin_src shell
+    ghdl -s file.vhd
+  #+end_src
 
 * compile and create waveform
-  ghdl -a adder.vhd
-  ghdl -a tb_adder.vhd
-  ghdl -e tb_adder
-  ghdl -r tb_adder --vcd=wave.vcd
+  #+begin_src shell
+    ghdl -a adder.vhd
+    ghdl -a tb_adder.vhd
+    ghdl -e tb_adder
+    ghdl -r tb_adder --vcd=wave.vcd
+  #+end_src
 
 * view in GTKWave
-  gtkwave wave.vcd
+  #+begin_src shell
+    gtkwave wave.vcd
+  #+end_src

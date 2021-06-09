@@ -1,5 +1,9 @@
 * copy new files, folders recursively to from source to dest
-  rsync -avz --ignore-existing source dest
+  #+begin_src shell
+    rsync -avz --ignore-existing source dest
+  #+end_src
 
 * ignore commonly ignored files and folders, such as .git/
-  -C
+  #+begin_src shell
+    -C
+  #+end_src

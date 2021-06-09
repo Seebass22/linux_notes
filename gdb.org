@@ -1,4 +1,5 @@
 * general
+  #+begin_src
   break            // set breakpoint
   break 5
   break main
@@ -24,13 +25,17 @@
   info threads     // show all threads being run
 
   thread <num>     // switch to thread
+  #+end_src
 
 * set variables
+  #+begin_src
   set variable i = 40
   or
   set (i = 40)
+  #+end_src
 
 * to look at prev variables
+  #+begin_src
   frame <num> // traverse call stack (0 = current, 1 = parent, 2 = parent's parent)
 
   bt          // print backtrace of stack frames
@@ -38,16 +43,19 @@
 
   list        // show C source
   disass      // show assembly
+  #+end_src
 
 * commands at breakpoint
+  #+begin_src
   commands <breakpoint-number>
   <commmands...>
   end
-
+  #+end_src
   - use silent as first command to suppress gdb output
   - use continue as last command to continue to next iteration of loop automatically
 
 * assembly
+  #+begin_src
   nexti       // next instruction
   x           // examine memory
   x $rip      // examine memory at register rip (instruction pointer)
@@ -59,15 +67,22 @@
   i r rbp     //info register rbp
 
   //DWORD 4bytes (int)
+  #+end_src
 
 * registers
+  #+begin_src
   rip  // instruction pointer
   rsp  // stack pointer
   rbp  // base pointer
+  #+end_src
 
 * other
 ** toggle TUI
+   #+begin_src
    CTRL x a
+   #+end_src
 
 * conditional watchpoint
+  #+begin_src
   watch (z > 28)
+  #+end_src

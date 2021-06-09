@@ -1,5 +1,5 @@
 * finding packages
-  #+BEGIN_SRC sh
+  #+BEGIN_SRC shell
     # find package that provides specific executable
     dnf whatprovides xxd
 
@@ -9,37 +9,50 @@
   #+END_SRC
 
 * listing things
-  #+BEGIN_SRC
-  # list files in package
-  dnf repoquery -l <packagename>
+  #+BEGIN_SRC shell
+    # list files in package
+    dnf repoquery -l <packagename>
 
-  # list packages from repo
-  dnf repository-packages <repo-name> list
+    # list packages from repo
+    dnf repository-packages <repo-name> list
 
-  # list installed packages
-  dnf list installed
+    # list installed packages
+    dnf list installed
 
-  # all list commands allow you to filter using glob expressions
-  dnf list installed '*v42l*'
+    # all list commands allow you to filter using glob expressions
+    dnf list installed '*v42l*'
 
-* list [installed] package groups
-  dnf group list [installed]
+    # list [installed] package groups
+    dnf group list [installed]
   #+END_SRC
 
 * remove packages from repo
-  dnf repository-packages <repo-name> remove
+  #+begin_src shell
+    dnf repository-packages <repo-name> remove
+  #+end_src
 
 * include descriptions and URLs in search
-  dnf search all <term>
+  #+begin_src shell
+    dnf search all <term>
+  #+end_src
 
 * dnf transaction history
-  dnf history
+  #+begin_src shell
+    dnf history
+  #+end_src
 
 * undo or redo transaction
-  dnf history undo <id>
-  dnf history redo <id>
+  #+begin_src shell
+    dnf history undo <id>
+    dnf history redo <id>
+  #+end_src
 
 * list enabled repositories
-  dnf repolist --enabled
+  #+begin_src shell
+    dnf repolist --enabled
+  #+end_src
+
 * more detailed info
-  dnf repolist --enabled -v
+  #+begin_src shell
+    dnf repolist --enabled -v
+  #+end_src

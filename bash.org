@@ -2,10 +2,14 @@
   [[https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html]]
 
 * remove suffix
-  - % operator
-  x="asdf.pdf"
-  echo ${x%.pdf}
-  # -> asdf
+  % operator
+  #+begin_src shell
+    x="asdf.pdf"
+    echo ${x%.pdf}
+    # -> asdf
+  #+end_src
 
 * length of parameter
-  - ${#parameter}
+  #+begin_src shell
+    ${#parameter}
+  #+end_src

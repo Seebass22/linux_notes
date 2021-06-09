@@ -1,36 +1,56 @@
 * convert video to audio
+  #+begin_src shell
   ffmpeg -i input.mp4 -vn audio_only.ogg
+  #+end_src
 
 * remove audio
+  #+begin_src shell
   ffmpeg -i example.mkv -c copy -an example-nosound.mkv
+  #+end_src
 
 * concat reverse of video (no audio)
+  #+begin_src shell
   ffmpeg -i input.mp4 -filter_complex "[0:v]reverse,fifo[r];[0:v][r] concat=n=2:v=1 [v]" -map "[v]" output.mp4
+  #+end_src
 
 * overlay image
+  #+begin_src shell
   ffmpeg -i video.mp4 -i image.png -filter_complex "[0:v][1:v] overlay" output.mp4
+  #+end_src
 
 * overlay text
   - scroll up from bottom of frame
   - show text at center
+  #+begin_src shell
   ffmpeg -i video.mp4 -vf drawtext="text='asdf': fontsize=52: x=(w-text_w)/2: y=h-20*t" output.mp4
+  #+end_src
 
 * scale to 1/4 size, preserve aspect ratio
+  #+begin_src shell
   ffmpeg -i input -vf scale=iw/4:-1 output
+  #+end_src
 
 * for youtube
   - Create a video with a still image (input.png) and an audio file (audio.m4a)
+    #+begin_src shell
     ffmpeg -loop 1 -framerate 2 -i input.png -i audio.m4a -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
+    #+end_src
 
 * change framerate (drop frames)
+  #+begin_src shell
   -vf "fps=30"
+  #+end_src
 
 * crop
   - width:height:x:y
+  #+begin_src shell
   -vf "crop=640:480:0:0"
+  #+end_src
 
 * get video information
+  #+begin_src shell
   ffprobe
+  #+end_src
 
 * misc
   - to combine filters, separate them by commas
