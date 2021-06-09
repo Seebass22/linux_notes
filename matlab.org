@@ -1,240 +1,376 @@
 * BASIC OPERATIONS
 ** Vectors
-   A = [1 2 3 4 5];
-   B = [9 7 5 3 1];
-   C = [2 4];
+   #+begin_src octave
+     A = [1 2 3 4 5];
+     B = [9 7 5 3 1];
+     C = [2 4];
+   #+end_src
 
 ** matrices
-   D_m = [2 5 2
-   1 2 3
-   4 2 5];
+   #+begin_src octave
+     D_m = [2 5 2
+	    1 2 3
+	    4 2 5];
 
-   E_m = [4 5 5; 5 2 4];
+     E_m = [4 5 5; 5 2 4];
+   #+end_src
 
 ** scalar variables
-   f = 5;
+   #+begin_src octave
+     f = 5;
+   #+end_src
 
 ** complex numbers
-   z = 2 + 4i;
-   zz = 1 + 5i;
+   #+begin_src octave
+     z = 2 + 4i;
+     zz = 1 + 5i;
+   #+end_src
 
 ** struct
-   person.name = 'bob';
-   person.age = 55;
+   #+begin_src octave
+     person.name = 'bob';
+     person.age = 55;
+   #+end_src
 
 ** sum vector
-   sum(A)
+   #+begin_src octave
+     sum(A)
+   #+end_src
 
 ** dotproduct (skalarprodukt)
-   dot(A,B)
+   #+begin_src octave
+     dot(A,B)
+   #+end_src
 
 ** matrixmultiplication, inversion
-   D_m * inv(D_M)
+   #+begin_src octave
+     D_m * inv(D_M)
+   #+end_src
 
 ** absolute value (betrag)
-   abs(z)
+   #+begin_src octave
+     abs(z)
+   #+end_src
 
 ** transpose matrix
-   D_m'
+   #+begin_src octave
+     D_m'
+   #+end_src
 
 ** powers (potenzen)
-   f^2
+   #+begin_src octave
+     f^2
+   #+end_src
 ** (quadratische Matrix mit sich selbst multiplizieren)
-   D_m^2
+   #+begin_src octave
+     D_m^2
+   #+end_src
+
 ** (elementweise potenzieren)
-   D_m.^2
+   #+begin_src octave
+     D_m.^2
+   #+end_src
 
 ** square root (wurzeln)
-   sqrt(f)
+   #+begin_src octave
+     sqrt(f)
+   #+end_src
+   
 ** element-wise
-   sqrt(A)
-   sqrt(D_m)
+   #+begin_src octave
+     sqrt(A)
+     sqrt(D_m)
+   #+end_src
 
 ** indexing (y, x)
-   A(2)        % 2
-   D_m(3, 1)   % 4
-   D_m(2:3, 3) % row 2-3, column 3
-   D_m(:, 1:2) % all rows, columns 1-2
+   #+begin_src octave
+     A(2)        % 2
+     D_m(3, 1)   % 4
+     D_m(2:3, 3) % row 2-3, column 3
+     D_m(:, 1:2) % all rows, columns 1-2
+   #+end_src
 
-** generate points from 0 to 2pi with steps of 0.01
-   x = start:step:end
-** generate 100 evenly spaced points between x1 and x1
-   x = linspace(x1, x2)
-** generate n evenly spaced points between x1 and x1
-   x = linspace(x1, x2, n)
+** generate evenly space points
+   #+begin_src octave
+     % generate points from 0 to 2pi with steps of 0.01
+     x = start:step:end
+
+     % generate 100 evenly spaced points between x1 and x1
+     x = linspace(x1, x2)
+
+     % generate n evenly spaced points between x1 and x1
+     x = linspace(x1, x2, n)
+   #+end_src
 
 ** get matrix/array dimensions
-   size(A)
+   #+begin_src octave
+     size(A)
+   #+end_src
 
 ** get number of array elements (length)
-   numel(A)
+   #+begin_src octave
+     numel(A)
+   #+end_src
 
 ** reshape array/matrix
-*** to have 2 colmuns
-    reshape(Arr, [], 2)
-*** to have 4 rows
-    reshape(Arr, 4, [])
+   #+begin_src octave
+     % to have 2 colmuns
+     reshape(Arr, [], 2)
+
+     % to have 4 rows
+     reshape(Arr, 4, [])
+   #+end_src
 
 ** get max (or min) in array
-   max(A)
+   #+begin_src octave
+     max(A)
+   #+end_src
 ** get max (or min) and index in array
-   [max_size, max_index] = max(A)
+   #+begin_src octave
+     [max_size, max_index] = max(A)
+   #+end_src
 ** get max (or min) in matrix
-   max(max(M))
-*** or
-    max(M(:))
+   #+begin_src octave
+     max(max(M))
+				     # or
+     max(M(:))
+   #+end_src
 
 ** sort rows of matrix, table or cell array
-   sortrows(A)
+   #+begin_src octave
+     sortrows(A)
+   #+end_src
 ** sort by column 2
-   sortrows(A, [2])
+   #+begin_src octave
+     sortrows(A, [2])
+   #+end_src
 ** sort by column 2, then 4
-   sortrows(A, [2, 4])
+   #+begin_src octave
+     sortrows(A, [2, 4])
+   #+end_src
 
 ** get data type of variable
-   class(A)
+   #+begin_src octave
+     class(A)
+   #+end_src
 
 ** print variable (incl. strings)
-   disp(A)
+   #+begin_src octave
+     disp(A)
+   #+end_src
 
 ** time things
-*** start timer
-    tic
-*** stop timer
-    toc
+   #+begin_src octave
+     tic
+     toc
+   #+end_src
 
 ** run script
-   <name of script without .m>
+   #+begin_src octave
+     <name of script without .m>
+   #+end_src
 
 * STRINGS
 ** convert int to string
-   chr = int2str(N);
+   #+begin_src octave
+     chr = int2str(N);
+   #+end_src
 
 ** concatenate string
-   filename = strcat('img_', int2str(i), '.ppm');
+   #+begin_src octave
+     filename = strcat('img_', int2str(i), '.ppm');
+   #+end_src
 
 * FILE IO
 ** create a folder
-   mkdir('pics');
+   #+begin_src octave
+     mkdir('pics');
+   #+end_src
 
 * CELL ARRAYS
 
 ** create cell array
-   c = {}
-   c = {1, [1 2 3], 'bob', true}
+   #+begin_src octave
+     c = {}
+     c = {1, [1 2 3], 'bob', true}
+   #+end_src
 
 ** access cell 1
-   c(1)
+   #+begin_src octave
+     c(1)
+   #+end_src
 ** access contents of cell 1
-   c{1}
+   #+begin_src octave
+     c{1}
+   #+end_src
 
 ** delete cell 1
-   c(1) = []
+   #+begin_src octave
+     c(1) = []
+   #+end_src
 ** delete contents of cell 1 -> empty cell
-   c{1} = []
+   #+begin_src octave
+     c{1} = []
+   #+end_src
 
 ** convert cell array to array
-   a = cell2mat(b)
+   #+begin_src octave
+     a = cell2mat(b)
+   #+end_src
 
 ** convert binary to decimal
-   a = '1011'
-   bin2dec(a)
+   #+begin_src octave
+     a = '1011'
+     bin2dec(a)
+   #+end_src
 
 ** convert decimal to binary
-** optional: specify minimum number of digits
-   dec2bin(a, 8)
+   optional: specify minimum number of digits
+   #+begin_src octave
+     dec2bin(a, 8)
+   #+end_src
 
 * LOOPS AND CONDITIONALS
 ** for loop
-   for n = 2:6
-   x(n) = % something
-   end
+   #+begin_src octave
+     for n = 2:6
+       % do something
+     end
+   #+end_src
 
 ** while loop
-   while n > 1
-   % do something
-   n = n - 1;
-   end
+   #+begin_src octave
+     while n > 1
+       % do something
+       n = n - 1;
+     end
+   #+end_src
 
 ** exit a loop
-   break
+   #+begin_src octave
+     break
+   #+end_src
 ** skip to next iteration
-   continue
+   #+begin_src octave
+     continue
+   #+end_src
 
 ** if, else statement
-   if expression && expression
-   statements
-   elseif expression
-   statements
-   else
-   statements
-   end
+   #+begin_src octave
+     if expression && expression
+       % statements
+     elseif expression
+       % statements
+     else
+       % statements
+     end
+   #+end_src
 
 ** equality
-   ==
+   #+begin_src octave
+     ==
+   #+end_src
 ** inequality
-   ~=
+   #+begin_src octave
+     ~=
+   #+end_src
 
 ** determine if variable has specified data type
-   isa(A, 'double')
+   #+begin_src octave
+     isa(A, 'double')
+   #+end_src
 
 * PLOTS
 
 ** multiple plot windows
-   figure(1)
-   plot(...)
-   figure(2)
-   plot(...)
+   #+begin_src octave
+     figure(1)
+     plot(...)
+     figure(2)
+     plot(...)
+   #+end_src
 
 ** multiple plots in one window
 *** m-by-n grid, position = index of next plot
-    subplot(m, n, position)
+    #+begin_src octave
+      subplot(m, n, position)
+    #+end_src
 
 ** plot and label
-   plot(x, y)
-   xlabel('x')
-   ylabel('sin(x)')
+   #+begin_src octave
+     plot(x, y)
+     xlabel('x')
+     ylabel('sin(x)')
+   #+end_src
 
 ** enable grid
-   grid on
+   #+begin_src octave
+     grid on
+   #+end_src
 
 *** legend
-    legend('sin')
+    #+begin_src octave
+      legend('sin')
+    #+end_src
 
 *** overlay more plots
-    hold on
+    #+begin_src octave
+      hold on
+    #+end_src
 *** stop overlay
-    hold off
+    #+begin_src octave
+      hold off
+    #+end_src
 
 ** polynomial curve fitting
 **** return coefficients of polynomial p(x) of degree n
-     p = polyfit(x, y, n)
+     #+begin_src octave
+       p = polyfit(x, y, n)
+     #+end_src
 **** return values of polynomial p at each point in x
-     vals = polyval(p,x)
+     #+begin_src octave
+       vals = polyval(p,x)
+     #+end_src
 **** plot
-     plot(x, vals)
+     #+begin_src octave
+       plot(x, vals)
+     #+end_src
 
 * IMAGES
-  pkg load image
+  #+begin_src octave
+    pkg load image
+  #+end_src
 
 ** read image
-   img = imread('pic1.ppm')
+   #+begin_src octave
+     img = imread('pic1.ppm')
+   #+end_src
 
 ** convert to grayscale
-   g_img = rgb2gray(img)
+   #+begin_src octave
+     g_img = rgb2gray(img)
+   #+end_src
 
 ** calculate histogram, return counts and bin locations
-   [counts, binLocations] = imhist(g_img)
+   #+begin_src octave
+     [counts, binLocations] = imhist(g_img)
+   #+end_src
 ** display histogram
-   imhist(g_img)
+   #+begin_src octave
+     imhist(g_img)
+   #+end_src
 
 ** write image to file
-   imwrite(data, filename)
+   #+begin_src octave
+     imwrite(data, filename)
+   #+end_src
 
 * FUNCTIONS
-  function e = entropy_(d)
-  e = sum(d.*log2(1./d));
-  end
+  #+begin_src octave
+    function e = entropy_(d)
+      e = sum(d.*log2(1./d));
+    end
+  #+end_src
 
 ** nested functions
    - both nested and the containing function can access variables declared in either
@@ -250,35 +386,52 @@
     #+END_SRC
 
 ** check if argument has been set (for optional arguments)
-   function f(opt)
-   if (exist('opt', 'var'))
-   end
-   end
+   #+begin_src octave
+     function f(opt)
+       if (exist('opt', 'var'))
+				     % do something
+       end
+     end
+   #+end_src
 
 * CONTROL SYSTEMS
-  pkg load control
+  #+begin_src octave
+    pkg load control
 
-  s = tf('s');
-  Gs = 10^9 / ((s + 20)*(s + 500))
+    s = tf('s');
+    Gs = 10^9 / ((s + 20)*(s + 500))
+  #+end_src
 
 ** calculate phase and magnitude at frequency wc
-** (magnitude not in dB)
-   [mag phase] = bode(Gs, wc)
+   (magnitude not in dB)
+   #+begin_src octave
+     [mag phase] = bode(Gs, wc)
+   #+end_src
 ** convert to dB
-   mag = 20 * log10(mag)
+   #+begin_src octave
+     mag = 20 * log10(mag)
+   #+end_src
 
 ** bode plot
-** from frequency 1 to 100000
-   bode(Gs, {1, 100000})
+   from frequency 1 to 100000
+   #+begin_src octave
+     bode(Gs, {1, 100000})
+   #+end_src
 
 ** bode plot with phase margin
-   margin(Gs)
+   #+begin_src octave
+     margin(Gs)
+   #+end_src
 
 ** calculate phase margin and omega_c
-   [ignore, marg, ignore2, wc] = margin(Gs)
+   #+begin_src octave
+     [ignore, marg, ignore2, wc] = margin(Gs)
+   #+end_src
 
 ** step response
-   step(Gs)
+   #+begin_src octave
+     step(Gs)
+   #+end_src
 
 * MISC
 
