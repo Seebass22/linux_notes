@@ -1,101 +1,158 @@
 * LOG
 ** FORMATTING
 *** simple log
-    git log --oneline
+    #+begin_src shell
+      git log --oneline
+    #+end_src
 
 *** only show changed files
-    git log --name-only
+    #+begin_src shell
+      git log --name-only
+    #+end_src
 
 *** show diffstat (no. of changed lines per file) for every commit
-    git log --stat
+    #+begin_src shell
+      git log --stat
+    #+end_src
 
 *** group commits by author
-    git shortlog
+    #+begin_src shell
+      git shortlog
+    #+end_src
 
 ** FILTERING
 *** latest 3 commits
-    git log -3
+    #+begin_src shell
+      git log -3
+    #+end_src
 
 *** after or before date
-    git log --before="2020-1-1"
+    #+begin_src shell
+      git log --before="2020-1-1"
+    #+end_src
 
 *** by author (accepts regex)
-    git log --author="seb"
-    git log --author="seb\|bob"
+    #+begin_src shell
+      git log --author="seb"
+      git log --author="seb\|bob"
+    #+end_src
 
 *** by commit message
-    git log --grep="UI"
+    #+begin_src shell
+      git log --grep="UI"
+    #+end_src
 
 *** by file
-    git log -- foo.py
+    #+begin_src shell
+      git log -- foo.py
+    #+end_src
 
 *** filter out all merge commits (or only show merges)
-    git log --no-merges
-    git log --merges
+    #+begin_src shell
+      git log --no-merges
+      git log --merges
+    #+end_src
 
 * MISC
 ** find commit that modifies particular line of code
-   - example: find all commits that modified/added/removed a line containing Debug.Log
-   git log -S"Debug.Log"
+   example: find all commits that modified/added/removed a line containing Debug.Log
+   #+begin_src shell
+     git log -S"Debug.Log"
+   #+end_src
 
 ** add everything on root dir
-   git add :/
+   #+begin_src shell
+     git add :/
+   #+end_src
 
 ** remove file from index but not working tree
-   git rm --cached <file>
+   #+begin_src shell
+     git rm --cached <file>
+   #+end_src
 
 ** undo last commit but keep changes (add --hard to discard changes)
-   git reset HEAD~1
+   #+begin_src shell
+     git reset HEAD~1
+   #+end_src
 
 ** undo git reset (restore changes)
-   git reflog
-   git checkout <SHA>    and    git checkout -b <new branch name>
-   or
-   git reset --hard <SHA>
+   #+begin_src shell
+     git reflog
+     git checkout <SHA>    and    git checkout -b <new branch name>
+     # or
+     git reset --hard <SHA>
+   #+end_src
 
 ** find bug through binary search
-   git bisect
+   #+begin_src shell
+     git bisect
+   #+end_src
 
 ** rewrite history (change commit message, split commits, etc)
-   - [modify last 8 commits]
+   example: [modify last 8 commits]
+   #+begin_src shell
      git rebase -i HEAD~8
+   #+end_src
 
 ** find commit where file was deleted
-   git log --diff-filter=D -- path/to/file
+   #+begin_src shell
+     git log --diff-filter=D -- path/to/file
+   #+end_src
 ** checkout version at the commit before
-   git checkout <deleting_commit>^ -- <file_path>
+   #+begin_src shell
+     git checkout <deleting_commit>^ -- <file_path>
+   #+end_src
 
 ** replay commit on current branch
-   git cherry-pick <SHA>
+   #+begin_src shell
+     git cherry-pick <SHA>
+   #+end_src
 
 ** ignore changes to tracked file locally
-   git update-index --skip-worktree <file_path>
+   #+begin_src shell
+     git update-index --skip-worktree <file_path>
+   #+end_src
 
 ** abort merge after pulling
-   - clear editor window
-   git merge --abort
+   clear editor window
+   #+begin_src shell
+     git merge --abort
+   #+end_src
 
 ** check for whitespace errors or conflict markers
-   git diff --check
+   #+begin_src shell
+     git diff --check
+   #+end_src
 ** diff staged files
-   git diff --staged
+   #+begin_src shell
+     git diff --staged
+   #+end_src
 
 ** local gitignore (not tracked)
-   .git/info/exclude
+   #+begin_src shell
+     .git/info/exclude
+   #+end_src
 
 ** create source tarball (prints to stdout by default)
-   git archive <revision>
-   - use tar.gz format
-   git archive --format=tar.gz HEAD > source_code.tar.gz
-   - output zip, infer output format by extension
-   git archive -o latest.zip HEAD
-   - create a zip that contains directory with source
-   - this will only add files relative to directory it is run in, so run it from repo root 
-   --prefix=dirname/
-   git archive --prefix=latest/ -o latest.zip HEAD
+   #+begin_src shell
+     git archive <revision>
+
+     # use tar.gz format
+     git archive --format=tar.gz HEAD > source_code.tar.gz
+
+     # output zip, infer output format by extension
+     git archive -o latest.zip HEAD
+
+     # create a zip that contains directory with source
+     # this will only add files relative to directory it is run in, so run it from repo root 
+     # --prefix=dirname/
+     git archive --prefix=latest/ -o latest.zip HEAD
+   #+end_src
 
 ** enable autocrlf for current repo
-   git config --local core.autocrlf true
+   #+begin_src shell
+     git config --local core.autocrlf true
+   #+end_src
 
 ** per-directory gitconfig
    #+begin_src
