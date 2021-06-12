@@ -13,3 +13,11 @@
   #+begin_src shell
     ${#parameter}
   #+end_src
+
+* read from stdin or from file (if script called with file as parameter)
+  #+begin_src shell
+    while read line
+    do
+      echo "$line"
+    done < "${1:-/dev/stdin}"
+  #+end_src

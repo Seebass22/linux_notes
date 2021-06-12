@@ -1,6 +1,8 @@
 * general
 ** switch buffer (interactively)
    C-x b
+** cycle through kill-ring (after paste)
+   C-p
 
 * magit
 ** general
@@ -34,6 +36,8 @@
    ^
 ** open file in other buffer
    shift-RET
+** mkdir
+   +
 ** marking
 *** mark, unmark file
     m, u
