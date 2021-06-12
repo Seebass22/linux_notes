@@ -112,6 +112,14 @@
    #+begin_src shell
      git update-index --skip-worktree <file_path>
    #+end_src
+*** list files that have --skip-worktree active
+    #+begin_src shell
+      git ls-files -v | grep '^S'
+    #+end_src
+*** revert --skip-worktree
+    #+begin_src shell
+      git update-index --no-skip-worktree <file_path>
+    #+end_src
 
 ** abort merge after pulling
    clear editor window
