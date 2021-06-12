@@ -163,3 +163,8 @@
 * print ascii values in decimal or hexadecimal
   echo Apple | od -An -vtu1
   echo Apple | xxd
+
+* create hexhump (to edit binary by hand)
+  xxd file.bmp > out.hex
+* convert hexdump back to binary
+  xxd -r out.hex > out.bmp
