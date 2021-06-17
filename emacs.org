@@ -24,6 +24,12 @@
     M-x magit-find-file
     - run from log to choose revision easily
 
+* windows
+** use vim keys (evil-mode)
+   - =C-w s= or =C-w C-v= to split
+   - =C-w hjkl= to navigate
+   - =C-w C-w= to switch to other window
+
 * frames
   X11 windows that share an emacs session
 ** create new frame
@@ -79,6 +85,30 @@
 ** jump to ERC buffer with activity
    C-c C-SPC
 
+* calc
+  enter numbers to add to the stack. enter an operator to perform an operation on the top 2
+** negative numbers
+   use _ instead of - or press n to change sign
+** undo (evil-mode)
+   u
+** redo
+   DD
+** enter prefix (evil-mode)
+   M-0
+** run calc command (faster than typing M-x calc-)
+   x
+
+** stack operations
+*** clear item
+    <DEL>
+*** duplicate item
+    <RET>
+*** rotate top 3 elements
+    M-<TAB>
+
+** complex numbers
+   =( 5 <SPC> 4 )=
+
 * AUCTeX
 ** insert
 *** section (or subsection, etc)
@@ -104,3 +134,5 @@
 * built-in commands
 ** IRC client
    M-x erc-tls
+** calculator
+   M-x calc
