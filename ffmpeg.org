@@ -52,5 +52,10 @@
   ffprobe
   #+end_src
 
+* convert to gif, limit colors to 32
+  #+begin_src shell
+    ffmpeg -i input.mp4 -vf "split[s0][s1];[s0]palettegen=max_colors=32:reserve_transparent=0[p];[s1][p]paletteuse" -loop 0 output.gif
+  #+end_src
+
 * misc
   - to combine filters, separate them by commas
