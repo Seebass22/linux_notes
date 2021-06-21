@@ -251,6 +251,13 @@
    <C-w> N
 ** split and view tag
    <C-w> ]
+** switch to next window
+   <C-w> <C-W>
+** rotate windows
+*** down/right (counter-clockwise)
+    <C-w> <C-r>
+*** up/left (clockwise)
+    <C-w> R
 ** resize windows
 *** vertical size
     :resize +5
