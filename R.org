@@ -56,17 +56,17 @@
 
 * LOOPS AND CONDITIONALS
   #+BEGIN_SRC R
-while (expression) {
-}
+  while (expression) {
+  }
 
-x <- c(2,5,3,9,8,11,6)
-for (val in x){
-}
+  x <- c(2,5,3,9,8,11,6)
+  for (val in x){
+  }
 
-if (expression) {
-} else {
-}
-  #+END_SRC
+  if (expression) {
+  } else {
+  }
+  #+END_SRC R
 
 ** ifelse(test, yes, no)
    > x <- c(1,2,3)
@@ -75,10 +75,10 @@ if (expression) {
 
 * FUNCTIONS
   #+BEGIN_SRC R
-get_fuel <- function(mass) {
-	result <- mass / 3 + 1
-	return(result)
-}
+    get_fuel <- function(mass) {
+      result <- mass / 3 + 1
+      return(result)
+    }
   #+END_SRC
 
 * READING FILES

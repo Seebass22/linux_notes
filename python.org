@@ -411,6 +411,10 @@
    #+begin_src shell
      source <venv>/bin/activate
    #+end_src
+** deactivate virtual environment
+   #+begin_src shell
+     deactivate
+   #+end_src
 
 * built in modules
 ** simple http server
