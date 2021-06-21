@@ -17,6 +17,20 @@
 *** trash (revert change or delete file)
     x
 
+** navigation
+*** next/prev item
+    gj gk
+*** jump to section
+    - staged: gs
+    - unstaged: gu
+    - untracked: gn
+
+** change visibility
+*** show level
+    1 2 3 4
+*** cycle diff visibility
+    M-<tab>
+
 ** misc
 *** view log for file
     M-x magit-log-buffer-file
@@ -29,6 +43,7 @@
    - =C-w s= or =C-w C-v= to split
    - =C-w hjkl= to navigate
    - =C-w C-w= to switch to other window
+   - =C-w C-r= to rotate
 
 * frames
   X11 windows that share an emacs session
@@ -55,6 +70,12 @@
     %m
 *** mark executables, directories, certain extension, etc
     *
+
+** hide all marked files
+   K
+** unhide (refresh)
+   gr
+
 ** open dired, with current file selected
    M-x dired-jump
 
