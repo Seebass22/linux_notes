@@ -6,6 +6,13 @@
 ** cycle through command history
    M-n M-p
 
+* narrowing
+  C-x n
+** to region
+   =M-x narrow-to-region= or =C-x n n=
+** widen
+   =M-x widen= or =C-x n w=
+
 * magit
 ** general
 *** magit status
@@ -50,9 +57,9 @@
 * frames
   X11 windows that share an emacs session
 ** create new frame
-   C-x 5 2 (make-frame-command)
+   =make-frame= or =C-x 5 2=
 ** switch to other frame
-   C-x 5 o
+   =C-x 5 o=
 
 * dired
 ** go up a directory
