@@ -1,0 +1,226 @@
+* variables
+  - variables are immutable by default
+    - use =mut= to make them mutable
+  - you can reuse variable names to "shadow" other variables
+
+* types
+** compound types
+*** tuple
+    - can contain multiple types
+    - fixed length
+      #+begin_src rust
+	fn main() {
+	    // optional type annotation
+	    let tup2: (i32, f64, u8) = (500, 6.4, 1);
+
+	    let tup = (500, 6.4, 1);
+	    // use pattern matching to destructure tuple
+	    let (x, y, z) = tup;
+	    println!("The value of y is: {}", y);
+
+	    // access elements directly using .
+	    let five_hundred = x.0;
+	    let six_point_four = x.1;
+	    let one = x.2;
+	}
+      #+end_src
+*** arrays
+    - elements have same type
+    - fixed length
+      #+begin_src rust
+	let months = ["January", "February", "March", "April", "May", "June", "July",
+	"August", "September", "October", "November", "December"];
+	let a: [i32; 5] = [1, 2, 3, 4, 5];
+	// array countaining the same element multiple times
+	// [value; length]
+	let a = [3; 5]; // -> [3, 3, 3, 3, 3]
+      #+end_src
+
+* functions
+  - names in snake_case
+  - can be defined anywhere (even after their use)
+  - type annotations required in parameter list
+    #+begin_src rust
+      fn main() {
+	  function(5, 8);
+      }
+
+      fn function(x: i32, y: u32) {
+	  println!("The value of x is: {}", x);
+	  println!("The value of y is: {}", y);
+      }
+    #+end_src
+** returning values
+   - return value is the value of the final expresssion in the function body
+   - (expressions do not use semicolons)
+   #+begin_src rust
+     fn five() -> i32 {
+	 5
+     }
+     fn main() {
+	 let x = five();
+	 println!("The value of x is: {}", x);
+     }
+   #+end_src
+
+* if
+  - no parentheses required
+  - is an expression
+    - can be used in a let statement
+      #+begin_src rust
+	let condition = true;
+	let number = if condition {
+	    5
+	} else {
+	    6
+	};
+      #+end_src
+
+* loops
+** loop
+   - infinite loop
+     #+begin_src rust
+       loop {
+	   println!("again!");
+       }
+     #+end_src
+   - break out with =break=
+   - can return a value
+     #+begin_src rust
+       let mut counter = 0;
+
+       let result = loop {
+	   counter += 1;
+	   if counter == 10 {
+	       break counter * 2;
+	   }
+       };
+     #+end_src
+** while
+   #+begin_src rust
+     let mut number = 3;
+
+     while number != 0 {
+	 println!("{}!", number);
+	 number = number - 1;
+     }
+   #+end_src
+** for
+   #+begin_src rust
+     let a = [10, 20, 30, 40, 50];
+
+     for element in a.iter() {
+	 println!("the value is: {}", element);
+     }
+   #+end_src
+
+* use
+  #+begin_src rust
+    std::io::Stdin
+  #+end_src
+  is equivalent to
+  #+begin_src rust
+    use std::io;
+
+    io::Stdin
+  #+end_src
+  
+* match
+  like a switch statement
+  #+begin_src rust
+    match guess.cmp(&secret_number) {
+	Ordering::Less => println!("Too small!"),
+	Ordering::Greater => println!("Too big!"),
+	Ordering::Equal => {
+	    println!("You win!");
+	    break;
+	}
+    }
+  #+end_src
+  
+* mutability
+  variables are immutable by default
+  #+begin_src rust
+    let x = 5;
+    println!("the value of x is: {}", x);
+    // compiler error
+    x = 6;
+    println!("the value of x is: {}", x);
+  #+end_src
+  use keyword =mut= for mutable variables
+  #+begin_src rust
+    let mut x = 5;
+    println!("the value of x is: {}", x);
+    x = 6;
+    println!("the value of x is: {}", x);
+  #+end_src
+  
+* shadowing
+  lets you reuse names of variables
+  #+begin_src rust
+    let x = 5;
+    let x = x + 1;
+    let x = x * 2;
+    println!("The value of x is: {}", x);
+  #+end_src
+  lets you change type
+  #+begin_src rust
+    let spaces = "   "
+    let spaces = spaces.len();
+  #+end_src
+  
+* constants
+  - immutable
+  - must be type-annotated
+  - can be declared in any scope
+  - must be set to a constant expression (cannot be computed at runtime)
+    #+begin_src rust
+      const MAX_POINTS: u32 = 100_000
+    #+end_src
+
+* error handling
+** expect
+   print error message and quit on error
+   #+begin_src rust
+     let mut guess = String::new();
+     io::stdin().read_line(&mut guess)
+	 .expect("Failed to read line");
+   #+end_src
+** hand error with match
+   #+begin_src rust
+     let guess: u32 = match guess.trim().parse() {
+	 Ok(num) => num,
+	 // skip to next loop iteration on error
+	 Err(_) => continue,
+     };
+   #+end_src
+
+* print a variable
+  #+begin_src rust
+    println!("You guessed: {}", guess);
+  #+end_src
+
+* cargo
+** new project
+   #+begin_src shell
+     cargo new <projectname>
+   #+end_src
+** check syntax
+   #+begin_src shell
+     cargo check
+   #+end_src
+** build
+   #+begin_src shell
+     # debug
+     cargo build
+     # release
+     cargo build --release
+   #+end_src
+** run (compile, then run)
+   #+begin_src shell
+     cargo run
+   #+end_src
+** update crates
+   #+begin_src shell
+     cargo update
+   #+end_src
