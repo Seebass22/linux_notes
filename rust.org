@@ -40,6 +40,7 @@
   - names in snake_case
   - can be defined anywhere (even after their use)
   - type annotations required in parameter list
+  - passing a variable to a function will move or copy it
     #+begin_src rust
       fn main() {
 	  function(5, 8);
@@ -175,8 +176,99 @@
   - can be declared in any scope
   - must be set to a constant expression (cannot be computed at runtime)
     #+begin_src rust
-      const MAX_POINTS: u32 = 100_000
+      const MAX_POINTS: u32 = 100_000;
     #+end_src
+
+* strings
+** string literals
+   - immutable
+   - stack allocated
+     #+begin_src rust
+       let s = "hello";
+     #+end_src
+** =String= type
+   - mutable
+   - heap allocated
+     #+begin_src rust
+       let s = String::from("hello");
+       // append a literal to string
+       s.push_str(", world!");
+       // duplicate string
+       let s2 = s.clone();
+     #+end_src
+  - reassigning a =String= invalidates the old reference
+    #+begin_src rust
+      let s1 = String::from("hello");
+      let s2 = s1;
+      // compiler error
+      println!("{}, world!", s1);
+    #+end_src
+*** string slices
+    - reference to part of a string
+    - range indices must occur at valid UTF-8 character boundaries
+      #+begin_src rust
+	let s = String::from("hello world");
+	// [start..end]
+	// does not in include "end" element
+	let hello = &s[0..5];
+	let world = &s[6..11];
+
+	// you can omit the start or end if the slice includes it
+	let hello = &s[..5];
+	let world = &s[6..];
+	// omit both values to create slice of entire string
+	let slice = &s[..];
+      #+end_src
+
+* ownership
+  - every value in rust has an owner
+  - there can only be one owner at a time
+  - when the owner goes out of scope, the value is dropped (deallocated)
+  - functions take ownership of parameters
+    #+begin_src rust
+      {
+	  let s1 = String::from("hello"); // s1 is valid
+      } // s1 is no longer valid
+
+      let s2 = String::from("hello"); // s2 comes into scope
+      takes_ownership(s2); // s2's value moves into the function...
+      // ... and so is no longer valid here
+
+      let x = 5; // x comes into scope
+      makes_copy(x); // x is copied (i32 is a copy type)
+      // x is still valid
+    #+end_src
+** references
+   - refer to something but do not own it
+   - allow calling functions without transfering ownership
+     #+begin_src rust
+       fn main() {
+	   let s1 = String::from("hello");
+	   let len = calculate_length(&s1);
+	   println!("The length of '{}' is {}.", s1, len);
+       }
+
+       fn calculate_length(s: &String) -> usize {
+	   s.len()
+       }
+     #+end_src
+   - do not allow modifying "borrowed" variable unless mutable
+   - only one mutable reference to a piece of data can exist in a scope
+     #+begin_src rust
+       let mut s = String::from("hello");
+       let r1 = &mut s;
+       // compiler error
+       let r2 = &mut s;
+     #+end_src
+   - cannot combine mutable and immutable references
+     #+begin_src rust
+       let mut s = String::from("hello");
+       let r1 = &s; // no problem
+       let r2 = &s; // no problem
+       // compiler error
+       let r3 = &mut s;
+     #+end_src
+   - cannot be dangling (must be valid)
 
 * error handling
 ** expect
