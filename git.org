@@ -53,6 +53,26 @@
       git log --merges
     #+end_src
 
+* rebasing
+  rewrite git history
+** start interactive rebase
+   #+begin_src shell
+     git rebase -i <rev>
+   #+end_src
+** split a commit
+   1. start an interactive rebase and select edit (in interactive rebase)
+   2. at chosen commit: reset index
+      #+begin_src shell
+	git reset HEAD^
+      #+end_src
+   3. =git add= things
+   4. commit
+   5. repeat as many times as necessary
+   6. continue/finish rebase
+      #+begin_src shell
+	git rebase --continue
+      #+end_src
+
 * MISC
 ** find commit that modifies particular line of code
    example: find all commits that modified/added/removed a line containing Debug.Log
