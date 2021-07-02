@@ -3,6 +3,8 @@
    C-x b
 ** cycle through kill-ring (after paste)
    C-p
+** cycle through command history
+   M-n M-p
 
 * magit
 ** general
@@ -95,6 +97,8 @@
 * misc
 ** evaluate lisp statement under cursor
    C-x C-e
+** speedbar-mode
+   file menu
 
 * TRAMP
 ** open remote file (or directory) via ssh
@@ -157,3 +161,9 @@
    M-x erc-tls
 ** calculator
    M-x calc
+
+* fun stuff
+** screensaver
+   M-x zone
+** morse code
+   M-x morse-region
