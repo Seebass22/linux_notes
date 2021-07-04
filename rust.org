@@ -27,6 +27,7 @@
 *** arrays
     - elements have same type
     - fixed length
+    - can be sliced just like strings
       #+begin_src rust
 	let months = ["January", "February", "March", "April", "May", "June", "July",
 	"August", "September", "October", "November", "December"];
@@ -128,7 +129,62 @@
 	 );
      }
    #+end_src
-      
+** associated functions
+   - like static methods in other languages
+   - not associated with an instance
+   - often used as constructors
+   - use =::= to call
+     #+begin_src rust
+       impl Rectangle {
+	   fn square(size: u32) -> Rectangle {
+	       Rectangle { width: size, height: size }
+	   }
+       }
+
+       fn main(){
+	   let sq = Rectangle::square(3)
+       }
+     #+end_src
+
+* enums
+  - can have methods
+  - can contain data (of different types)
+    #+begin_src rust
+      enum IpAddr {
+	  V4(u8, u8, u8, u8),
+	  V6(String),
+      }
+      let home = IpAddr::V4(127, 0, 0, 1);
+      let loopback = IpAddr::V6(String::from("::1"));
+    #+end_src
+** option enum
+   #+begin_src rust
+     enum Option<T> {
+	 Some(T),
+	 None,
+     }
+   #+end_src
+   - automatically included in prelude
+   - can use =Some= and =None= without =Option::= prefix
+   #+begin_src rust
+     let some_number = Some(5);
+     let some_string = Some("a string");
+     let absent_number: Option<i32> = None;
+   #+end_src
+   #+begin_src rust
+     fn plus_one(x: Option<i32>) -> Option<i32> {
+	 // return None if None
+	 // else add 1 to value
+	 match x {
+	     None => None,
+	     Some(i) => Some(i + 1),
+	 }
+     }
+     let five = Some(5);
+     let six = plus_one(five);
+     let none = plus_one(None);
+   #+end_src
+  
 * functions
   - names in snake_case
   - can be defined anywhere (even after their use)
@@ -220,7 +276,10 @@
   #+end_src
   
 * match
-  like a switch statement
+  - like a switch statement
+  - can extract values from enums 
+  - must cover every possible case
+  - =_= matches any value
   #+begin_src rust
     match guess.cmp(&secret_number) {
 	Ordering::Less => println!("Too small!"),
@@ -230,7 +289,31 @@
 	    break;
 	}
     }
+
+    let some_u8_value = 0u8;
+    match some_u8_value {
+	1 => println!("one"),
+	3 => println!("three"),
+	5 => println!("five"),
+	7 => println!("seven"),
+	_ => (),
+    }
   #+end_src
+** if let
+   - takes a pattern and expression separated by equals
+     #+begin_src rust
+       let some_u8_value = Some(0u8);
+
+       if let Some(3) = some_u8_value {
+	   println!("three");
+       }
+
+       // same as
+       match some_u8_value {
+	   Some(3) => println!("three"),
+	   _ => (),
+       }
+     #+end_src
   
 * mutability
   variables are immutable by default
