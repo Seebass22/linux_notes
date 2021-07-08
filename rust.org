@@ -274,6 +274,51 @@
 
     io::Stdin
   #+end_src
+  - works with user defined modules too
+    #+begin_src rust
+      mod front_of_house {
+	  pub mod hosting {
+	      pub fn add_to_waitlist() {}
+	  }
+      }
+
+      use crate::front_of_house::hosting;
+      // or use relative path
+      // use front_of_house::hosting;
+
+      pub fn eat_at_restaurant() {
+	  hosting::add_to_waitlist();
+	  hosting::add_to_waitlist();
+      }
+    #+end_src
+** nested paths
+   #+begin_src rust
+     use std::{io, cmp::Ordering};
+   #+end_src
+** glob operator
+   - brings all public items into scope
+     #+begin_src rust
+       use std::collections::*;
+     #+end_src
+** =as= keyword
+   - allows you to use a different name
+     #+begin_src rust
+       use std::fmt::Result;
+       use std::io::Result as IoResult;
+
+       fn function1() -> Result {
+	   // --snip--
+       }
+       fn function2() -> IoResult<()> {
+	   // --snip--
+       }
+     #+end_src
+** re-exporting with =pub use=
+   - bring an item into scope and make it avaiable for others
+   #+begin_src rust
+     // allow external code to call hosting::add_to_waitlist without full path
+     pub use crate::front_of_house::hosting;
+   #+end_src
   
 * match
   - like a switch statement
@@ -489,6 +534,70 @@
   #+begin_src rust
     println!("You guessed: {}", guess);
   #+end_src
+
+* modules
+  - put something in a module if you want it to be private
+  #+begin_src rust
+    mod front_of_house {
+	pub mod hosting {
+	    pub fn add_to_waitlist() {}
+	}
+    }
+  #+end_src
+  - can be called with absolute (with =crate::=) or relative path
+    #+begin_src rust
+      pub fn eat_at_restaurant() {
+	  // Absolute path
+	  crate::front_of_house::hosting::add_to_waitlist();
+	  // Relative path
+	  front_of_house::hosting::add_to_waitlist();
+      }
+    #+end_src
+  - reference parent module with =super::=
+    #+begin_src rust
+      fn serve_order() {}
+
+      mod back_of_house {
+	  fn fix_incorrect_order() {
+	      cook_order();
+	      super::serve_order();
+	  }
+
+	  fn cook_order() {}
+      }
+    #+end_src
+** public structs
+   - use keyword =pub= to designate structs and enums as public
+   - the fields will remain private, can be made public on case-by-case basis
+     #+begin_src rust
+       mod back_of_house {
+	   pub struct Breakfast {
+	       pub toast: String,
+	       seasonal_fruit: String,
+	   }
+
+	   impl Breakfast {
+	       pub fn summer(toast: &str) -> Breakfast {
+		   Breakfast {
+		       toast: String::from(toast),
+		       seasonal_fruit: String::from("peaches"),
+		   }
+	       }
+	   }
+       }
+       pub fn eat_at_restaurant() {
+	   // Order a breakfast in the summer with Rye toast
+	   let mut meal = back_of_house::Breakfast::summer("Rye");
+	   // Change our mind about what bread we'd like
+	   meal.toast = String::from("Wheat");
+	   println!("I'd like {} toast please", meal.toast);
+
+	   // compiler error - cannot modify private field seasonal_fruit
+	   meal.seasonal_fruit = String::from("blueberries");
+       }
+     #+end_src
+** public enums
+   - enums are public by default
 
 * cargo
 ** new project
