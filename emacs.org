@@ -62,10 +62,10 @@
    =C-x 5 o=
 
 * dired
-** go up a directory
-   ^
 ** open file in other buffer
    shift-RET
+** view file (q to close)
+   go
 ** mkdir
    +
 ** marking

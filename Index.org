@@ -5,6 +5,7 @@
 [[matlab.org]]
 [[R.org]]
 [[python.org]]
+[[rust.org]]
 
 # CLI PROGRAMS
 [[general.org]]
