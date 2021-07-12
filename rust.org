@@ -114,6 +114,10 @@
 	  println!("{}: {}", key, value);
       }
     #+end_src
+*** iterate over keys
+    =.keys()=
+*** iterate over values
+    =.values()=
 *** overwrite value
     #+begin_src rust
       scores.insert(String::from("Blue"), 10);
@@ -274,6 +278,7 @@
      let some_string = Some("a string");
      let absent_number: Option<i32> = None;
    #+end_src
+   - use =match= to get value
    #+begin_src rust
      fn plus_one(x: Option<i32>) -> Option<i32> {
 	 // return None if None
@@ -287,6 +292,8 @@
      let six = plus_one(five);
      let none = plus_one(None);
    #+end_src
+   - use =unwrap= to return value (only if you're sure a value is present)
+     - will panic if None
   
 * functions
   - names in =snake_case=
@@ -566,6 +573,12 @@
 	   println!("{}", b);
        }
      #+end_src
+*** check if string contains substring
+    #+begin_src rust
+      if s.contains("ab") {
+	  //..
+      }
+    #+end_src
 ** string slices
    - reference to part of a string
    - range indices must occur at valid UTF-8 character boundaries
@@ -655,14 +668,23 @@
    - cannot be dangling (must be valid)
 
 * error handling
+** =Result= enum
+   #+begin_src rust
+     enum Result<T, E> {
+	 Ok(T),
+	 Err(E),
+     }
+   #+end_src
+   - automatically included in prelude, like =Option=
 ** expect
    print error message and quit on error
+   - works like =unwrap=
    #+begin_src rust
      let mut guess = String::new();
      io::stdin().read_line(&mut guess)
 	 .expect("Failed to read line");
    #+end_src
-** hand error with match
+** handle error with match
    #+begin_src rust
      let guess: u32 = match guess.trim().parse() {
 	 Ok(num) => num,
@@ -670,6 +692,78 @@
 	 Err(_) => continue,
      };
    #+end_src
+*** match multiple error types
+    #+begin_src rust
+      use std::fs::File;
+      use std::io::ErrorKind;
+
+      fn main() {
+	  let f = File::open("hello.txt");
+
+	  let f = match f {
+	      Ok(file) => file,
+	      Err(error) => match error.kind() {
+		  ErrorKind::NotFound => match File::create("hello.txt") {
+		      Ok(fc) => fc,
+		      Err(e) => panic!("Problem creating the file: {:?}", e),
+		  },
+		  other_error => panic!("Problem opening the file: {:?}", other_error),
+	      },
+	  };
+      }
+    #+end_src
+** propogating errors
+   - return a =Result=
+   #+begin_src rust
+     use std::io;
+     use std::io::Read;
+     use std::fs::File;
+
+     fn read_username_from_file() -> Result<String, io::Error> {
+	 let f = File::open("hello.txt");
+	 let mut f = match f {
+	     Ok(file) => file,
+	     Err(e) => return Err(e),
+	 };
+
+	 let mut s = String::new();
+	 match f.read_to_string(&mut s) {
+	     Ok(_) => Ok(s),
+	     Err(e) => Err(e),
+	 }
+     }
+   #+end_src
+*** shorthand: =?= operator
+    - returns value inside Ok to expression if Ok
+    - returns Err from the whole function if Err
+      - uses =From= trait to convert between error types
+      - can only be used in functions that return =Result= enum
+    #+begin_src rust
+      use std::io;
+      use std::io::Read;
+      use std::fs::File;
+
+      fn read_username_from_file() -> Result<String, io::Error> {
+	  let mut f = File::open("hello.txt")?;
+	  let mut s = String::new();
+	  f.read_to_string(&mut s)?;
+	  Ok(s)
+      }
+    #+end_src
+    or chain calls
+    #+begin_src rust
+      use std::io;
+      use std::io::Read;
+      use std::fs::File;
+
+      fn read_username_from_file() -> Result<String, io::Error> {
+	  let mut s = String::new();
+	  File::open("hello.txt")?.read_to_string(&mut s)?;
+	  Ok(s)
+      }
+    #+end_src
+** any kind of error
+   =Box<dyn Error>>=
 
 * print a variable
   #+begin_src rust
