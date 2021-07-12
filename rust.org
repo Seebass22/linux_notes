@@ -765,6 +765,128 @@
 ** any kind of error
    =Box<dyn Error>>=
 
+* generics
+** functions
+   #+begin_src rust
+     fn do_something<T>(list: &[T]) -> T {
+     }
+   #+end_src
+** structs and methods
+   #+begin_src rust
+     struct Point<T> {
+	 x: T,
+	 y: T,
+     }
+
+     // method for all types
+     impl<T> Point<T> {
+	 fn x(&self) -> &T {
+	     &self.x
+	 }
+     }
+
+     // method just for f32
+     impl Point<f32> {
+	 fn distance_from_origin(&self) -> f32 {
+	     (self.x.powi(2) + self.y.powi(2)).sqrt()
+	 }
+     }
+   #+end_src
+
+* traits
+  - similar to interfaces in other languages
+  - can only be implemented if the trait or type is local to the crate
+    (can't implement external traits on external types)
+    #+begin_src rust
+      // trait definition
+      pub trait Summary {
+	  fn summarize(&self) -> String;
+      }
+
+      pub struct NewsArticle {
+	  pub headline: String,
+	  pub location: String,
+	  pub author: String,
+	  pub content: String,
+      }
+
+      // implement Summary trait for NewsArticle
+      impl Summary for NewsArticle {
+	  fn summarize(&self) -> String {
+	      format!("{}, by {} ({})", self.headline, self.author, self.location)
+	  }
+      }
+
+      pub struct Tweet {
+	  pub username: String,
+	  pub content: String,
+	  pub reply: bool,
+	  pub retweet: bool,
+      }
+
+      // implement Summary trait for Tweet
+      impl Summary for Tweet {
+	  fn summarize(&self) -> String {
+	      format!("{}: {}", self.username, self.content)
+	  }
+      }
+    #+end_src
+** default implementations
+   - can mix default and required implementations in one trait
+   - cannot call default implementation from overriding one
+   #+begin_src rust
+     // definition
+     pub trait Summary {
+	 fn summarize(&self) -> String {
+	     String::from("(Read more...)")
+	 }
+     }
+
+     // use default implementation of Summary for NewsArticle
+     impl Summary for NewsArticle {}
+   #+end_src
+** traits as parameters
+   #+begin_src rust
+     // takes any type that implements Summary trait as parameter
+     pub fn notify(item: impl Summary) {
+	 println!("Breaking news! {}", item.summarize());
+     }
+   #+end_src
+*** trait bound syntax
+    #+begin_src rust
+      pub fn notify<T: Summary>(item: T) {
+	  println!("Breaking news! {}", item.summarize());
+      }
+    #+end_src
+*** multiple trait bounds
+    #+begin_src rust
+      pub fn notify(item: impl Summary + Display) {}
+	  // or
+      pub fn notify<T: Summary + Display>(item: T) {}
+    #+end_src
+*** =where= clauses
+    #+begin_src rust
+      fn some_function<T, U>(t: T, u: U) -> i32
+	  where T: Display + Clone,
+	      U: Clone + Debug
+      {}
+      // same as
+      fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {}
+    #+end_src
+*** conditionally implement method if traits are implemented
+    #+begin_src rust
+      impl<T: Display + PartialOrd> Pair<T> {
+    #+end_src
+*** implement trait if other traits are implemented
+    #+begin_src rust
+      impl<T: Display> ToString for T {
+    #+end_src
+** traits as return types
+   - only works if function/method returns only one type
+   #+begin_src rust
+     fn returns_summarizable() -> impl Summary {
+   #+end_src
+
 * print a variable
   #+begin_src rust
     println!("You guessed: {}", guess);
