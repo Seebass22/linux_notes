@@ -887,6 +887,52 @@
      fn returns_summarizable() -> impl Summary {
    #+end_src
 
+* lifetime annotations
+  - don't change how long references live
+  - describe the relationships of the lifetimes of multiple references to each other
+  - tell the borrow checker how to behave (to allow code to compile)
+  #+begin_src rust
+    &i32 // a reference
+    &'a i32 // a reference with an explicit lifetime
+    &'a mut i32 // a mutable reference with an explicit lifetime
+  #+end_src
+** in function signatures
+   - functions that return references usually require lifetime annotations
+   #+begin_src rust
+     fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+	 //...
+     }
+   #+end_src
+*** lifetime elision
+    exceptions that don't require lifetime annotations
+    - each reference parameter gets its own lifetime parameter
+    - if there is 1 input lifetime parameter, all output lifetime parameters get that lifetime
+    - if one input lifetime parameter is =&self= or =&mut self=, the output lifetime is the lifetime of self
+** in struct definitions
+   - structs that contain references require lifetime annotations
+   #+begin_src rust
+     struct ImportantExcerpt<'a> {
+	 part: &'a str,
+     }
+   #+end_src
+** in methods
+   #+begin_src rust
+     impl<'a> ImportantExcerpt<'a> {
+	 fn level(&self) -> i32 {
+	     3
+	 }
+
+	 // no lifetimes required due to lifetime elision rules
+	 fn announce_and_return_part(&self, announcement: &str) -> &str {
+	     println!("Attention please: {}", announcement);
+	     self.part
+	 }
+     }
+   #+end_src
+** static lifetimes
+   - live the entire duration of the program
+   - string literals always have static lifetimes
+
 * print a variable
   #+begin_src rust
     println!("You guessed: {}", guess);
