@@ -24,13 +24,14 @@
 	    let one = x.2;
 	}
       #+end_src
+
 *** arrays
     - elements have same type
     - fixed length
     - can be sliced just like strings
       #+begin_src rust
 	let months = ["January", "February", "March", "April", "May", "June", "July",
-	"August", "September", "October", "November", "December"];
+		      "August", "September", "October", "November", "December"];
 	let a: [i32; 5] = [1, 2, 3, 4, 5];
 	// array countaining the same element multiple times
 	// [value; length]
@@ -49,11 +50,13 @@
      v.push(7);
      v.push(8);
    #+end_src
+
 *** =vec!= macro
     create a vector with initial values
     #+begin_src rust
       let v = vec![1, 2, 3];
     #+end_src
+
 *** reading elements
     #+begin_src rust
       let v = vec![1, 2, 3, 4, 5];
@@ -66,6 +69,7 @@
 	  None => println!("There is no third element."),
       }
     #+end_src
+
 *** iterating over vector
     #+begin_src rust
       // iterate over vector
@@ -77,9 +81,10 @@
       // iterate over mutable reference to vector
       let mut v = vec![100, 32, 57];
       for i in &mut v {
-	  *i += 50;
+	  ,*i += 50;
       }
     #+end_src
+
 ** hash maps
    - key/value pairs
    #+begin_src rust
@@ -95,6 +100,7 @@
      // returns Some(&10)
      // would return None if no value for the key exists
    #+end_src
+
 *** create hash map from vectors
     #+begin_src rust
       use std::collections::HashMap;
@@ -103,31 +109,37 @@
       let initial_scores = vec![10, 50];
 
       let scores: HashMap<_, _> = teams.iter()
-	  // create vector of tuples (Blue, 10), (Yellow, 50)
+      // create vector of tuples (Blue, 10), (Yellow, 50)
 	  .zip(initial_scores.iter())
-	  // turn into hash map
+      // turn into hash map
 	  .collect();
     #+end_src
+
 *** iterate over key/value pairs
     #+begin_src rust
       for (key, value) in &scores {
 	  println!("{}: {}", key, value);
       }
     #+end_src
+
 *** iterate over keys
     =.keys()=
+
 *** iterate over values
     =.values()=
+
 *** overwrite value
     #+begin_src rust
       scores.insert(String::from("Blue"), 10);
       scores.insert(String::from("Blue"), 25);
     #+end_src
+
 *** only insert if key has no value
     #+begin_src rust
       scores.entry(String::from("Yellow")).or_insert(50);
       scores.entry(String::from("Blue")).or_insert(50);
     #+end_src
+
 *** update value based on its old value
     - =or_insert= returns a mutable reference to the value
     #+begin_src rust
@@ -138,7 +150,7 @@
 
       for word in text.split_whitespace() {
 	  let count = map.entry(word).or_insert(0);
-	  *count += 1;
+	  ,*count += 1;
       }
       println!("{:?}", map);
       // {"world": 2, "hello": 1, "wonderful": 1}
@@ -178,6 +190,7 @@
 	   }
        }
      #+end_src
+
 ** struct update syntax
    create a new instance, using values from an existing instance
    #+begin_src rust
@@ -188,6 +201,7 @@
 	 ..user1
      };
    #+end_src
+
 ** tuple structs
    - similar to tuples, but named
    - fields are unnamed
@@ -198,6 +212,7 @@
        let black = Color(0, 0, 0);
        let origin = Point(0, 0, 0);
      #+end_src
+
 ** print debug info
    #+begin_src rust
      #[derive(Debug)]
@@ -212,6 +227,7 @@
 	 println!("rect1 is {:#?}", rect1);
      }
    #+end_src
+
 ** methods
    - first parameter is always self
    #+begin_src rust
@@ -236,6 +252,7 @@
 	 );
      }
    #+end_src
+
 ** associated functions
    - like static methods in other languages
    - not associated with an instance
@@ -264,6 +281,7 @@
       let home = IpAddr::V4(127, 0, 0, 1);
       let loopback = IpAddr::V6(String::from("::1"));
     #+end_src
+
 ** option enum
    #+begin_src rust
      enum Option<T> {
@@ -310,6 +328,7 @@
 	  println!("The value of y is: {}", y);
       }
     #+end_src
+
 ** returning values
    - return value is the value of the final expresssion in the function body
    - (expressions do not use semicolons)
@@ -356,6 +375,7 @@
 	   }
        };
      #+end_src
+
 ** while
    #+begin_src rust
      let mut number = 3;
@@ -365,6 +385,7 @@
 	 number = number - 1;
      }
    #+end_src
+
 ** for
    #+begin_src rust
      let a = [10, 20, 30, 40, 50];
@@ -401,15 +422,18 @@
 	  hosting::add_to_waitlist();
       }
     #+end_src
+
 ** nested paths
    #+begin_src rust
      use std::{io, cmp::Ordering};
    #+end_src
+
 ** glob operator
    - brings all public items into scope
      #+begin_src rust
        use std::collections::*;
      #+end_src
+
 ** =as= keyword
    - allows you to use a different name
      #+begin_src rust
@@ -423,6 +447,7 @@
 	   // --snip--
        }
      #+end_src
+
 ** re-exporting with =pub use=
    - bring an item into scope and make it available for others
    #+begin_src rust
@@ -454,21 +479,22 @@
 	_ => (),
     }
   #+end_src
-** if let
-   - takes a pattern and expression separated by equals
-     #+begin_src rust
-       let some_u8_value = Some(0u8);
 
-       if let Some(3) = some_u8_value {
-	   println!("three");
-       }
+* if let
+  - takes a pattern and expression separated by equals
+    #+begin_src rust
+      let some_u8_value = Some(0u8);
 
-       // same as
-       match some_u8_value {
-	   Some(3) => println!("three"),
-	   _ => (),
-       }
-     #+end_src
+      if let Some(3) = some_u8_value {
+	  println!("three");
+      }
+
+      // same as
+      match some_u8_value {
+	  Some(3) => println!("three"),
+	  _ => (),
+      }
+    #+end_src
   
 * mutability
   variables are immutable by default
@@ -498,7 +524,7 @@
   lets you change type
   #+begin_src rust
     let spaces = "   "
-    let spaces = spaces.len();
+	let spaces = spaces.len();
   #+end_src
   
 * constants
@@ -518,6 +544,7 @@
      #+begin_src rust
        let s = "hello";
      #+end_src
+
 ** =String= type
    - mutable
    - heap allocated
@@ -536,13 +563,14 @@
        let s3 = s1 + &s2; // s1 has been moved here and can no longer be used
        // alternatively use format! macro
      #+end_src
-  - reassigning a =String= invalidates the old reference
-    #+begin_src rust
-      let s1 = String::from("hello");
-      let s2 = s1;
-      // compiler error
-      println!("{}, world!", s1);
-    #+end_src
+   - reassigning a =String= invalidates the old reference
+     #+begin_src rust
+       let s1 = String::from("hello");
+       let s2 = s1;
+       // compiler error
+       println!("{}, world!", s1);
+     #+end_src
+
 *** to_string
     - works on any type that implements the =Display= trait
     #+begin_src rust
@@ -551,6 +579,7 @@
       // also works on a literal directly
       let s = "initial contents".to_string();
     #+end_src
+
 *** =format!= macro
     - works like println! but returns a string instead of printing it
     #+begin_src rust
@@ -560,6 +589,7 @@
 
       let s = format!("{}-{}-{}", s1, s2, s3);
     #+end_src
+
 *** iterating over strings
 **** over unicode scalar values
      #+begin_src rust
@@ -573,12 +603,14 @@
 	   println!("{}", b);
        }
      #+end_src
+
 *** check if string contains substring
     #+begin_src rust
       if s.contains("ab") {
 	  //..
       }
     #+end_src
+
 ** string slices
    - reference to part of a string
    - range indices must occur at valid UTF-8 character boundaries
@@ -676,6 +708,7 @@
      }
    #+end_src
    - automatically included in prelude, like =Option=
+
 ** expect
    print error message and quit on error
    - works like =unwrap=
@@ -684,6 +717,7 @@
      io::stdin().read_line(&mut guess)
 	 .expect("Failed to read line");
    #+end_src
+
 ** handle error with match
    #+begin_src rust
      let guess: u32 = match guess.trim().parse() {
@@ -692,6 +726,7 @@
 	 Err(_) => continue,
      };
    #+end_src
+
 *** match multiple error types
     #+begin_src rust
       use std::fs::File;
@@ -712,6 +747,7 @@
 	  };
       }
     #+end_src
+
 ** propogating errors
    - return a =Result=
    #+begin_src rust
@@ -733,6 +769,7 @@
 	 }
      }
    #+end_src
+
 *** shorthand: =?= operator
     - returns value inside Ok to expression if Ok
     - returns Err from the whole function if Err
@@ -762,6 +799,7 @@
 	  Ok(s)
       }
     #+end_src
+
 ** any kind of error
    =Box<dyn Error>>=
 
@@ -771,6 +809,7 @@
      fn do_something<T>(list: &[T]) -> T {
      }
    #+end_src
+
 ** structs and methods
    #+begin_src rust
      struct Point<T> {
@@ -831,6 +870,7 @@
 	  }
       }
     #+end_src
+
 ** default implementations
    - can mix default and required implementations in one trait
    - cannot call default implementation from overriding one
@@ -845,6 +885,7 @@
      // use default implementation of Summary for NewsArticle
      impl Summary for NewsArticle {}
    #+end_src
+
 ** traits as parameters
    #+begin_src rust
      // takes any type that implements Summary trait as parameter
@@ -852,35 +893,41 @@
 	 println!("Breaking news! {}", item.summarize());
      }
    #+end_src
+
 *** trait bound syntax
     #+begin_src rust
       pub fn notify<T: Summary>(item: T) {
 	  println!("Breaking news! {}", item.summarize());
       }
     #+end_src
+
 *** multiple trait bounds
     #+begin_src rust
       pub fn notify(item: impl Summary + Display) {}
-	  // or
+      // or
       pub fn notify<T: Summary + Display>(item: T) {}
     #+end_src
+
 *** =where= clauses
     #+begin_src rust
       fn some_function<T, U>(t: T, u: U) -> i32
-	  where T: Display + Clone,
-	      U: Clone + Debug
+      where T: Display + Clone,
+	    U: Clone + Debug
       {}
       // same as
       fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {}
     #+end_src
+
 *** conditionally implement method if traits are implemented
     #+begin_src rust
       impl<T: Display + PartialOrd> Pair<T> {
     #+end_src
+
 *** implement trait if other traits are implemented
     #+begin_src rust
       impl<T: Display> ToString for T {
     #+end_src
+
 ** traits as return types
    - only works if function/method returns only one type
    #+begin_src rust
@@ -893,8 +940,8 @@
   - tell the borrow checker how to behave (to allow code to compile)
   #+begin_src rust
     &i32 // a reference
-    &'a i32 // a reference with an explicit lifetime
-    &'a mut i32 // a mutable reference with an explicit lifetime
+	&'a i32 // a reference with an explicit lifetime
+	&'a mut i32 // a mutable reference with an explicit lifetime
   #+end_src
 ** in function signatures
    - functions that return references usually require lifetime annotations
@@ -903,11 +950,13 @@
 	 //...
      }
    #+end_src
+
 *** lifetime elision
     exceptions that don't require lifetime annotations
     - each reference parameter gets its own lifetime parameter
     - if there is 1 input lifetime parameter, all output lifetime parameters get that lifetime
     - if one input lifetime parameter is =&self= or =&mut self=, the output lifetime is the lifetime of self
+
 ** in struct definitions
    - structs that contain references require lifetime annotations
    #+begin_src rust
@@ -915,6 +964,7 @@
 	 part: &'a str,
      }
    #+end_src
+
 ** in methods
    #+begin_src rust
      impl<'a> ImportantExcerpt<'a> {
@@ -929,6 +979,7 @@
 	 }
      }
    #+end_src
+
 ** static lifetimes
    - live the entire duration of the program
    - string literals always have static lifetimes
@@ -969,9 +1020,11 @@
 	}
     }
   #+end_src
+
 ** =assert!= macro
    - does nothing if value evaluates to true
    - panics if value evaluates to false
+
 *** print error message on failure
     #+begin_src rust
       let result = greeting("Carol");
@@ -980,11 +1033,13 @@
 	  "Greeting did not contain name, value was `{}`", result
       );
     #+end_src
+
 ** =assert_eq!= and =assert_ne!= macros
    - check if two values are equal or not equal
      #+begin_src rust
        assert_eq!(4, add_two(2));
      #+end_src
+
 ** asserting that a panic happened
    #+begin_src rust
      #[test]
@@ -993,6 +1048,7 @@
 	 Guess::new(200);
      }
    #+end_src
+
 *** check if error message contains substring
     - specify a substring of the error message (leave out dynamic content)
     #+begin_src rust
@@ -1002,11 +1058,13 @@
 	  Guess::new(200);
       }
     #+end_src
+
 ** using =Result<T, E>= in tests
    - return =Ok(())= on success
    - return =Err= with an error message string on fail
    - allows using the =?= operator to fail if any operation in test fails
    - can't use =#[should_panic]= in tests that return =Result<T, E>=
+
 ** ignoring tests by default
    #+begin_src rust
      #[test]
@@ -1015,6 +1073,7 @@
 	 // code that takes an hour to run
      }
    #+end_src
+
 ** integration tests
    - in =tests= directory
    - put common code in a subdirectory in =tests=, such as =tests/common/rust.rs=
@@ -1026,13 +1085,9 @@
 	   assert_eq!(4, adder::add_two(2));
        }
      #+end_src
+
 *** binary crates
     - can't create integration tests in =tests= and bring functions from =src/main.rs= into scope with use
-
-* print a variable
-  #+begin_src rust
-    println!("You guessed: {}", guess);
-  #+end_src
 
 * modules
   - put something in a module if you want it to be private
@@ -1065,6 +1120,7 @@
 	  fn cook_order() {}
       }
     #+end_src
+
 ** public structs
    - use keyword =pub= to designate structs and enums as public
    - the fields will remain private, can be made public on case-by-case basis
@@ -1095,6 +1151,7 @@
 	   meal.seasonal_fruit = String::from("blueberries");
        }
      #+end_src
+
 ** public enums
    - enums are public by default
 
@@ -1103,10 +1160,12 @@
    #+begin_src shell
      cargo new <projectname>
    #+end_src
+
 ** check syntax
    #+begin_src shell
      cargo check
    #+end_src
+
 ** build
    #+begin_src shell
      # debug
@@ -1114,14 +1173,17 @@
      # release
      cargo build --release
    #+end_src
+
 ** run (compile, then run)
    #+begin_src shell
      cargo run
    #+end_src
+
 ** update crates
    #+begin_src shell
      cargo update
    #+end_src
+
 ** run tests
    #+begin_src shell
      cargo test
@@ -1132,10 +1194,12 @@
      # show all output
      cargo test -- --show-output
    #+end_src
+
 *** filter tests
     - pass the name of a test that should run
     - or pass a substring in the name of the tests that should run
     - or pass a module name
+
 *** run only ignored tests
     #+begin_src shell
       cargo test -- --ignored
