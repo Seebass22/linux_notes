@@ -49,7 +49,7 @@
      v.push(7);
      v.push(8);
    #+end_src
-*** vec! macro
+*** =vec!= macro
     create a vector with initial values
     #+begin_src rust
       let v = vec![1, 2, 3];
@@ -424,7 +424,7 @@
        }
      #+end_src
 ** re-exporting with =pub use=
-   - bring an item into scope and make it avaiable for others
+   - bring an item into scope and make it available for others
    #+begin_src rust
      // allow external code to call hosting::add_to_waitlist without full path
      pub use crate::front_of_house::hosting;
@@ -551,7 +551,7 @@
       // also works on a literal directly
       let s = "initial contents".to_string();
     #+end_src
-*** format! macro
+*** =format!= macro
     - works like println! but returns a string instead of printing it
     #+begin_src rust
       let s1 = String::from("tic");
@@ -933,6 +933,102 @@
    - live the entire duration of the program
    - string literals always have static lifetimes
 
+* tests
+  - tests fail if panic occurs
+  #+begin_src rust
+    #[derive(Debug)]
+    pub struct Rectangle {
+	length: u32,
+	width: u32,
+    }
+    impl Rectangle {
+	pub fn can_hold(&self, other: &Rectangle) -> bool {
+	    self.length > other.length && self.width > other.width
+	}
+    }
+
+    #[cfg(test)]
+    mod tests {
+	// bring contents of outer module into scope
+	use super::*;
+
+	#[test]
+	fn larger_can_hold_smaller() {
+	    let larger = Rectangle { length: 8, width: 7 };
+	    let smaller = Rectangle { length: 5, width: 1 };
+
+	    assert!(larger.can_hold(&smaller));
+	}
+
+	#[test]
+	fn smaller_cannot_hold_larger() {
+	    let larger = Rectangle { length: 8, width: 7 };
+	    let smaller = Rectangle { length: 5, width: 1 };
+
+	    assert!(!smaller.can_hold(&larger));
+	}
+    }
+  #+end_src
+** =assert!= macro
+   - does nothing if value evaluates to true
+   - panics if value evaluates to false
+*** print error message on failure
+    #+begin_src rust
+      let result = greeting("Carol");
+      assert!(
+	  result.contains("Carol"),
+	  "Greeting did not contain name, value was `{}`", result
+      );
+    #+end_src
+** =assert_eq!= and =assert_ne!= macros
+   - check if two values are equal or not equal
+     #+begin_src rust
+       assert_eq!(4, add_two(2));
+     #+end_src
+** asserting that a panic happened
+   #+begin_src rust
+     #[test]
+     #[should_panic]
+     fn greater_than_100() {
+	 Guess::new(200);
+     }
+   #+end_src
+*** check if error message contains substring
+    - specify a substring of the error message (leave out dynamic content)
+    #+begin_src rust
+      #[test]
+      #[should_panic(expected = "Guess value must be less than or equal to 100")]
+      fn greater_than_100() {
+	  Guess::new(200);
+      }
+    #+end_src
+** using =Result<T, E>= in tests
+   - return =Ok(())= on success
+   - return =Err= with an error message string on fail
+   - allows using the =?= operator to fail if any operation in test fails
+   - can't use =#[should_panic]= in tests that return =Result<T, E>=
+** ignoring tests by default
+   #+begin_src rust
+     #[test]
+     #[ignore]
+     fn expensive_test() {
+	 // code that takes an hour to run
+     }
+   #+end_src
+** integration tests
+   - in =tests= directory
+   - put common code in a subdirectory in =tests=, such as =tests/common/rust.rs=
+     #+begin_src rust
+       use adder;
+
+       #[test]
+       fn it_adds_two() {
+	   assert_eq!(4, adder::add_two(2));
+       }
+     #+end_src
+*** binary crates
+    - can't create integration tests in =tests= and bring functions from =src/main.rs= into scope with use
+
 * print a variable
   #+begin_src rust
     println!("You guessed: {}", guess);
@@ -1026,3 +1122,22 @@
    #+begin_src shell
      cargo update
    #+end_src
+** run tests
+   #+begin_src shell
+     cargo test
+
+     # set number of threads
+     cargo test -- --test-threads=1
+
+     # show all output
+     cargo test -- --show-output
+   #+end_src
+*** filter tests
+    - pass the name of a test that should run
+    - or pass a substring in the name of the tests that should run
+    - or pass a module name
+*** run only ignored tests
+    #+begin_src shell
+      cargo test -- --ignored
+    #+end_src
+
