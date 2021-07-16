@@ -1225,6 +1225,74 @@
 ** create an iterator on custom types
    - implement =Iterator= trait: write =next= method
 
+* smart pointers
+** =Box<T>=
+   - box stored on stack, data stored on heap
+    #+begin_src rust
+      fn main() {
+	  // store an i32 on the heap
+	  let b = Box::new(5);
+	  println!("b = {}", b);
+      }
+    #+end_src
+
+** =Rc<T>=
+   - reference counting
+   - enables multiple owners of the same data
+   - allows immutable borrows checked at runtime
+   - only used for single-threaded scenarios
+   - calling =Rc::clone= increases the reference count
+
+*** =downgrade=
+    returns a weak reference of type =Weak<T>=
+    - increases only =weak_count= rather than reference count
+
+*** =upgrade=
+    upgrades a weak reference to a =Rc<T>=
+    - returns an =Option<RC<T>>=
+    - None if value has been dropped
+
+** RefCell<T>
+   - only used for single-threaded scenarios
+   - allows mutable (and immutable) borrows checked at runtime
+   - can mutate data even when the =RefCell<T>= is immutable
+
+*** =borrow=
+    - returns an immutable =Ref<T>= smart pointer
+
+*** =borrow_mut=
+    - returns a =RefMut<T>= smart pointer that allows mutating the inner value
+
+** implementing dereferencing
+   - return a plain reference to data
+   #+begin_src rust
+     use std::ops::Deref;
+
+     impl<T> Deref for MyBox<T> {
+	 type Target = T;
+
+	 fn deref(&self) -> &T {
+	     &self.0
+	 }
+     }
+   #+end_src
+
+** deref coercion
+   rust automatically calls =deref= to convert a parameter to the one required (as long as this can be achieved through dereferencing)
+   - resolved at compile time -> no runtime performance penalty
+   #+begin_src rust
+     fn hello(name: &str) {
+	 println!("Hello, {}!", name);
+     }
+
+     fn main() {
+	 let m = MyBox::new(String::from("Rust"));
+	 // converts &MyBox<String> into &String
+	 // and then &String into &str to match function signature
+	 hello(&m);
+     }
+   #+end_src
+
 * misc
 ** iterate thorugh lines of a string
    #+begin_src rust
