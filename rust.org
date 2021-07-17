@@ -1222,6 +1222,16 @@
        }
      #+end_src
 
+** =fold=
+   fold every element into an accumulator by apply an operation, return final result
+   #+begin_src rust
+     let a = [1, 2, 3, 4];
+
+     // product of the elements
+     let sum = a.iter().fold(1, |acc, x| acc * x);
+     assert_eq!(sum, 6);
+   #+end_src
+
 ** create an iterator on custom types
    - implement =Iterator= trait: write =next= method
 
@@ -1292,6 +1302,128 @@
 	 hello(&m);
      }
    #+end_src
+
+* threads
+** =spawn=
+   spawn a thread, pass a closure
+   #+begin_src rust
+     let handle = thread::spawn(|| {
+	 for i in 1..10 {
+	     println!("hi number {} from the spawned thread!", i);
+	     thread::sleep(Duration::from_millis(1));
+	 }
+     });
+   #+end_src
+
+** =join=
+   join with a terminated thread (block until thread finishes)
+   #+begin_src rust
+     handle.join().unwrap();
+   #+end_src
+
+** move values into thread
+   =move= keyword in front of closure
+   #+begin_src rust
+     let v = vec![1, 2, 3];
+
+     let handle = thread::spawn(move || {
+	 println!("Here's a vector: {:?}", v);
+     });
+   #+end_src
+
+** channels
+   send messages between threads
+   #+begin_src rust
+     use std::thread;
+     use std::sync::mpsc;
+
+     fn main() {
+	 let (tx, rx) = mpsc::channel();
+
+	 thread::spawn(move || {
+	     let val = String::from("hi");
+	     // send
+	     tx.send(val).unwrap();
+	 });
+
+	 // receive
+	 let received = rx.recv().unwrap();
+	 println!("Got: {}", received);
+     }
+
+   #+end_src
+
+*** =recv=
+    - blocks until a value is received
+    - if sending end closes, returns Err
+      #+begin_src rust
+	let received = rx.recv().unwrap();
+      #+end_src
+
+*** =try_recv=
+    - doesn't block, returns Result<T, E>
+    - =Ok= (with message) if message available, =Err= if no message
+
+*** using =rx= like an iterator
+    iteration ends when the channel closes
+    #+begin_src rust
+      for received in rx {
+	  println!("Got: {}", received);
+      }
+    #+end_src
+
+*** =clone=
+    create multiple producers by cloning the sending end of the channel
+    #+begin_src rust
+      let (tx, rx) = mpsc::channel();
+      let tx1 = mpsc::Sender::clone(&tx);
+    #+end_src
+
+** shared access
+*** Mutex<T>
+    - value can only be accessed by calling =lock=
+    - releases lock when =MutexGuard= goes out of scope
+    - =lock= fails if thread holding lock panics
+      #+begin_src rust
+	use std::sync::Mutex;
+	fn main() {
+	    let m = Mutex::new(5);
+	    {
+		let mut num = m.lock().unwrap();
+		,*num = 6;
+	    }
+	    println!("m = {:?}", m);
+	}
+      #+end_src
+
+*** Arc<T>
+    atomic reference counting
+    - like =Rc<T>=, but can be used accross threads
+    - provides interior mutability like =RefCell=
+      #+begin_src rust
+	use std::sync::{Mutex, Arc};
+	use std::thread;
+
+	fn main() {
+	    let counter = Arc::new(Mutex::new(0));
+	    let mut handles = vec![];
+
+	    for _ in 0..10 {
+		let counter = Arc::clone(&counter);
+		let handle = thread::spawn(move || {
+		    let mut num = counter.lock().unwrap();
+		    ,*num += 1;
+		});
+		handles.push(handle);
+	    }
+
+	    for handle in handles {
+		handle.join().unwrap();
+	    }
+	    println!("Result: {}", *counter.lock().unwrap());
+	}
+
+      #+end_src
 
 * misc
 ** iterate thorugh lines of a string
