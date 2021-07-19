@@ -1214,6 +1214,7 @@
 ** =filter=
    - takes a closure that returns a boolean
    - returns the items for which that closure returns true (filters out the rest)
+   - use =filter_map= to combine with =map=
      #+begin_src rust
        fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
 	   shoes.into_iter()
@@ -1230,6 +1231,29 @@
      // product of the elements
      let sum = a.iter().fold(1, |acc, x| acc * x);
      assert_eq!(sum, 6);
+   #+end_src
+
+** =flatten=
+   creates an iterator that flattens a nested structure
+   - use =flat_map= to combine with =map=
+   #+begin_src rust
+     let data = vec![vec![1, 2, 3, 4], vec![5, 6]];
+     let flattened = data.into_iter().flatten().collect::<Vec<u8>>();
+     assert_eq!(flattened, &[1, 2, 3, 4, 5, 6]);
+   #+end_src
+
+** =zip=
+   zip up 2 iterators into an iterator of tuples
+   #+begin_src rust
+     let s1 = &[1, 2, 3];
+     let s2 = &[4, 5, 6];
+
+     let mut iter = s1.iter().zip(s2);
+
+     assert_eq!(iter.next(), Some((&1, &4)));
+     assert_eq!(iter.next(), Some((&2, &5)));
+     assert_eq!(iter.next(), Some((&3, &6)));
+     assert_eq!(iter.next(), None);
    #+end_src
 
 ** create an iterator on custom types
