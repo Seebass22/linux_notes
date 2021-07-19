@@ -18,6 +18,9 @@
 	    let (x, y, z) = tup;
 	    println!("The value of y is: {}", y);
 
+	    // use _ to ignore values
+	    let (a, b, _) = tup;
+
 	    // access elements directly using .
 	    let five_hundred = x.0;
 	    let six_point_four = x.1;
@@ -478,7 +481,27 @@
 	7 => println!("seven"),
 	_ => (),
     }
+
+    // prints "Matched, y = 5"
+    fn main() {
+	let x = Some(5);
+
+	match x {
+	    Some(50) => println!("Got 50"),
+	    Some(y) => println!("Matched, y = {:?}", y)
+	}
   #+end_src
+
+** match guards
+   #+begin_src rust
+     let num = Some(4);
+
+     match num {
+	 Some(x) if x < 5 => println!("less than five: {}", x),
+	 Some(x) => println!("{}", x),
+	 None => (),
+     }
+   #+end_src
 
 * if let
   - takes a pattern and expression separated by equals
@@ -1258,6 +1281,119 @@
 
 ** create an iterator on custom types
    - implement =Iterator= trait: write =next= method
+
+* patterns
+  - irrefutable patterns match any possible value
+  - refutable patterns can fail
+  - =_= ignores a values
+  - =..= ignores all remaining values
+** matching literals
+   #+begin_src rust
+     let x = 1;
+
+     match x {
+	 1 => println!("one"),
+	 _ => println!("not one"),
+     }
+   #+end_src
+
+** matching named variables
+   #+begin_src rust
+     let x = some(5);
+
+     match x {
+	 Some(50) => println!("Got 50"),
+	 Some(y) => println!("Matched, y = {:?}", y),
+	 _ => println!("Default case, x = {:?}", x),
+     }
+   #+end_src
+
+** matching multiple patterns
+   #+begin_src rust
+     let x = 1;
+
+     match x {
+	 1 | 2 => println!("one or two"),
+	 3 => println!("three"),
+	 _ => println!("anything"),
+     }
+   #+end_src
+
+** matching ranges
+   - "..=" matches an inclusive range
+   - works for numeric or char values
+   #+begin_src rust
+     let x = 5;
+
+     match x {
+	 1..=5 => println!("one through five"),
+	 _ => println!("something else"),
+     }
+   #+end_src
+
+** destructure struct
+   #+begin_src rust
+     struct Point {
+	 x: i32,
+	 y: i32,
+     }
+
+     fn main() {
+	 let p = Point { x: 0, y: 7 };
+	 let Point { x: a, y: b } = p;
+	 assert_eq!(0, a);
+	 assert_eq!(7, b);
+     }
+   #+end_src
+
+*** shorthand if variable names match field names
+    #+begin_src rust
+      let Point { x, y } = p;
+    #+end_src
+
+*** destructure with literal values
+    #+begin_src rust
+      fn main() {
+	  let p = Point { x: 0, y: 7 };
+
+	  match p {
+	      Point { x, y: 0 } => println!("On the x axis at {}", x),
+	      Point { x: 0, y } => println!("On the y axis at {}", y),
+	      Point { x, y } => println!("On neither axis: ({}, {})", x, y),
+	  }
+      }
+    #+end_src
+
+** =@= bindings
+   test and bind a variable
+   #+begin_src rust
+     enum Message {
+	 Hello { id: i32 },
+     }
+
+     let msg = Message::Hello { id: 5 };
+
+     match msg {
+	 Message::Hello { id: id_variable @ 3..=7 } => {
+	     println!("Found an id in range: {}", id_variable)
+	 },
+	 Message::Hello { id } => {
+	     println!("Found some other id: {}", id)
+	 },
+     }
+   #+end_src
+
+** as function parameters
+   #+begin_src rust
+     fn print_coordinates(&(x, y): &(i32, i32)) {
+	 println!("Current location: ({}, {})", x, y);
+     }
+
+     fn main() {
+	 let point = (3, 5);
+	 print_coordinates(&point);
+     }
+   #+end_src
 
 * smart pointers
 ** =Box<T>=
