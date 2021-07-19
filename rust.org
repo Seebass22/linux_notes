@@ -315,6 +315,7 @@
    #+end_src
    - use =unwrap= to return value (only if you're sure a value is present)
      - will panic if None
+   - use =as_ref= to return option with reference to value
   
 * functions
   - names in =snake_case=
@@ -960,6 +961,13 @@
    #+begin_src rust
      fn returns_summarizable() -> impl Summary {
    #+end_src
+
+* trait objects
+  - dynamic dispatch (at runtime, rather than compile time)
+  #+begin_src rust
+    // trait object that implements Draw trait
+    Box<dyn Draw>
+  #+end_src
 
 * lifetime annotations
   - don't change how long references live
