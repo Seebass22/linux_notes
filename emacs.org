@@ -5,6 +5,8 @@
    C-p
 ** cycle through command history
    M-n M-p
+** toggle evil-state/emacs-state
+   C-z
 
 * narrowing
   C-x n

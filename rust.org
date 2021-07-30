@@ -776,6 +776,9 @@
    - unwraps if Ok
    - calls function/closure if Err
 
+** =map_err=
+   - maps to contained Err or returns Ok
+
 ** propogating errors
    - return a =Result=
    #+begin_src rust
@@ -1233,6 +1236,8 @@
 
 ** =collect=
    consumes the iterator and collects the results into a collection data type
+   - can create a =String= from chars
+   - can create a =Result<Collection<T>, E>= from an iterator over =Result<T, E>=
 
 ** =map=
    perform an action on each element
