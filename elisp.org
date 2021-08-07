@@ -1,0 +1,423 @@
+* general
+** lists
+   #+begin_src emacs-lisp
+     (list 1 2 3
+           4 5 6
+           7 8 9)
+   #+end_src
+
+** checking for equality
+*** same object?
+    #+begin_src emacs-lisp
+      ;; eq - are they the same object?
+      (eq 1 1)
+      (eq 3.1 3.1)
+      (eq "thing" "thing")
+    #+end_src
+
+*** same object or same number?
+    #+begin_src emacs-lisp
+      (eql 1 1)
+      (eql 3.1 3.1)
+      (eql "thing" "thing")
+    #+end_src
+
+*** value comparison
+    #+begin_src emacs-lisp
+      (equal 1 1)
+      (equal 3.1 3.1)
+      (equal "thing" "thing")
+    #+end_src
+
+** rounding
+   - truncate: towards 0
+   - round: nearest int
+   - floor: round down
+   - ceiling: round up
+
+** predicates
+   identify types
+   #+begin_src emacs-lisp
+     (integerp 1.1)
+     (zerop 1)
+   #+end_src
+
+** comparing numbers
+   #+begin_src emacs-lisp
+     (= 1 1)
+     (= 1 1 1 1)
+     (< 1 2)
+     (> 1 2)
+     (>= 1 2)
+     (<= 1 2)
+   #+end_src
+
+** min/max
+   #+begin_src emacs-lisp
+     (min 1 5 2 7)
+     (max 1 5 2 7)
+   #+end_src
+ 
+** strings
+*** substrings
+    #+begin_src emacs-lisp
+      (substring "Hello!" 0 4) ;; hell
+      (substring "Hello!" 1) ;; ello!
+    #+end_src
+    
+*** formatting
+    #+begin_src emacs-lisp
+      (format "Hello %d %s!" 100 "system crafters")
+    #+end_src
+
+** cons lists
+   #+begin_src emacs-lisp
+     (cons 1 2)
+     '(1 . 2)
+
+     ;; left value
+     (car '(1 . 2)) ;; 1
+     ;; right value
+     (cdr '(1 . 2)) ;; 2
+   #+end_src
+*** combine lists
+    #+begin_src emacs-lisp
+      ;; combine 2 lists
+      (append '(1 2 3) '(4 5 6))
+    #+end_src
+
+** alists
+   key-value pairs
+   #+begin_src emacs-lisp
+     (setq some-alist '((one . 1)
+                        (two . 2)
+                        (three . 3)))
+
+     (alist-get 'one some-alist) ;; 1
+     (alist-get 'two some-alist) ;; 2 
+     (alist-get 'four some-alist) ;; nil
+   #+end_src
+
+** logical expressions
+   anything other than =nil= and empty list ='()= is =t=
+   #+begin_src emacs-lisp
+     (not t)
+     (and t t t nil)
+     (or t t t nil)
+   #+end_src
+
+** conditional expressions
+*** if
+    - evaluate first branch if true
+    - true branch is a single expression
+    - the false branch can be multiple expressions
+    - use progn to enable multiple expressions
+      #+begin_src emacs-lisp
+        (if t 5
+          (message "Doing some extra stuff here")
+          (+ 2 2))
+
+        (if t
+            (progn
+              (message "it's true")
+              5)
+          4)
+      #+end_src
+
+*** when
+    evaluate if expression is =t=
+    #+begin_src emacs-lisp
+      (when (> 2 1) 'foo)
+    #+end_src
+    
+*** unless
+    evaluate if expression is =nil=
+    #+begin_src emacs-lisp
+      (unless (> 2 1) 'foo)
+    #+end_src
+    
+*** cond
+    check multiple conditions
+    #+begin_src emacs-lisp
+      (cond ((eql a 1) "a equal to 1")
+            ((> a 1) "a greater than 1")
+            (t "something else"))
+    #+end_src
+
+** loops
+*** while
+    #+begin_src emacs-lisp
+      (setq my-loop-counter 0)
+      (while (< my-loop-counter 5)
+        (message "I'm looping %d" my-loop-counter)
+        (setq my-loop-counter (1+ my-loop-counter)))
+    #+end_src
+
+*** dotimes
+    #+begin_src emacs-lisp
+      (dotimes (count 5)
+        (message "I'm looping more easily %d" count))
+    #+end_src
+
+*** dolist
+    #+begin_src emacs-lisp
+      (dolist (item '("one" "two" "three" "four" "five"))
+        (message "item %s" item))
+    #+end_src
+
+** functions
+   #+begin_src emacs-lisp
+     (defun do-some-math (x y)
+       (* (+ x 20)
+          (- y 10)))
+
+     (do-some-math 100 50)
+   #+end_src
+*** optional args
+    - args that are not provided are nil
+    #+begin_src emacs-lisp
+      ;; if y or z are not provided, use the value 1 in their place
+      (defun multiply-maybe (x &optional y z)
+        (* x
+           (or y 1)
+           (or z 1)))
+
+      (multiply-maybe 5)
+      (multiply-maybe 5 2)
+      (multiply-maybe 5 nil 10)
+    #+end_src
+
+*** put rest of operands into a list
+    #+begin_src emacs-lisp
+      ;; multiply any non-nil operands
+      (defun multiply-many (x &rest operands)
+        (dolist (operand operands)
+          (when operand
+            (setq x (* x operand))))
+        x)
+    #+end_src
+
+*** documenting functions
+    write a string as the first thing in the body of a function
+    - use =M-x describe-function= to read doc string
+    #+begin_src emacs-lisp
+      (defun do-some-math (x y)
+        "multiplies the result of math expressions on the arguments X and Y."
+        (* (+ x 20)
+           (- y 10)))
+    #+end_src
+    
+*** apply function with list
+    #+begin_src emacs-lisp
+      (apply '+ '(2 2))
+    #+end_src
+
+*** lambdas
+    #+begin_src emacs-lisp
+      (lambda (x y)
+        (+ 100 x y))
+    #+end_src
+    
+** variables
+   #+begin_src emacs-lisp
+     (setq tab-width 4)
+     ;; same as
+     (set 'tab-width 4)
+   #+end_src
+*** with documentation
+    - only sets value if not defined yet
+    #+begin_src emacs-lisp
+      (defvar am-i-documented "yes"
+        "yes I am documented")
+    #+end_src
+
+*** local varables
+    use =let= to define local variables without polluting the global scope
+    #+begin_src emacs-lisp
+      (defun do-the-loop ()
+        (interactive)
+        (let ((x 0))
+          (message "Starting the loop from %d" x)
+          (while (< x 5)
+            (message "Loop index: %d" x)
+            (incf x))
+          (message "Done!")))
+    #+end_src
+**** defining multiple variables with let
+     #+begin_src emacs-lisp
+       (let ((y 5)
+             (z 10))
+         (* y z))
+     #+end_src
+
+**** refer to previous variables
+     use =let*=
+     #+begin_src emacs-lisp
+       (let* ((y  5)
+              (z (+ y 5)))
+         (* y z))
+     #+end_src
+
+* buffers
+** switch to buffer
+  #+begin_src emacs-lisp
+    (switch-to-buffer (other-buffer))
+  #+end_src
+
+** retrieve buffer by name
+   #+begin_src emacs-lisp
+     (get-buffer "scratch")
+   #+end_src 
+
+** create buffer if it doesn't exist
+   #+begin_src emacs-lisp
+     (get-buffer-create "hello")
+   #+end_src 
+
+** change current buffer
+   #+begin_src emacs-lisp
+     (set-buffer (get-buffer "scratch"))
+   #+end_src
+
+** reset to old buffer afterwards
+   #+begin_src emacs-lisp
+     ;; avoid trouble
+     (progn
+       (save-current-buffer
+         (set-buffer "scratch")
+         (message "Current buffer: %s" (current-buffer)))
+       (current-buffer))
+
+     ;; even shorter
+     (progn
+       (with-current-buffer "scratch"
+         (message "Current buffer :%s" (current-buffer)))
+       (current-buffer))
+   #+end_src
+
+** get filename associated with buffer
+   #+begin_src emacs-lisp
+     (buffer-file-name)
+   #+end_src
+   
+** get buffer for particular file
+   #+begin_src emacs-lisp
+     (get-file-buffer "lisp_5.el")
+   #+end_src
+
+** load file into buffer (without opening it)
+   #+begin_src emacs-lisp
+     (find-file-noselect "lisp_1.el")
+   #+end_src
+
+** save buffer
+   #+begin_src emacs-lisp
+     (save-buffer)
+   #+end_src
+
+* defining commands 
+  #+begin_src emacs-lisp
+    (defun my-first-command ()
+      (interactive)
+      (message "Hey, it worked!"))
+  #+end_src
+** prompt for parameters
+   see info manual: [[info:elisp#Interactive Codes][elisp interactive codes]]
+   #+begin_src emacs-lisp
+     (defun do-some-math (x y)
+       ;; prompt for 2 numbers
+       (interactive "Nx: \nNy: ")
+       (message "the result is: %d"
+                (* (+ x 20)
+                   (- y 10))))
+   #+end_src
+
+* the point
+** get current position in buffer
+   #+begin_src emacs-lisp
+     (point)
+   #+end_src
+
+** return min and max of buffer or narrowing
+   #+begin_src emacs-lisp
+     (point-min)
+     (point-max)
+   #+end_src
+
+** move cursor
+   #+begin_src emacs-lisp
+     (goto-char 1)
+     (goto-char (point-max))
+     (beginning-of-buffer)
+     (end-of-buffer)
+
+     (forward-char)
+     (forward-char 5)
+     (backward-char)
+
+     (forward-word)
+     (backward-word)
+
+     ;; also for evil
+     (forward-evil-word)
+     (forward-evil-Word)
+   #+end_src
+
+** preserving the point
+   #+begin_src emacs-lisp
+     (save-excursion
+       (goto-char (point-max))
+       (point))
+   #+end_src
+   
+** examining buffer text
+   #+begin_src emacs-lisp
+     (char-after)
+     (char-after (point))
+     (char-after (point-min))
+
+     (buffer-substring  1521 1538)
+     (buffer-substring-no-properties  1521 1538)
+
+     (thing-at-point 'word)
+     (thing-at-point 'sentence)
+     (thing-at-point 'sentence t)
+     (thing-at-point 'sexp)
+     (thing-at-point 'filename)
+   #+end_src
+
+** searching
+   #+begin_src emacs-lisp
+     ;; will put point after match
+     (search-forward "backward")
+     ;; will put point after match
+     (search-backward "inside")
+   #+end_src
+   parameters
+   -  bound - pair of positions restricting the search
+   -  noerror - if t: don't signal an error when no match is found
+   -  count - find nth result
+     #+begin_src emacs-lisp
+       (search-backward "inside" nil t 3)
+     #+end_src
+
+** inserting text
+   #+begin_src emacs-lisp
+     ;; insert an arbitrary list of strings
+     (insert " 0_o")
+     ;; insert number of char
+     (insert-char ?\- 20)
+   #+end_src
+
+** delete text
+   #+begin_src emacs-lisp
+     ;; delete text
+     (delete-region (point) (point-max))
+   #+end_src
+
+* MISC 
+** run shell command
+   return output as string
+   #+begin_src emacs-lisp
+     (shell-command-to-string "ls")
+   #+end_src
