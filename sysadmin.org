@@ -1,0 +1,55 @@
+* user management
+** add user
+   #+begin_src shell
+     adduser seb22
+   #+end_src
+** add user to group
+   #+begin_src shell
+     usermod -a -G sudo seb22
+   #+end_src
+** disable root login
+   #+begin_src shell
+     sudo usermod -p "!" root
+   #+end_src
+
+* SSH
+** permissions
+   - =.ssh/= 700
+   - public key: 644
+   - =authorized_keys= 600
+
+** ssh-agent
+*** add keys
+    #+begin_src shell
+      ssh-add
+    #+end_src
+*** list keys
+    #+begin_src shell
+      ssh-add -l
+    #+end_src
+*** forward keys
+    #+begin_src shell
+      ssh -A user@host
+    #+end_src
+
+** exit frozen session
+   #+begin_example
+     <enter>
+     ~
+     .
+   #+end_example
+
+* change hostname
+  #+begin_src shell
+    hostnamectl set-hostname "newhostname"
+  #+end_src
+
+* timezone
+** list timezones
+   #+begin_src shell
+     timedatectl list-timezones
+   #+end_src
+** set timezone
+   #+begin_src shell
+     timedatectl set-timezone <timezone>
+   #+end_src
