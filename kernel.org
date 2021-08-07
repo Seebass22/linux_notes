@@ -1,0 +1,156 @@
+* C basics
+** static functions
+   - function with scope limited to it's object file
+
+* sections
+** header
+   - only use kernel space headers
+     #+begin_example
+     linux/module.h
+     #+end_example
+
+** code
+*** initialization
+    #+begin_src c
+      int fun_name(void);
+    #+end_src
+    - return 0 on success
+    - return nonzero on initialization failed
+    - called during boot for static module, or during module insertion for dynamic
+    - exactly one initialization
+      #+begin_src c
+        static int __init my_kernel_module_init(void)
+        {
+            pr_info("Hello World !\n");
+            return 0;
+        }
+      #+end_src
+
+*** clean up
+    #+begin_src c
+      void fun_name(void);
+    #+end_src
+    - only called for dynamic modules
+    - free memory
+    - uninitialize devices
+      #+begin_src c
+        static void __exit my_kernel_module_exit(void)
+        {
+            pr_info("Good bye World\n");
+        }
+      #+end_src
+
+** register
+   macros to register functions
+   #+begin_src c
+     module_init(my_kernel_module_init);
+     module_exit(my_kernel_module_exit);
+   #+end_src
+
+** module description macros
+   #+begin_src c
+     MODULE_LICENSE("GPL")
+     MODULE_AUTHOR("ratthew")
+     MODULE_DESCRIPTION("a kernel that prints hello world")
+     MODULE_INFO(board, "beaglebone black")
+   #+end_src
+
+* MISC
+** =__init=
+   - only for static modules
+   - frees memory for function after boot
+
+** =__exit=
+   - functions marked =__exit= will be dropped by build system
+
+* printing
+  read with dmesg
+** =printk=
+   works like printf
+*** log levels
+    #+begin_src c
+      printk(KERN_WARNING "Hello this is kernel code\n");
+    #+end_src
+    - if kernel message log level is lower than current console log level,
+      message is printed on console
+    - current console log level is in =/proc/sys/kernel/printk=
+*** wrappers 
+    | name         | log level | alias function |
+    | KERN_EMERG   | "0"       | pr_emerg       |
+    | KERN_ALERT   | "1"       | pr_alert       |
+    | KERN_CRIT    | "2"       | pr_crit        |
+    | KERN_ERR     | "3"       | pr_err         |
+    | KERN_WARNING | "4"       | pr_warning     |
+    | KERN_NOTICE  | "5"       | pr_notice      |
+    | KERN_INFO    | "6"       | pr_info        |
+    | KERN_DEBUG   | "7"       | pr_debug       |
+    | KERN_DEFAULT | ""        |                |
+
+
+* building
+** out of tree
+   #+begin_src sh
+     make -C $KDIR M=$PWD [targets]
+   #+end_src
+*** targets
+**** modules 
+     - default target
+**** modules_install
+     - install modules to =/lib/modules/<kernel_ver>/extra/=
+     - change prefix with =INSTALL_MOD_PATH=
+**** clean
+     - remove all generated files in module dir
+**** help
+     - list available targets
+
+*** local makefile
+    - called by toplevel makefile
+**** kbuild variable
+     #+begin_src shell
+       obj-<X> := <module_name>.o
+     #+end_src
+     X is
+     - n, do not compile module
+     - y, compile and link with kernel image
+     - m, compile as dynamically loadable module
+
+**** cross compilation makefile example
+     #+begin_src shell
+       obj-m := main.o
+       ARCH=arm
+       CROSS_COMPILE=arm-linux-gnueabihf-
+       KERN_DIR=/home/seb22/Documents/LDD/source/linux_bbb_4.14/
+       HOST_KERN_DIR = /lib/modules/$(shell uname -r)/build/
+
+       all:
+       make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERN_DIR) M=$(PWD) modules
+
+       clean:
+       make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERN_DIR) M=$(PWD) clean
+
+       help:
+       make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERN_DIR) M=$(PWD) help
+
+       host:
+       make -C $(HOST_KERN_DIR) M=$(PWD) modules
+     #+end_src
+
+** in-tree
+   1. create a folder in =drivers/char/=
+   2. create Kconfig file
+   3. add local Kconfig entry to upper level Kconfig
+   4. create local Makefile
+   5. add local makefile to higher level Makefile
+*** Kconfig file 
+    #+begin_example
+      menu "my custom modules"
+          config CUSTOM_HELLOWORLD
+              tristate "hello world module support"
+              default m
+      endmenu
+    #+end_example
+
+* print info for module
+  #+begin_src shell
+    modinfo main.ko
+  #+end_src
