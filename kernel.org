@@ -1,6 +1,25 @@
 * C basics
 ** static functions
-   - function with scope limited to it's object file
+   - function with scope limited to its' object file
+** goto (for error handling) 
+   - use goto to avoid many nested if statements for cleanup
+   #+begin_src c
+     if (try_something_1 == Err)
+         goto err1;
+
+     if (try_something_2 == Err)
+         goto err2;
+
+     if (try_something_3 == Err)
+         goto err3;
+
+     err3:
+         undo_try_something_2;
+     err2:
+         undo_try_something_1;
+     err1:
+         return ret;
+   #+end_src
 
 * sections
 ** header
@@ -56,12 +75,47 @@
    #+end_src
 
 * MISC
-** =__init=
+** =__init= macro
    - only for static modules
    - frees memory for function after boot
 
-** =__exit=
+** =__exit= macro
    - functions marked =__exit= will be dropped by build system
+
+** =__user= macro
+   - used with user level pointers
+   - tells developer not to assume pointer is valid
+   - never dereference user level pointers directly - use dedicated kernel functions like =copy_to_user= and =copy_from_user=
+
+** error handling
+   #+begin_src c
+     #include <linux/error.h>
+   #+end_src
+*** check if error pointer
+    =IS_ERR()=
+*** convert between pointer and error code
+    - =PTR_ERR()= - pointer to error
+    - =ERR_PTR()= - error code to pointer
+
+** copy data between kernel space and user space
+   - check if pointer is valid
+   - only perform copy if valid
+   - return amount of memory that could not be copied (or 0)
+   - return -EFAULT on error
+     #+begin_src c
+       #include <linux/uaccess.h>
+     #+end_src
+*** copy to user space 
+   #+begin_src c
+     unsigned long copy_to_user(void __user *to, const void *from, unsigned long n);
+   #+end_src
+*** copy from user space
+   #+begin_src c
+     unsigned long copy_from_user(void *to, const void __user *from, unsigned long n);
+   #+end_src
+
+** error code 
+   table found in =include/uapi/asm-generic/errno-base.h=
 
 * printing
   read with dmesg
@@ -85,7 +139,6 @@
     | KERN_INFO    | "6"       | pr_info        |
     | KERN_DEBUG   | "7"       | pr_debug       |
     | KERN_DEFAULT | ""        |                |
-
 
 * building
 ** out of tree
@@ -149,6 +202,135 @@
               default m
       endmenu
     #+end_example
+
+* char device driver
+** VFS data structures
+*** struct inode
+    - holds general information about a file
+    - is written back to disk
+**** initialization 
+     1. =init_special_inode()= is called, where
+     2. device number =i_rdev= is initialized
+     3. file operations =i_fop= is initialized with default file operations =def_chr_fops=
+*** struct file
+    - tracks iteraction on an open file
+*** struct cdev
+    - holds pointer to file_ops
+*** struct file_ops
+    - holds pointers to functions for system calls (open, read, lseek, etc)
+
+** register a range of char device drivers
+   #+begin_src c
+     int alloc_chrdev_region(dev_t *dev, unsigned baseminor,
+                             unsigned count, const char *name);
+   #+end_src
+   example:
+   #+begin_src c
+     dev_t device_number;
+     alloc_chrdev_region(&device_number, 0, 7, "eeprom");
+   #+end_src
+*** extract major or minor number from device number
+    #+begin_src c
+      #include <linux/kdev_t.h>
+
+      dev_t device_number;
+      int minor_no =  MINOR(device_number);
+      int major_no =  MAJOR(device_number);
+    #+end_src
+*** create dev_t from major and minor numbers
+    #+begin_src c
+      MKDEV(int major, int minor);
+    #+end_src
+
+** initialize cdev structure
+   #+begin_src c
+     void cdev_init(struct cdev *cdev, const struct file_operations *fops);
+   #+end_src
+
+** add char devices to kernel VFS
+   #+begin_src c
+     int cdev_add(struct cdev *p, dev_t dev, unsigned count);
+   #+end_src
+   
+** create a directory in sysfs
+   - creates directory =/sys/class/<class_name>=
+     #+begin_src c
+       struct class *class_create(struct module *owner, const char *name);
+     #+end_src
+   
+** crate a subdir with device name
+   - creates subdirectory in =/sys/class/<class_name>=
+   - populates sysfs entry with dev file consisting of major & minor numbers, separated by =:= character
+     #+begin_src c
+       struct device *device_create(struct class *class, struct device *parent,
+                                    dev_t devt, void *drvdata, const char *fmt...);
+     #+end_src
+     - class - pointer to class that device should be registered to
+     - parent - pointer to parent of device (if exists)
+     - dev_t - device number (from =alloc_chrdev_region()=)
+     - drvdata - private data
+     - fmt - device name string
+
+** cleanup
+   #+begin_src c
+     // remove device created with device_create()
+     void device_destroy(struct class *class, dev_t devt);
+
+     // destroy class
+     void class_destroy(struct class *cls);
+
+     // remove cdev registration from VFS
+     void cdev_del(struct cdev *p);
+
+     // unregister a range of device numbers
+     void unregister_chrdev_region(dev_t from, unsigned count);
+   #+end_src
+   
+* syscalls to implement
+  see manpages
+** open 
+   - initialize device
+   - detect device initialization erros
+   - check permission (O_RDONLY, O_WRONLY, O_RDWR)
+   - identify device being opened with minor number
+   #+begin_src c
+     int pcd_open(struct inode *inode, struct file *filp);
+   #+end_src
+
+** close
+   - releases file object
+   - called when last reference to open file is closed (when =f_count= field becomes 0)
+     #+begin_src c
+       int pcd_release(struct inode *inode, struct file *filp);
+     #+end_src
+
+** read 
+   - read =count= bytes from device, starting at position =f_pos=
+   - add number of bytes successfully read to =f_pos=
+   - return number of bytes successfully read or 0 if EOF
+   - return error code on error
+   #+begin_src c
+     ssize_t pcd_read(struct file *filp, char __user *buff, size_t count, loff_t *f_pos);
+   #+end_src
+   
+** write
+   - write =count= bytes into device starting at position =f_pos=
+   - add number of bytes successfully written to =f_pos=
+   - return number of bytes successfully written
+   - return error code on error
+   #+begin_src c
+     ssize_t pcd_write(struct file *filp, const char __user *buff, size_t count, loff_t *fpos);
+   #+end_src
+   
+** lseek
+   - move offset
+   - whence:
+     - SEEK_SET - set offset to =off= bytes
+     - SEEK_CUR - set offset to current offset + =off= bytes
+     - SEEK_END - set offset to size of file + =off= bytes
+   #+begin_src c
+     loff_t pcd_lseek(struct file *filp, loff_t off, int whence);
+   #+end_src
 
 * print info for module
   #+begin_src shell
