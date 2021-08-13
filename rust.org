@@ -1679,3 +1679,10 @@
       cargo test -- --ignored
     #+end_src
 
+* other dev tools
+** cargo tarpaulin
+   visualize code coverage
+
+** cargo flamegraph
+   generate flamegraphs (profile performance)
+

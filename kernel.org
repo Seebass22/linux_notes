@@ -87,6 +87,15 @@
    - tells developer not to assume pointer is valid
    - never dereference user level pointers directly - use dedicated kernel functions like =copy_to_user= and =copy_from_user=
 
+** =container_of()= macro
+   - returns address of the containing structure
+     #+begin_src c
+       #define container_of(ptr, type, member)
+     #+end_src
+     - ptr - pointer to member
+     - type - type of container struct
+     - member - name of member that =ptr= refers to
+
 ** error handling
    #+begin_src c
      #include <linux/error.h>
