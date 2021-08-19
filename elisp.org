@@ -69,6 +69,16 @@
     #+begin_src emacs-lisp
       (format "Hello %d %s!" 100 "system crafters")
     #+end_src
+    
+*** convert string to symbol
+    #+begin_src emacs-lisp
+      (intern "some-symbol")
+    #+end_src
+
+*** convert symbol to string
+    #+begin_src emacs-lisp
+      (symbol-name 'some-symbol)
+    #+end_src
 
 ** cons lists
    #+begin_src emacs-lisp
