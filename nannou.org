@@ -1,0 +1,48 @@
+* rect
+** align to top left
+   #+begin_src rust
+     let r = Rect::from_w_h(100.0, 100.0).top_left_of(win);
+     draw.rect()
+         .xy(r.xy())
+         .wh(r.wh())
+         .color(PLUM);
+   #+end_src
+** pad (and align)
+   #+begin_src rust
+     let win_p = win.pad(25.0);
+     let r = Rect::from_w_h(100.0, 100.0).top_left_of(win_p);
+     draw.rect()
+         .xy(r.xy())
+         .wh(r.wh())
+         .color(PLUM);
+   #+end_src
+
+* elipse
+  #+begin_src rust
+    for point in model.points.iter() {
+        draw.ellipse().x_y(point.x, point.y).w_h(3.0, 3.0).color(WHITE);
+    }
+  #+end_src
+
+* perlin noise
+  #+begin_src rust
+    use nannou::noise::*;
+
+    let sn = 0.01;
+    let noise = Perlin::new();
+    let val = noise.get([sn * x as f64, sn * y as f64]) as f32;
+  #+end_src
+
+* get elapsed frames
+  #+begin_src rust
+    let frame = app.elapsed_frames();
+  #+end_src
+
+* fade out
+  #+begin_src rust
+    if app.elapsed_frames() == 1 {
+        draw.background().color(BLACK);
+    }
+
+    draw.rect().w_h(2000.0, 2000.0).color(srgba(0.0, 0.0, 0.0, 0.02));
+  #+end_src
