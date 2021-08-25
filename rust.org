@@ -1411,13 +1411,13 @@
 * smart pointers
 ** =Box<T>=
    - box stored on stack, data stored on heap
-    #+begin_src rust
-      fn main() {
-	  // store an i32 on the heap
-	  let b = Box::new(5);
-	  println!("b = {}", b);
-      }
-    #+end_src
+     #+begin_src rust
+       fn main() {
+	   // store an i32 on the heap
+	   let b = Box::new(5);
+	   println!("b = {}", b);
+       }
+     #+end_src
 
 ** =Rc<T>=
    - reference counting

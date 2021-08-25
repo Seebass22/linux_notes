@@ -165,6 +165,20 @@
 *** compile selected region
     C-c C-r
 
+* info
+** scroll forward (jump to next page)
+   <SPC>
+** scroll backward (jump to prev page)
+   <DEL>
+** next mode
+   gj
+** prev mode
+   gk
+** jump to menu item
+   gm
+** go up
+   u
+
 * built-in commands
 ** IRC client
    M-x erc-tls
