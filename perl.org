@@ -1,0 +1,19 @@
+* running shell programs
+  #+begin_src perl
+    `uname -a`
+  #+end_src
+** using stdin or stdout of shell program
+*** read from program
+   #+begin_src perl
+     $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
+   #+end_src
+*** write to program
+   #+begin_src perl
+     $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
+   #+end_src
+   
+   #+begin_src perl
+     $pid = open $writeme, "|-", "dot", "-Tsvg", "-o", "out.svg" or die "couldn't fork: $!\n";
+     print $writeme $str;
+     close $writeme;
+   #+end_src
