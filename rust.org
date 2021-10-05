@@ -1291,6 +1291,16 @@
      assert_eq!(iter.next(), Some((&3, &6)));
      assert_eq!(iter.next(), None);
    #+end_src
+   
+** =position=
+   find index of an element
+   - stops at first element where closure returns true
+   #+begin_src rust
+     let a = [1, 2, 3];
+
+     assert_eq!(a.iter().position(|&x| x == 2), Some(1));
+     assert_eq!(a.iter().position(|&x| x == 5), None);
+   #+end_src
 
 ** create an iterator on custom types
    - implement =Iterator= trait: write =next= method
@@ -1678,6 +1688,11 @@
     #+begin_src shell
       cargo test -- --ignored
     #+end_src
+
+* useful crates
+** argument parsing
+   - clap
+   - structopt
 
 * other dev tools
 ** cargo tarpaulin
