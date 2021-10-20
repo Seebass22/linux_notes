@@ -1,15 +1,50 @@
+* functions
+** parameters
+*** with shifting
+   #+begin_src perl
+     do_something("a", "b");
+
+     sub do_something {
+         my $one = shift;
+         my $two = shift;
+
+         print $one, $two, "\n";
+     }
+   #+end_src
+*** alternative
+   #+begin_src perl
+     # same as
+     sub do_something {
+         my ($one, $two) = @_;
+
+         print $one, $two, "\n";
+     }
+   #+end_src
+
+* nested data structures
+  use references
+  #+begin_src perl
+    my @arr = ( 1, 4, 7 );
+    my %hash = ( first => "asdf",
+                 second => \@arr);
+
+    my %nested = ( first => \@arr,
+                   second => \%hash);
+
+  #+end_src
+
 * running shell programs
   #+begin_src perl
     `uname -a`
   #+end_src
-** using stdin or stdout of shell program
+** pipe to/from shell program
 *** read from program
    #+begin_src perl
      $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
    #+end_src
 *** write to program
    #+begin_src perl
-     $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
+     $pid = open $readme, "|-", "program", "arguments" or die "Couldn't fork: $!\n";
    #+end_src
    
    #+begin_src perl

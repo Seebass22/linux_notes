@@ -165,6 +165,12 @@
 *** compile selected region
     C-c C-r
 
+* PDE
+** send selected lines to REPL
+   inf-perl-send
+** view documentation
+   cperl-perldoc
+
 * info
 ** scroll forward (jump to next page)
    <SPC>
