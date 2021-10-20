@@ -21,6 +21,52 @@
      }
    #+end_src
 
+* strings
+** concatenate
+   #+begin_src perl
+     my $str = "hello";
+     $str .= " ";
+     $str .= "world";
+   #+end_src
+** interpolate
+   #+begin_src perl
+     my $val = 5;
+     my $str = "I have $val apples";
+
+     # use single quotes to avoid interpolation
+     my $str2 = '$val does not interpolate here'
+   #+end_src
+
+* arrays
+  #+begin_src perl
+    my @arr = qw(one two three);
+  #+end_src
+** shift, unshift
+   remove, add elements from start
+   #+begin_src perl
+     my $val = shift @arr;
+
+     unshift @arr, $val;
+   #+end_src
+** pop, push
+   remove, add elements from end
+   #+begin_src perl
+     push @arr, 5;
+
+     my $val = pop @arr;
+   #+end_src
+
+* hashes
+  #+begin_src perl
+    my %hash = ( key => "value",
+                 key2 => "value" );
+
+    print $hash{value};
+
+    my $ref = \%hash;
+    print $ref->{value};
+  #+end_src
+
 * nested data structures
   use references
   #+begin_src perl
