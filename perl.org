@@ -36,6 +36,12 @@
      # use single quotes to avoid interpolation
      my $str2 = '$val does not interpolate here'
    #+end_src
+** join
+   join a list into a string, separated by a separator
+   #+begin_src perl
+     my @list = qw( first, second, third, fourth );
+     my joined = join(':', @list);
+   #+end_src
 
 * arrays
   #+begin_src perl
@@ -98,3 +104,12 @@
      print $writeme $str;
      close $writeme;
    #+end_src
+
+* useful CPAN modules
+  list of recommended modules: https://metacpan.org/pod/Task::Kensho
+** Data::Printer
+*** like Data::Dumper, but more human-readable
+    #+begin_src perl
+      use DDP;
+      p $variable;
+    #+end_src

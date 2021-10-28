@@ -72,6 +72,10 @@
       #+begin_src shell
 	git rebase --continue
       #+end_src
+** edit todo list mid-rebase
+   #+begin_src shell
+     git rebase --edit-todo
+   #+end_src
 
 * MISC
 ** find commit that modifies particular line of code
@@ -187,3 +191,14 @@
    [includeIf "gitdir:/home/seb/Documents/uni"]
        path = ~/.gitconfig_uni
    #+end_src
+
+** update pull request
+*** fixup commits
+    #+begin_src shell
+      # make changes
+      git commit --fixup <SHA>
+    #+end_src
+*** edit commit message
+    #+begin_src shell
+      git commit --squash --allow-empty <SHA>
+    #+end_src
