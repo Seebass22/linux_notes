@@ -72,6 +72,11 @@
     my $ref = \%hash;
     print $ref->{value};
   #+end_src
+** delete key value pair
+   #+begin_src perl
+     delete $hash{value}
+     delete $ref->{value}
+   #+end_src
 
 * nested data structures
   use references

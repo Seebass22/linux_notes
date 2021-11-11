@@ -547,8 +547,8 @@
   #+end_src
   lets you change type
   #+begin_src rust
-    let spaces = "   "
-	let spaces = spaces.len();
+    let spaces = "   ";
+    let spaces = spaces.len();
   #+end_src
   
 * constants
@@ -1240,7 +1240,7 @@
    - can create a =Result<Collection<T>, E>= from an iterator over =Result<T, E>=
 
 ** =map=
-   perform an action on each element
+   performs an action on each element
    #+begin_src rust
      let v1: Vec<i32> = vec![1, 2, 3];
      let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
@@ -1260,7 +1260,7 @@
      #+end_src
 
 ** =fold=
-   fold every element into an accumulator by apply an operation, return final result
+   folds every element into an accumulator by applying an operation, returns final result
    #+begin_src rust
      let a = [1, 2, 3, 4];
 
