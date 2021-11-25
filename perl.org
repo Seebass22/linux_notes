@@ -1,6 +1,6 @@
 * functions
 ** parameters
-*** with shifting
+*** shift
    #+begin_src perl
      do_something("a", "b");
 
@@ -20,6 +20,21 @@
          print $one, $two, "\n";
      }
    #+end_src
+*** use a hash
+    #+begin_src perl
+      sub do_something {
+          my %args = @_;
+
+          if (exists $args{val}) {
+              print "val: " . $args{val} . "\n";
+          }
+          if (exists $args{name}) {
+              print "name: " . $args{val} . "\n";
+          }
+      }
+
+      do_something(val => 1, name => "Fred");
+    #+end_src
 
 * strings
 ** concatenate
@@ -61,6 +76,14 @@
 
      my $val = pop @arr;
    #+end_src
+** splice (remove elements)
+  =splice ARRAY, OFFSET, LENGTH=
+  remove LENGTH items at index OFFSET (can be negative)
+  #+begin_src perl
+    my @arr = qw( first second third );
+    splice(@arr, 1, 1);
+    # => [first, third]
+  #+end_src
 
 * hashes
   #+begin_src perl
@@ -78,16 +101,44 @@
      delete $ref->{value}
    #+end_src
 
+* map
+  evaluate block for each element, return new list of results
+  #+begin_src perl
+    my @res = map { "id=$_" } @arr;
+  #+end_src
+
+* grep (filter)
+  filter values (return a new list)
+  #+begin_src perl
+    # by regex
+    my @matches = grep(/re/, @arr);
+
+    # by any condition
+    my @filtered = grep { $_->{id} > 500 } @arr;
+
+    # longer example (read bottom to top)
+    # find all items with group "finished"
+    # collect just their IDs
+    # filter out duplicates
+    my @finishedIDs =
+        uniq
+        map { $_->{id} }
+        grep { $_->{group} eq "finished" } @arr
+  #+end_src
+
+* List::Util
+** first (find)
+   like grep, but returns first element that matches predicate
+
 * nested data structures
   use references
   #+begin_src perl
-    my @arr = ( 1, 4, 7 );
-    my %hash = ( first => "asdf",
-                 second => \@arr);
+    my @arr = (1, 4, 7);
+    my %hash = (first => "asdf",
+                second => \@arr);
 
-    my %nested = ( first => \@arr,
-                   second => \%hash);
-
+    my %nested = (first => \@arr,
+                  second => \%hash);
   #+end_src
 
 * running shell programs
@@ -113,8 +164,13 @@
 * useful CPAN modules
   list of recommended modules: https://metacpan.org/pod/Task::Kensho
 ** Data::Printer
-*** like Data::Dumper, but more human-readable
+   like Data::Dumper, but more human-readable
+   - does not require passing references
     #+begin_src perl
       use DDP;
-      p $variable;
+      p %variable;
     #+end_src
+** List::Util
+   useful list functions, such as =first=, =max=
+** List::MoreUtils
+   useful list functions missing from List::Util, such as =first_index=, =uniq=
