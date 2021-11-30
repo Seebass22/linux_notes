@@ -57,6 +57,29 @@
      my @list = qw( first, second, third, fourth );
      my joined = join(':', @list);
    #+end_src
+** quoting
+   https://perldoc.perl.org/perlop#Quote-Like-Operators
+*** here document
+    use single quotes to prevent interpolation
+    #+begin_src perl
+      my $str =<<"END";
+      this is a multiline
+      string. the value is $var
+      END
+    #+end_src
+*** q
+    single quoted string
+    #+begin_src perl
+      $foo = q!I said, "You said, 'She said it.'"!;
+      $bar = q('This is it.');
+    #+end_src
+*** qq
+    double quoted (interpolated) string
+*** qw
+    create a list out of words delimited by whitespace
+    #+begin_src perl
+      my @arr = qw(foo bar baz);
+    #+end_src
 
 * arrays
   #+begin_src perl
@@ -119,9 +142,10 @@
     # longer example (read bottom to top)
     # find all items with group "finished"
     # collect just their IDs
-    # filter out duplicates
+    # sort and filter out duplicates
     my @finishedIDs =
         uniq
+        sort { $a cmp $b }
         map { $_->{id} }
         grep { $_->{group} eq "finished" } @arr
   #+end_src
