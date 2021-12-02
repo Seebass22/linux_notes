@@ -165,6 +165,28 @@
                   second => \%hash);
   #+end_src
 
+* file IO
+  #+begin_src perl
+    open(my $fh, "<", "input.txt");
+    while (<fh>) {
+      # use $_
+    }
+
+    while (my $line = <$fh>) {
+    }
+  #+end_src
+** slurp entire file
+   localize input record separator =$/=
+   #+begin_src perl
+     my $contents = do { local $/; <$fh> };
+   #+end_src
+** read file into array
+   #+begin_src perl
+     my @lines = <$fh>;
+     # or remove newlines
+     chomp(my @lines = <$fh>);
+   #+end_src
+
 * running shell programs
   #+begin_src perl
     `uname -a`

@@ -178,12 +178,11 @@
    #+end_src
 
 ** split string into list
+   default separator is any whitespace
    #+begin_src python
      txt = "one two three four"
      txt2 = "one*two#three#four"
-   #+end_src
-** default separator is any whitespace
-   #+begin_src python
+
      x = txt.split()
      x2 = txt.split("*")
      # result ['one', 'two', 'three', 'four']
@@ -230,6 +229,12 @@
      a = 'magenta bags'
      a.rstrip(' bags')
      # => magent
+   #+end_src
+** strip leading and trailing whitespace
+   #+begin_src perl
+     a = " magenta bags \n"
+     s.strip()
+     # => magenta bags
    #+end_src
 
 * time and date
