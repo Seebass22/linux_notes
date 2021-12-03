@@ -1,26 +1,4 @@
 * general
-** array slicing
-   - [start:stop:step]
-   - stop does not include the element at which it stops
-     #+begin_src python
-       a = [0, 1, 2, 3, 4, 5]
-       a[1:3] # => [1, 2]
-     #+end_src
-
-     | negative indices  | -4 | -3 | -3 | -1 |
-     | sequence elements |  A |  B |  C |  D |
-     | positive indices  |  0 |  1 |  2 |  3 |
-
-** copy list (does not deep-copy contained lists)
-   #+begin_src python
-     b = a.copy()
-   #+end_src
-** deep-copying
-   #+begin_src python
-     import copy
-     b = copy.deepcopy(a)
-   #+end_src
-
 ** return multiple items
    #+begin_src python
      def rotateRight(x, y):
@@ -64,6 +42,55 @@
      import random
      objs = ['a', 'asdf', 'jkl', 'hmm']
      rand = random.choice(objs)
+   #+end_src
+
+* lists
+** slicing
+   - [start:stop:step]
+   - stop does not include the element at which it stops
+     #+begin_src python
+       a = [0, 1, 2, 3, 4, 5]
+       a[1:3] # => [1, 2]
+     #+end_src
+
+     | negative indices  | -4 | -3 | -3 | -1 |
+     | sequence elements |  A |  B |  C |  D |
+     | positive indices  |  0 |  1 |  2 |  3 |
+
+** copy list (does not deep-copy contained lists)
+   #+begin_src python
+     b = a.copy()
+   #+end_src
+
+** deep-copying
+   #+begin_src python
+     import copy
+     b = copy.deepcopy(a)
+   #+end_src
+   
+** destructuring
+   - also works for tuples
+   #+begin_src python
+     l = [1, 2, 3]
+     a, b, c = l
+
+     s = "forward 5"
+     command, value = s.split()
+   #+end_src
+   
+** count occurrences of item
+   #+begin_src python
+     [1, 2, 3, 4, 1, 4, 1].count(1)
+     # => 3
+   #+end_src
+   
+** filter out values
+   #+begin_src python
+     l = [1, 2, 3, 4, 1, 4, 1]
+     # filter to values > 2
+     list(filter(l, lambda x: x > 2))
+     # or
+     [item for item in l if item > 2]
    #+end_src
 
 * paths and file operations
@@ -181,11 +208,14 @@
    default separator is any whitespace
    #+begin_src python
      txt = "one two three four"
-     txt2 = "one*two#three#four"
+     txt2 = "one#two#three#four"
 
      x = txt.split()
-     x2 = txt.split("*")
+     x2 = txt.split("#")
      # result ['one', 'two', 'three', 'four']
+
+     s = "forward 5"
+     command, value = s.split()
    #+end_src
 
 ** raw string literals
