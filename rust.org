@@ -1251,12 +1251,16 @@
    - takes a closure that returns a boolean
    - returns the items for which that closure returns true (filters out the rest)
    - use =filter_map= to combine with =map=
+     - returns values for which the closure returns =Some(value)=
      #+begin_src rust
        fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
-	   shoes.into_iter()
-	       .filter(|s| s.size == shoe_size)
-	       .collect()
+           shoes.into_iter()
+               .filter(|s| s.size == shoe_size)
+               .collect()
        }
+
+       let a = ["1", "two", "NaN", "four", "5"];
+       let mut iter = a.iter().filter_map(|s| s.parse().ok());
      #+end_src
 
 ** =fold=
@@ -1619,13 +1623,14 @@
    #+end_src
 
 ** file IO
-   #+begin_src rust
-     use std::fs;
+*** read file to string
+    #+begin_src rust
+      use std::fs;
 
-     fn main() {
-	 let contents = fs::read_to_string("poem.txt");
-     }
-   #+end_src
+      fn main() {
+	  let contents = fs::read_to_string("poem.txt");
+      }
+    #+end_src
 
 ** command line arguments
    #+begin_src rust
