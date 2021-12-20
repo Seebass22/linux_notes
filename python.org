@@ -44,6 +44,14 @@
      rand = random.choice(objs)
    #+end_src
 
+** count all occurrences in hashable (quicker than calling =.count()= multiple times)
+   #+begin_src python
+     word = "mississippi"
+     c = Counter(word)
+     c['s']
+     # => 4
+   #+end_src
+
 * lists
 ** slicing
    - [start:stop:step]
