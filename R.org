@@ -1,15 +1,20 @@
 * GENERAL
 ** function documentation (R console)
-   ?sum
+   #+begin_src R
+     ?sum
+   #+end_src
 
 ** generate vector
    - : operator
-   > c(1:5)
-   [1] 1 2 3 4 5
-** seq function
+     #+begin_src R
+       c(1:5)
+       ## [1] 1 2 3 4 5
+     #+end_src
 ** seq(start, end, inc_amount)
-   > seq(0, 15, 5)
-   [1] 0 5 10 15
+   #+begin_src R
+     seq(0, 15, 5)
+     ## [1] 0 5 10 15
+   #+end_src
 
 * MISC 
 ** integer division
@@ -17,6 +22,14 @@
 
 ** integration
    integrate(f, lower, upper)
+   
+** summary
+   calculate Min, 1st Qu, Median, Mean, 3rd Qu, Max. 
+   #+begin_src R
+     nums = c(16, 1, 2, 4, 0, 2, 7, 1, 2, 14)
+     summary(nums)
+   #+end_src
+
 
 * COMBINATORICS
 ** calculate binomial coefficient
@@ -42,17 +55,23 @@
 
 * RANDOM VALUES
 ** generate n random values from 0 to 1
-   > runif(2)
-   [1] 0.3165484 0.7841279
+   #+begin_src R
+     runif(2)
+     ## [1] 0.3165484 0.7841279
+   #+end_src
 ** optional parameters for min, max
 
 ** sample from vector (only use values once)
    - sample(vec, size)
-   > socks <- c("red", "grey", "white", "red", "black")
-   > sample(socks, 2)
-   [1] "grey" "red"
+     #+begin_src R
+       socks <- c("red", "grey", "white", "red", "black")
+       sample(socks, 2)
+       ## [1] "grey" "red"
+     #+end_src
 ** with replacement
-   > sample(socks, 8, replace=TRUE)
+   #+begin_src R
+     sample(socks, 8, replace=TRUE)
+   #+end_src
 
 * LOOPS AND CONDITIONALS
   #+BEGIN_SRC R
@@ -69,9 +88,11 @@
   #+END_SRC R
 
 ** ifelse(test, yes, no)
-   > x <- c(1,2,3)
-   > ifelse(x < 3, "small", "too big")
-   [1] "small"    "small"    "too big"
+   #+begin_src R
+     x <- c(1,2,3)
+     ifelse(x < 3, "small", "too big")
+     ## [1] "small"    "small"    "too big"
+   #+end_src
 
 * FUNCTIONS
   #+BEGIN_SRC R
@@ -82,4 +103,6 @@
   #+END_SRC
 
 * READING FILES
-  my.data <- read.table("input.txt", header=FALSE)
+  #+begin_src R
+    my.data <- read.table("input.txt", header=FALSE)
+  #+end_src
