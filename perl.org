@@ -1,25 +1,25 @@
 * functions
 ** parameters
 *** shift
-   #+begin_src perl
-     do_something("a", "b");
+    #+begin_src perl
+      do_something("a", "b");
 
-     sub do_something {
-         my $one = shift;
-         my $two = shift;
+      sub do_something {
+          my $one = shift;
+          my $two = shift;
 
-         print $one, $two, "\n";
-     }
-   #+end_src
+          print $one, $two, "\n";
+      }
+    #+end_src
 *** alternative
-   #+begin_src perl
-     # same as
-     sub do_something {
-         my ($one, $two) = @_;
+    #+begin_src perl
+      # same as
+      sub do_something {
+          my ($one, $two) = @_;
 
-         print $one, $two, "\n";
-     }
-   #+end_src
+          print $one, $two, "\n";
+      }
+    #+end_src
 *** use a hash
     #+begin_src perl
       sub do_something {
@@ -100,13 +100,13 @@
      my $val = pop @arr;
    #+end_src
 ** splice (remove elements)
-  =splice ARRAY, OFFSET, LENGTH=
-  remove LENGTH items at index OFFSET (can be negative)
-  #+begin_src perl
-    my @arr = qw( first second third );
-    splice(@arr, 1, 1);
-    # => [first, third]
-  #+end_src
+   =splice ARRAY, OFFSET, LENGTH=
+   remove LENGTH items at index OFFSET (can be negative)
+   #+begin_src perl
+     my @arr = qw( first second third );
+     splice(@arr, 1, 1);
+     # => [first, third]
+   #+end_src
 
 * hashes
   #+begin_src perl
@@ -121,7 +121,29 @@
 ** delete key value pair
    #+begin_src perl
      delete $hash{value}
-     delete $ref->{value}
+       delete $ref->{value}
+   #+end_src
+** hash slices
+   #+begin_src perl
+     my %capital_of = (
+         Germany => 'Berlin',
+         France => 'Paris',
+         China => 'Beijing',
+     );
+
+     # extract list from hash
+     my @capitals = @capital_of{'Germany', 'China'};
+     # => ('Berlin', 'Beijing')
+
+     # assign to hash using slice
+     @capital_of{'Japan', 'Norway'} = ('Tokyo', 'Oslo');
+     # => {
+     #     Germany => 'Berlin',
+     #     France => 'Paris',
+     #     China => 'Beijing',
+     #     Japan => 'Tokyo',
+     #     Norway => 'Oslo',
+     # };
    #+end_src
 
 * map
@@ -142,12 +164,12 @@
     # longer example (read bottom to top)
     # find all items with group "finished"
     # collect just their IDs
-    # sort and filter out duplicates
+    # sort and filter out duplicates (uniq does not require list to be sorted first)
     my @finishedIDs =
-        uniq
-        sort { $a cmp $b }
-        map { $_->{id} }
-        grep { $_->{group} eq "finished" } @arr
+      uniq
+      sort { $a cmp $b }
+      map { $_->{id} }
+      grep { $_->{group} eq "finished" } @arr
   #+end_src
 
 * List::Util
@@ -166,15 +188,13 @@
   #+end_src
 
 * file IO
-  #+begin_src perl
-    open(my $fh, "<", "input.txt");
-    while (<fh>) {
-      # use $_
-    }
+** read linewise
+   #+begin_src perl
+     open(my $fh, "<", "input.txt");
 
-    while (my $line = <$fh>) {
-    }
-  #+end_src
+     while (my $line = <$fh>) {
+     }
+   #+end_src
 ** slurp entire file
    localize input record separator =$/=
    #+begin_src perl
@@ -193,29 +213,65 @@
   #+end_src
 ** pipe to/from shell program
 *** read from program
-   #+begin_src perl
-     $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
-   #+end_src
+    #+begin_src perl
+      $pid = open $readme, "-|", "program", "arguments" or die "Couldn't fork: $!\n";
+    #+end_src
 *** write to program
-   #+begin_src perl
-     $pid = open $readme, "|-", "program", "arguments" or die "Couldn't fork: $!\n";
-   #+end_src
+    #+begin_src perl
+      $pid = open $readme, "|-", "program", "arguments" or die "Couldn't fork: $!\n";
+    #+end_src
    
+    #+begin_src perl
+      $pid = open $writeme, "|-", "dot", "-Tsvg", "-o", "out.svg" or die "couldn't fork: $!\n";
+      print $writeme $str;
+      close $writeme;
+    #+end_src
+
+* profiling code
+** Devel::NYTProf
+   - installable from CPAN
+     #+begin_src shell
+       # profile code and write database to ./nytprof.out
+       perl -d:NYTProf some_perl.pl
+
+       # convert database to HTML and open in browser
+       nytprofhtml --open
+     #+end_src
+
+* regex 
+** check if match
    #+begin_src perl
-     $pid = open $writeme, "|-", "dot", "-Tsvg", "-o", "out.svg" or die "couldn't fork: $!\n";
-     print $writeme $str;
-     close $writeme;
+     if ($string =~ m/PATTERN/) {
+     }
+     # m operator is implied if slashes are used as delimiters
+     if ($string =~ /PATTERN/) {
+     }
    #+end_src
+** modifiers
+   #+begin_src perl
+     if ($string =~ m/PATTERN/msix) {
+     }
+   #+end_src
+*** m
+    treat string as multiple lines,
+    change =^= and =$= to mean start and end of string
+    (rather than of the string's lines)
+*** s
+    treat string as a single line, allowing =.= to match newlines
+*** i
+    case insensitive match
+*** x
+    permit whitespace in patters to allow comments
 
 * useful CPAN modules
   list of recommended modules: https://metacpan.org/pod/Task::Kensho
 ** Data::Printer
    like Data::Dumper, but more human-readable
    - does not require passing references
-    #+begin_src perl
-      use DDP;
-      p %variable;
-    #+end_src
+     #+begin_src perl
+       use DDP;
+       p %variable;
+     #+end_src
 ** List::Util
    useful list functions, such as =first=, =max=
 ** List::MoreUtils
