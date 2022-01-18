@@ -107,6 +107,19 @@
      splice(@arr, 1, 1);
      # => [first, third]
    #+end_src
+** slices
+   - pull any items out of the list by index
+   - indices may be in any order and may be repeated
+   #+begin_src perl
+     my $str = "abc -> jkl -> zxc";
+
+     # grab elements at indices 0 and 2
+     my($lhs, $rhs) = (split '->', $str)[0,2]
+
+     # same as
+     my @sp = split '->', $str;
+     my($lhs, $rhs) = $sp[0,2];
+   #+end_src
 
 * hashes
   #+begin_src perl
@@ -146,6 +159,34 @@
      # };
    #+end_src
 
+* loops
+** redo statement
+   restarts the loop block without reevaluating the conditional
+   #+begin_src perl
+     while (...) {
+         if (...) {
+             redo LINE;
+         }
+     }
+   #+end_src
+** loop labels
+   jump out of nested loops
+   #+begin_src perl
+     LINE: while (...) {
+         while (...) {
+             if (...) {
+                 redo LINE;
+             }
+         }
+     }
+   #+end_src
+
+* defined-or operator
+  returns right side if left is undef
+  #+begin_src perl
+    my $color = $color_for{failure} // 'red';
+  #+end_src
+
 * map
   evaluate block for each element, return new list of results
   #+begin_src perl
@@ -176,6 +217,35 @@
 ** first (find)
    like grep, but returns first element that matches predicate
 
+* references
+  use a backslash to create a reference
+  #+begin_src perl
+    my $scalar_var = 8;
+    my @arr_var = qw(a b c d);
+    my %hash_var = (
+        pencils => 3,
+        apples => 2,
+        oranges => 7,
+    );
+
+    my $scalar_ref = \$scalar_var;
+    my $arr_ref = \@arr_var;
+    my $hash_ref = \%hash_var;
+  #+end_src
+** dereferencing
+   add the original sigil
+   =$hash_ref= => =%$hashref=
+   better: surround the reference with braces
+   =$hash_ref= => =%{ $hashref }=
+   #+begin_src perl
+     my @arr = qw(a b c d);
+     my $arr_ref = \@arr;
+
+     for my $item (@{ $arr_ref }) {
+         print "$item\n";
+     }
+   #+end_src
+
 * nested data structures
   use references
   #+begin_src perl
@@ -205,6 +275,13 @@
      my @lines = <$fh>;
      # or remove newlines
      chomp(my @lines = <$fh>);
+   #+end_src
+** read from STDIN or from files
+   #+begin_src perl
+     while (<>) {
+         chomp;
+         print "read $_ from input\n";
+     }
    #+end_src
 
 * running shell programs
@@ -263,6 +340,75 @@
 *** x
     permit whitespace in patters to allow comments
 
+* state
+  private, persistent variables
+  - cannot initialize states in list context
+  #+begin_src perl
+    sub example {
+        state $n = 0;
+        $n += 1;
+        print "called $n times\n";
+    }
+  #+end_src
+
+* error handling
+** die
+   - throws an exception, exiting the program if uncaught
+   - prints the file and line number of the =die= call unless the exception ends with a newline
+** Carp
+   - module for error/warning handling in modules
+   - die/warn from the perspective of the calling code
+
+* parsing CLI arguments
+** Getopt::Long
+   #+begin_src perl
+     use Getopt::Long;
+     my $data   = "file.dat";
+     my $length = 24;
+     my $verbose;
+     GetOptions ("length=i" => \$length,    # numeric
+                 "file=s"   => \$data,      # string
+                 "verbose"  => \$verbose)   # flag
+     or die("Error in command line arguments\n");
+   #+end_src
+*** using a hash
+    #+begin_src perl
+      my %options;
+      GetOptions(\%options, qw(infile|i=s outfile|o=s))
+        or die "Error in command line arguments\n";
+    #+end_src
+
+** alternatives
+*** Getopt::ArgParse
+    like python's argparse
+*** Getopt::Euclid
+    read args from POD
+*** Docopt
+    read args from documentation
+
+* temporary files or directories
+** File::Temp
+   #+begin_src perl
+     use File::Temp qw( tempdir );
+
+     my $tempdir = tempdir(CLEANUP => 1);
+     # do something with $tempdir
+   #+end_src
+
+* using local modules
+  #+begin_src perl
+    use FindBin;
+    use lib "$FindBin::RealBin/lib";
+
+    # use any modules in lib/
+    # e.g. lib/LocalModule.pm
+    use LocalModule;
+  #+end_src
+   
+* pitfalls
+  - if a return statement is missing, the last expression is returned (instead of undef)
+    - PBP recommends always writing =return=, even when returning nothing
+
 * useful CPAN modules
   list of recommended modules: https://metacpan.org/pod/Task::Kensho
 ** Data::Printer
@@ -276,3 +422,7 @@
    useful list functions, such as =first=, =max=
 ** List::MoreUtils
    useful list functions missing from List::Util, such as =first_index=, =uniq=
+** Data::Alias
+   create aliases to variables
+** Capture::Tiny
+   easily capture STDOUT and STDERR
