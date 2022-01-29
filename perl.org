@@ -1,6 +1,7 @@
 * functions
 ** parameters
 *** shift
+    modifies =@_=
     #+begin_src perl
       do_something("a", "b");
 
@@ -12,6 +13,7 @@
       }
     #+end_src
 *** alternative
+    does not modify =@_=
     #+begin_src perl
       # same as
       sub do_something {
@@ -158,6 +160,32 @@
      #     Norway => 'Oslo',
      # };
    #+end_src
+** anonymous hashes
+   - ={...}= creates a reference to a hash
+   - useful for passing hash references to a function
+   #+begin_src perl
+     my $hash_ref = {
+         1 => 'one',
+         2 => 'two',
+         3 => 'three',
+     };
+
+     call_me($hash_ref);
+     # or skip the first step
+     call_me({1 => 'one', 2 => 'two', 3 => 'three'});
+   #+end_src
+** testing membership in list of strings
+   [[https://www.oreilly.com/library/view/perl-best-practices/0596001738/ch04.html][PBP link]]
+   - use table lookup if testing string equality
+   - use =any= in =List::MoreUtils= to test for other conditions
+   #+begin_src perl
+     my %closed_states = map { $_ => 1 } qw(
+         closed invalid waiting solved
+     );
+     if ($closed_states{$state}) {
+         do_something();
+     }
+   #+end_src
 
 * loops
 ** redo statement
@@ -216,6 +244,9 @@
 * List::Util
 ** first (find)
    like grep, but returns first element that matches predicate
+* List::MoreUtils
+** any
+   returns true if any element matches predicate (short circuiting -> efficient)
 
 * references
   use a backslash to create a reference
@@ -324,6 +355,20 @@
      if ($string =~ /PATTERN/) {
      }
    #+end_src
+** substitution
+   #+begin_src perl
+     my $str = "this is a test string";
+     # replace "this" with "that"
+     # modifies $str in place
+     my $str =~ s/this/that/;
+   #+end_src
+*** nondestructive substitution
+    =r= modifier
+    #+begin_src perl
+      my $str = "this is a test string";
+      # replace "this" with "that" non-destructively
+      my $new_str = $str =~ s/this/that/r;
+    #+end_src
 ** modifiers
    #+begin_src perl
      if ($string =~ m/PATTERN/msix) {
@@ -408,6 +453,7 @@
 * pitfalls
   - if a return statement is missing, the last expression is returned (instead of undef)
     - PBP recommends always writing =return=, even when returning nothing
+  - functions are visible everywhere, even when defined inside a block
 
 * useful CPAN modules
   list of recommended modules: https://metacpan.org/pod/Task::Kensho
@@ -421,7 +467,7 @@
 ** List::Util
    useful list functions, such as =first=, =max=
 ** List::MoreUtils
-   useful list functions missing from List::Util, such as =first_index=, =uniq=
+   useful list functions missing from List::Util, such as =first_index=, =uniq=, =any=
 ** Data::Alias
    create aliases to variables
 ** Capture::Tiny
