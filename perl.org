@@ -22,7 +22,7 @@
           print $one, $two, "\n";
       }
     #+end_src
-*** use a hash
+*** using a hash
     #+begin_src perl
       sub do_something {
           my %args = @_;
@@ -36,6 +36,15 @@
       }
 
       do_something(val => 1, name => "Fred");
+    #+end_src
+*** using a hash ref
+    #+begin_src perl
+      sub do_something {
+          my ($args) = @_;
+          print "val: " . $args->{val} . "\n";
+      }
+
+      do_something({val => 1, name => "Fred"});
     #+end_src
 
 * strings
@@ -450,6 +459,48 @@
     use LocalModule;
   #+end_src
    
+* UTF8
+  https://perldoc.perl.org/perlunitut
+  1. Receive and decode
+  2. Process
+  3. Encode and output
+** decoding
+   - decode when reading
+   #+begin_src perl
+     use Encode qw(encode decode);
+     my $foo = decode('UTF-8', get 'http://example.com/');
+     # or
+     use Encode qw(decode_utf8);
+     my $foo =
+       decode_utf8
+       get 'http://example.com/';
+   #+end_src
+** decoding
+   =encode= and =encode_utf8=
+** automatically encode or decode
+   #+begin_src perl
+     # :std = also affect stdin, stderr, stdout
+     use open qw( :encoding(UTF-8) :std );
+   #+end_src
+** set PerlIO layer for already open filehandle
+   #+begin_src perl
+     binmode $fh 'encoding(UTF-8)';
+   #+end_src
+** allow using utf8 in perl source
+   #+begin_src perl
+     use utf8;
+   #+end_src
+
+* quoting shell commands
+  https://www.perl.com/article/quoting-the-shell/
+** use =system= in list form
+   - bypasses the shell
+** =String::ShellQuote=
+   #+begin_src perl
+     my $quoted_arg = shell_quote $arg;
+     my $res = `echo $quoted_arg`;
+   #+end_src
+
 * pitfalls
   - if a return statement is missing, the last expression is returned (instead of undef)
     - PBP recommends always writing =return=, even when returning nothing
@@ -472,3 +523,8 @@
    create aliases to variables
 ** Capture::Tiny
    easily capture STDOUT and STDERR
+** HTML::Entities
+   encode or decode strings with HTML entities
+   #+begin_src perl
+     $encoded = encode_entities($input, '<>&"');
+   #+end_src
