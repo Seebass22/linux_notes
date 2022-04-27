@@ -378,6 +378,12 @@
       # replace "this" with "that" non-destructively
       my $new_str = $str =~ s/this/that/r;
     #+end_src
+** negative look behind assertion
+   =?<!=
+   #+begin_src perl
+     # match b, but not ab
+     if ($string =~ /(?<!a)b/) {}
+   #+end_src
 ** modifiers
    #+begin_src perl
      if ($string =~ m/PATTERN/msix) {
