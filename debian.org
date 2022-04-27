@@ -1,0 +1,5 @@
+* dpkg
+** list contents of deb package
+   =-c <deb>=
+** show information (description, dependencies, etc) about deb package
+   =-I <deb>=
