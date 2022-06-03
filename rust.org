@@ -1693,6 +1693,13 @@
     #+begin_src shell
       cargo test -- --ignored
     #+end_src
+** run, but less typing
+   #+begin_src shell
+     cargo r
+     # same as `cargo run`
+     cargo r -r
+     # same as `cargo run --release`
+   #+end_src
 
 * useful crates
 ** argument parsing
@@ -1706,3 +1713,14 @@
 ** cargo flamegraph
    generate flamegraphs (profile performance)
 
+
+* cross compiling for windows
+** install toolchain
+   #+begin_src shell
+   rustup target add x86_64-pc-windows-gnu
+   #+end_src
+** required packages
+   #+begin_example
+   mingw64-gcc
+   mingw64-winpthreads-static
+   #+end_example
