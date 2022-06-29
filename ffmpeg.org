@@ -13,6 +13,16 @@
   ffmpeg -i input.mp4 -filter_complex "[0:v]reverse,fifo[r];[0:v][r] concat=n=2:v=1 [v]" -map "[v]" output.mp4
   #+end_src
 
+* concat multiple videos, copy data
+  #+begin_src shell
+    $ cat list.txt
+    file '/path/to/file1'
+    file '/path/to/file2'
+    file '/path/to/file3'
+
+    $ ffmpeg -f concat -safe 0 -i list.txt -c copy output.mp4
+  #+end_src
+
 * overlay image
   #+begin_src shell
   ffmpeg -i video.mp4 -i image.png -filter_complex "[0:v][1:v] overlay" output.mp4
@@ -35,6 +45,22 @@
     #+begin_src shell
     ffmpeg -loop 1 -framerate 2 -i input.png -i audio.m4a -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
     #+end_src
+
+* rotate video
+  http://ffmpeg.org/ffmpeg-filters.html#transpose-1
+  #+begin_src shell
+    # clock, cclock
+    # clock_flip, cclock_flip (rotate 90 degrees and flip vertically)
+    ffmpeg -i in.mp4 -vf "transpose=clock" out.mp4
+    # 180 degrees:
+    # -vf "transpose=2,transpose=2"
+  #+end_src
+
+* create timelapse from video
+  32x speed
+  #+begin_src shell
+    ffmpeg -i in.mp4 -r 60 -filter:v "setpts=0.03125*PTS" -vcodec libx264 -an out.mp4
+  #+end_src
 
 * change framerate (drop frames)
   #+begin_src shell
