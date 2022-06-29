@@ -3,3 +3,33 @@
    =-c <deb>=
 ** show information (description, dependencies, etc) about deb package
    =-I <deb>=
+
+* apt
+** list package dependencies
+   #+begin_src shell
+     apt-cache depends <package>
+   #+end_src
+** list package contents
+   #+begin_src shell
+     apt-file list <package>
+   #+end_src
+** find which package has file
+   #+begin_src shell
+     apt-file search <file>
+   #+end_src
+
+* creating debian packages
+** create debian changelog
+   #+begin_src shell
+     dch -i --create
+   #+end_src
+** describe lintian lint
+   #+begin_src shell
+     lintian-info -t debug-file-with-no-debug-symbols
+   #+end_src
+** build package
+   - resulting files placed in parent dir
+*** build without signing
+    #+begin_src shell
+      debuild -us -uc
+    #+end_src
