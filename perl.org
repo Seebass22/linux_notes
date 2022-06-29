@@ -47,6 +47,15 @@
       do_something({val => 1, name => "Fred"});
     #+end_src
 
+* printing
+  #+begin_src perl
+    print "hello\n";
+
+    # print with newline (perl 5.10 and later)
+    use feature 'say';
+    say "hello";
+  #+end_src
+
 * strings
 ** concatenate
    #+begin_src perl
@@ -131,6 +140,17 @@
      my @sp = split '->', $str;
      my($lhs, $rhs) = $sp[0,2];
    #+end_src
+** anonymous array
+   - =[...]= creates a reference to an array
+   #+begin_src perl
+     my $arr_ref = [qw(a b c)];
+   #+end_src
+** List::Util
+*** first (find)
+    like grep, but returns first element that matches predicate
+** List::MoreUtils
+*** any
+    returns true if any element matches predicate (short circuiting -> efficient)
 
 * hashes
   #+begin_src perl
@@ -250,13 +270,6 @@
       grep { $_->{group} eq "finished" } @arr
   #+end_src
 
-* List::Util
-** first (find)
-   like grep, but returns first element that matches predicate
-* List::MoreUtils
-** any
-   returns true if any element matches predicate (short circuiting -> efficient)
-
 * references
   use a backslash to create a reference
   #+begin_src perl
@@ -343,6 +356,15 @@
       print $writeme $str;
       close $writeme;
     #+end_src
+** quoting shell commands
+   https://www.perl.com/article/quoting-the-shell/
+*** use =system= in list form
+    - bypasses the shell
+*** =String::ShellQuote=
+    #+begin_src perl
+      my $quoted_arg = shell_quote $arg;
+      my $res = `echo $quoted_arg`;
+    #+end_src
 
 * profiling code
 ** Devel::NYTProf
@@ -399,6 +421,12 @@
     case insensitive match
 *** x
     permit whitespace in patters to allow comments
+** capture groups
+   - =\g1= or =\g{1}= to refer to capture buffers
+   - failed matches do not reset match variables
+*** named capture groups
+    - capture with =(?<name>)=
+    - reference with =\g{name}=
 
 * state
   private, persistent variables
@@ -497,16 +525,6 @@
      use utf8;
    #+end_src
 
-* quoting shell commands
-  https://www.perl.com/article/quoting-the-shell/
-** use =system= in list form
-   - bypasses the shell
-** =String::ShellQuote=
-   #+begin_src perl
-     my $quoted_arg = shell_quote $arg;
-     my $res = `echo $quoted_arg`;
-   #+end_src
-
 * pitfalls
   - if a return statement is missing, the last expression is returned (instead of undef)
     - PBP recommends always writing =return=, even when returning nothing
@@ -533,4 +551,48 @@
    encode or decode strings with HTML entities
    #+begin_src perl
      $encoded = encode_entities($input, '<>&"');
+   #+end_src
+
+* CLI flags
+  - =perldoc perlrun=
+  - https://www.perl.com/pub/2004/08/09/commandline.html/
+** =-e=
+   run command
+** =-n=
+   - adds =while (<>)= loop around text
+   - use =next LINE= to skip to next input record
+   #+begin_src perl
+      LINE:
+      while (<>) {
+          # your code goes here
+      }
+   #+end_src
+*** example
+    #+begin_src shell
+      perl -ne 'print if /login/'
+    #+end_src
+** =-p=
+   like =-n= but adds print to end of loop
+   #+begin_src perl
+      LINE:
+      while (<>) {
+          # your code goes here
+      } continue {
+          print or die "-p destination: $!\n";
+      }
+   #+end_src
+*** example
+    #+begin_src shell
+      # change all letters to lowercase
+      perl -pe 's/(\p{Letter})/\l$1/g'
+    #+end_src
+** =-i=
+   modifies file in place, makes backup of original
+   #+begin_src shell
+     perl -i.orig -pe 'FILTER COMMAND' file1 file2 file3 ...
+   #+end_src
+** =-M=
+   load a module
+   #+begin_src shell
+     perl -mLWP::Simple -e'print head "http://www.example.com"'
    #+end_src
