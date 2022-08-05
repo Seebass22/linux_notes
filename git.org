@@ -203,6 +203,12 @@
       git commit --squash --allow-empty <SHA>
     #+end_src
 
+** find commit that doesn't build
+   #+begin_src shell
+     # replace make with build command
+     git rebase -i main --exec "make"
+   #+end_src
+
 * worktree
   check out multiple branches/commits at once
   #+begin_src shell

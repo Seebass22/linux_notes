@@ -42,3 +42,6 @@
 
 * rotate panes in curent window
   prefix ctrl o
+
+* copy via terminal
+  hold shift
