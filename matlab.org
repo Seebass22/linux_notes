@@ -434,7 +434,6 @@
    #+end_src
 
 * MISC
-
 ** sort array of structs based on value of struct member
    #+BEGIN_SRC octave
      cells = struct2cell(struct_array);
@@ -444,3 +443,18 @@
      [sorted, ix] = sort(mat, 'descend');
      struct_array = struct_array(ix);
    #+END_SRC
+
+* symbolic
+#+begin_src octave
+  pkg load symbolic
+
+  ## define 2 symbolic variables
+  syms a b
+  f = (a+b)^2
+
+  ## expands to a^2 + 2ab + b^2
+  expand(f)
+
+  ## fzplot(f,[-5,5]) # only works on matlab
+  ezplot(f,[-5,5])
+#+end_src
