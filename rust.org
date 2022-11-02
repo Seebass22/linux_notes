@@ -464,33 +464,41 @@
   - can extract values from enums 
   - must cover every possible case
   - =_= matches any value
+  - you can match on multiple values
   #+begin_src rust
     match guess.cmp(&secret_number) {
-	Ordering::Less => println!("Too small!"),
-	Ordering::Greater => println!("Too big!"),
-	Ordering::Equal => {
-	    println!("You win!");
-	    break;
-	}
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => {
+            println!("You win!");
+            break;
+        }
     }
 
     let some_u8_value = 0u8;
     match some_u8_value {
-	1 => println!("one"),
-	3 => println!("three"),
-	5 => println!("five"),
-	7 => println!("seven"),
-	_ => (),
+        1 => println!("one"),
+        3 => println!("three"),
+        5 => println!("five"),
+        7 => println!("seven"),
+        _ => (),
     }
 
+    let x = Some(5);
     // prints "Matched, y = 5"
-    fn main() {
-	let x = Some(5);
+    match x {
+        Some(50) => println!("Got 50"),
+        Some(y) => println!("Matched, y = {:?}", y),
+        _ => (),
+    }
 
-	match x {
-	    Some(50) => println!("Got 50"),
-	    Some(y) => println!("Matched, y = {:?}", y)
-	}
+    let (is_in_scale, is_dark_mode) = (true, false);
+    // match on multiple variables
+    let color = match (is_in_scale, is_dark_mode) {
+        (true, true) => "dark green",
+        (true, false) => "light green",
+        (false, )) => "grey",
+    }
   #+end_src
 
 ** match guards
@@ -572,6 +580,7 @@
 ** =String= type
    - mutable
    - heap allocated
+   - only contains valid UTF-8
      #+begin_src rust
        let s = String::from("hello");
        // append a literal to string
@@ -672,6 +681,17 @@
      }
    #+end_src
    - there are array slices too, which work in the same way
+
+** =OsString= and =OsStr=
+   A string in the OS' native encoding (which is not guaranteed to be UTF-8, like the =String= type is)
+
+** =CString= and =CStr=
+   A null-terminated string for use with external C code
+
+** =PathBuf= and =Path=
+   An owned, mutable file/dir path
+   - dereferences to a =Path=
+   - thin wrappers around =OsString= and =OsStr=
 
 * ownership
   - every value in rust has an owner
