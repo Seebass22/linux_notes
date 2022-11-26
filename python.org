@@ -29,7 +29,8 @@
    #+begin_src python
      colors = ['black', 'white']
      sizes = ['S', 'M', 'L']
-     shirts = [(color, size) for color in colors for size in sizes]
+     shirts = [(color, size) for color in colors
+                             for size in sizes]
    #+end_src
 
 ** get type of object
@@ -61,7 +62,7 @@
        a[1:3] # => [1, 2]
      #+end_src
 
-     | negative indices  | -4 | -3 | -3 | -1 |
+     | negative indices  | -4 | -3 | -2 | -1 |
      | sequence elements |  A |  B |  C |  D |
      | positive indices  |  0 |  1 |  2 |  3 |
 
@@ -100,6 +101,19 @@
      # or
      [item for item in l if item > 2]
    #+end_src
+
+* iterators
+** zip
+   - iterate over combination of items from any number of iterables, yielding tuples
+   - stops when one input is exhausted
+#+begin_src python
+  a = [1, 2, 3, 4]
+  b = ['red', 'green', 'blue']
+
+  for num, color in zip(a, b):
+      print(f'{num}, {color}')
+
+#+end_src
 
 * paths and file operations
   #+begin_src python

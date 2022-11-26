@@ -1326,6 +1326,9 @@
      assert_eq!(a.iter().position(|&x| x == 5), None);
    #+end_src
 
+** =find=
+   find first element where closure returns true
+
 ** create an iterator on custom types
    - implement =Iterator= trait: write =next= method
 
