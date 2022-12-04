@@ -102,6 +102,46 @@
      [item for item in l if item > 2]
    #+end_src
 
+* dictionaries
+** iterate over dictionary key, value pairs
+   #+begin_src python
+     for key, value in d.items():
+   #+end_src
+** Counter dict
+#+begin_src python
+  from collections import Counter
+
+  iterable = "collection"
+
+  c = Counter(iterable)
+  # {'c': 2, 'o': 2, 'l': 2, 'e': 1, 't': 1, 'i': 1, 'n': 1}
+#+end_src
+
+* sets
+#+begin_src python
+  set1 = {1, 2, 3, 4, 5, 6}
+
+  # create from list
+  list1 = [2, 6, 7]
+  set2 = set(list1)
+
+  # intersect
+  set3 = set1 & set2
+  print(set3)
+
+  # union
+  set4 = set1 | set2
+  print(set4)
+
+  # difference
+  set5 = set1 - set2
+  print(set5)
+
+  # symmetric difference (XOR)
+  set6 = set1 ^ set2
+  print(set6)
+#+end_src
+
 * iterators
 ** zip
    - iterate over combination of items from any number of iterables, yielding tuples
@@ -153,21 +193,6 @@
    #+begin_src python
      out_file.unlink(missing_ok=True)
    #+end_src
-
-* dictionaries
-** iterate over dictionary key, value pairs
-   #+begin_src python
-     for key, value in d.items():
-   #+end_src
-** Counter dict
-#+begin_src python
-  from collections import Counter
-
-  iterable = "collection"
-
-  c = Counter(iterable)
-  # {'c': 2, 'o': 2, 'l': 2, 'e': 1, 't': 1, 'i': 1, 'n': 1}
-#+end_src
 
 * classes
   #+begin_src python
