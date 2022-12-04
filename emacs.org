@@ -196,3 +196,7 @@
    M-x zone
 ** morse code
    M-x morse-region
+
+* LSP-mode
+** set LSP workspace root
+   =M-x lsp-workspace-folders-add=
