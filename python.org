@@ -159,6 +159,15 @@
    #+begin_src python
      for key, value in d.items():
    #+end_src
+** Counter dict
+#+begin_src python
+  from collections import Counter
+
+  iterable = "collection"
+
+  c = Counter(iterable)
+  # {'c': 2, 'o': 2, 'l': 2, 'e': 1, 't': 1, 'i': 1, 'n': 1}
+#+end_src
 
 * classes
   #+begin_src python
