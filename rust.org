@@ -159,6 +159,30 @@
       // {"world": 2, "hello": 1, "wonderful": 1}
     #+end_src
 
+** hash sets
+#+begin_src rust
+  use std::collections::HashSet;
+
+  let mut names = HashSet::new();
+
+  names.insert("John".to_string());
+  names.insert("Seb".to_string());
+  names.insert("Cody".to_string());
+  names.insert("Paula".to_string());
+
+  if !names.contains("Seb") {
+      names.insert("Seb");
+  }
+
+  names.remove("John");
+
+  for name in names.iter() {
+      println!("{}", name);
+  }
+
+  println!("{} names in hash set" names.len());
+#+end_src
+
 * structs
   - cannot be partially mutable, only completely mutable or immutable
   #+begin_src rust
@@ -1336,7 +1360,6 @@
   - irrefutable patterns match any possible value
   - refutable patterns can fail
   - =_= ignores a values
-  - =..= ignores all remaining values
 ** matching literals
    #+begin_src rust
      let x = 1;
@@ -1444,6 +1467,21 @@
 	 print_coordinates(&point);
      }
    #+end_src
+
+** slice patterns
+#+begin_src rust
+  let slice1 = ['l', 'o', 'r', 'e'];
+  let slice2 = ['l', 'o', 'r', 'e', 'm'];
+
+  let [first, second, third, fourth] = slice1;
+
+  // requires "if let" if refutable
+  for chunk in slice2.chunks(3) {
+      if let [first, second, third] = chunk {
+          // do something with first, second, third
+      }
+  }
+#+end_src
 
 * smart pointers
 ** =Box<T>=
