@@ -1,0 +1,118 @@
+* general
+** interactive interpreter
+#+begin_src shell
+  lua
+#+end_src
+*** execute file before running interpreter
+#+begin_src shell
+  # run first.lua, then second.lua before opening interpreter
+  lua -l first.lua -l second
+#+end_src
+
+** execute a file
+#+begin_src lua
+  dofile('lib.lua')
+#+end_src
+
+** global variables
+- assign a value to create a global variable
+#+begin_src lua
+  a = 10
+  print(b)
+#+end_src
+
+** local variables
+#+begin_src lua
+  local num = 99
+  num = 1
+  print(num)
+#+end_src
+
+** if / else
+#+begin_src lua
+  cond = false
+  cond2 = true
+
+  if cond then
+     print('yeah')
+  elseif cond2 then
+     print('maybe')
+  else
+     print('no')
+  end
+#+end_src
+
+** loops
+#+begin_src lua
+  -- endless loop
+  while true do
+     print('true')
+  end
+#+end_src
+
+** determine type of variable
+#+begin_src lua
+  a = 10
+  b = "asdf"
+  c = print
+  type(a) --> number
+  type(b) --> string
+  type(c) --> function
+#+end_src
+
+** gotchas 
+- 0 and '0' are both true
+- arrays start at 1
+
+** strings 
+- immutable
+  #+begin_src lua
+    a = "the string"
+    -- strings are immutable, so a new string must be created to perform substitution
+    b = string.gsub(a, "the", "a")
+
+    c = " is a string"
+    print(a .. c) --> prints "the string is a string"
+  #+end_src
+
+** tables
+- like an array, but also like a hash map
+  #+begin_src lua
+    v = {'a', 'b', 'c'}
+    -- 1   a
+    -- 2   b
+    -- 3   c
+
+    print(v) --> table: 0x562835eebab0
+    -- indices start at 1
+    print(v[1]) --> a
+    print(v[0]) --> nil
+
+    v2 = {myKey = 'a', 'b', 'c'}
+    -- 1     b
+    -- 2     c
+    -- myKey a
+
+    v3 = {myKey = 'a', 'b', 'c', {'z', 'x'}}
+    local function print_table(table)
+       for key, value in pairs(table) do
+          print(key, value)
+       end
+    end
+
+    print_table(v)
+    print_table(v2)
+    print_table(v3)
+
+  #+end_src
+
+* vim API 
+- global variable =vim=
+#+begin_src lua
+  vim.o.relativenumber = true
+  vim.api.nvim_set_keymap('i', 'jk', '<ESC>', { noremap = true })
+
+  -- inspect table
+  t = {myKey = 'a', 'b', 'c'}
+  vim.inspect(t)
+#+end_src
