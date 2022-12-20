@@ -68,7 +68,7 @@
      # => 4
    #+end_src
 
-** assignment expressions (walrus operator)
+** assignment expressions (walrus operator :=)
    - assign and return a value at the same time
      #+begin_src python
        if self._is_special and (ans := self._check_nans(context=context)):
@@ -80,6 +80,21 @@
            if ans:
                return ans
      #+end_src
+
+** structural pattern matching
+https://peps.python.org/pep-0622/
+#+begin_src python
+  def compare_items(a, b):
+      match a, b:
+      case None, None:
+      print('both none')
+      case int(), int():
+      print(f'{a} and {b} are both ints.')
+      case list(), list():
+      print('a and b are both lists')
+      case _:
+      print('something else')
+#+end_src
 
 * lists
 ** slicing
@@ -148,6 +163,9 @@
 * sets
 #+begin_src python
   set1 = {1, 2, 3, 4, 5, 6}
+
+  # insert
+  set1.add(1)
 
   # create from list
   list1 = [2, 6, 7]

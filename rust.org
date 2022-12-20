@@ -521,7 +521,7 @@
     let color = match (is_in_scale, is_dark_mode) {
         (true, true) => "dark green",
         (true, false) => "light green",
-        (false, )) => "grey",
+        (false, _) => "grey",
     }
   #+end_src
 
