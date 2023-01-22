@@ -1,0 +1,52 @@
+* combine PDFs
+** pdfunite (poppler-utils)
+https://stackoverflow.com/a/11280219
+#+begin_src shell
+pdfunite *.pdf out.pdf
+#+end_src
+
+** ghostscript
+smaller filesize, broken page numbers https://stackoverflow.com/a/19358402
+#+begin_src shell
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=merged.pdf *.pdf
+#+end_src
+
+* add table of contents (outline/bookmarks)
+add toc to =all.pdf=, save to =final.pdf=
+
+bmarks.txt:
+#+begin_example
+  1 1 VL1 Einführung
+  42 1 VL2 Zynq SoC Platform
+  66 2 Zync SoC CLB
+  85 1 VL3 Zynq Design Flow
+  138 1 VL4 AXI Infrastruktur und GPIO
+  159 2 AXI Interconnect
+#+end_example
+script:
+#+begin_src perl
+  #!/usr/bin/perl
+  use warnings;
+  use utf8;
+  use strict;
+
+  `pdftk all.pdf dump_data output meta.txt`;
+
+  open(my $fh, '<', 'bmarks.txt') or die $!;
+  open(my $fh2, '>>', 'meta.txt') or die $!;
+
+  while (my $line = <$fh>) {
+      my ($page, $level, @sp) = split ' ', $line;
+      my $title = join(' ', @sp);
+      my $res =<<"END";
+  BookmarkBegin
+  BookmarkTitle: $title
+  BookmarkLevel: $level
+  BookmarkPageNumber: $page
+  END
+
+      print $fh2 $res;
+  }
+
+  `pdftk all.pdf update_info meta.txt output final.pdf`;
+#+end_src
