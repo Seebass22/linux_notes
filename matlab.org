@@ -14,6 +14,14 @@
 
      E_m = [4 5 5; 5 2 4];
    #+end_src
+** merge 2 vectors into a matrix
+#+begin_example
+  t_i = -1:2;
+  a_ = t_i .^ 3;
+  b_ = t_i - 1;
+
+  A = [a_(:) b_(:)]
+#+end_example
 
 ** scalar variables
    #+begin_src octave
@@ -37,12 +45,12 @@
      sum(A)
    #+end_src
 
-** dotproduct (skalarprodukt)
+** dot product (skalarprodukt)
    #+begin_src octave
      dot(A,B)
    #+end_src
 
-** matrixmultiplication, inversion
+** matrix multiplication, inversion
    #+begin_src octave
      D_m * inv(D_M)
    #+end_src
@@ -444,6 +452,15 @@
      struct_array = struct_array(ix);
    #+END_SRC
 
+** change output format
+#+begin_src octave
+  ## default:
+  ## 6.3414e+04
+
+  format long
+  ## 63414.39273176272
+#+end_src
+
 * symbolic
 #+begin_src octave
   pkg load symbolic
@@ -458,3 +475,42 @@
   ## fzplot(f,[-5,5]) # only works on matlab
   ezplot(f,[-5,5])
 #+end_src
+
+* minimization
+** functions
+*** linprog
+   - Solve a linear problem
+   - https://octave.sourceforge.io/optim/function/linprog.html
+
+*** fminunc
+   - Solve an unconstrained optimization problem defined by the function fcn
+   - https://octave.sourceforge.io/octave/function/fminunc.html
+
+*** fminsearch
+   - Find a value of x which minimizes the function fun
+   - https://octave.sourceforge.io/octave/function/fminsearch.html
+
+*** fmincon
+   - nonlinear minimization of a scalar objective function
+   - https://octave.sourceforge.io/optim/package_doc/fmincon.html#index-fmincon-8
+
+** example
+#+begin_src octave
+  pkg load optim;
+  ## 1. Aufgabe
+  A = [20 10
+       4  5
+       6 15]
+
+  b = [8000
+       2000
+       4500]
+
+  f = [-16
+       -32]
+
+  lb = [0 0]'
+  ## Solve a linear problem
+  [x, fopt] = linprog(f, A, b, [], [], lb, [])
+#+end_src
+
