@@ -1,4 +1,4 @@
-* BASIC OPERATIONS
+* basic operations
 ** Vectors
    #+begin_src octave
      A = [1 2 3 4 5];
@@ -178,7 +178,7 @@
      <name of script without .m>
    #+end_src
 
-* STRINGS
+* strings
 ** convert int to string
    #+begin_src octave
      chr = int2str(N);
@@ -189,14 +189,13 @@
      filename = strcat('img_', int2str(i), '.ppm');
    #+end_src
 
-* FILE IO
+* file io
 ** create a folder
    #+begin_src octave
      mkdir('pics');
    #+end_src
 
-* CELL ARRAYS
-
+* cell arrays
 ** create cell array
    #+begin_src octave
      c = {}
@@ -238,7 +237,7 @@
      dec2bin(a, 8)
    #+end_src
 
-* LOOPS AND CONDITIONALS
+* loops and conditionals
 ** for loop
    #+begin_src octave
      for n = 2:6
@@ -288,8 +287,7 @@
      isa(A, 'double')
    #+end_src
 
-* PLOTS
-
+* plots
 ** multiple plot windows
    #+begin_src octave
      figure(1)
@@ -344,7 +342,7 @@
        plot(x, vals)
      #+end_src
 
-* IMAGES
+* images
   #+begin_src octave
     pkg load image
   #+end_src
@@ -373,7 +371,7 @@
      imwrite(data, filename)
    #+end_src
 
-* FUNCTIONS
+* functions
   #+begin_src octave
     function e = entropy_(d)
       e = sum(d.*log2(1./d));
@@ -383,7 +381,7 @@
 ** nested functions
    - both nested and the containing function can access variables declared in either
 
-* GLOBAL VARIABLES
+* global variables
   - must be declared in any function using them
     #+BEGIN_SRC octave
       global x = 5;
@@ -402,7 +400,7 @@
      end
    #+end_src
 
-* CONTROL SYSTEMS
+* control systems
   #+begin_src octave
     pkg load control
 
@@ -441,7 +439,7 @@
      step(Gs)
    #+end_src
 
-* MISC
+* misc
 ** sort array of structs based on value of struct member
    #+BEGIN_SRC octave
      cells = struct2cell(struct_array);
