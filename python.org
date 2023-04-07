@@ -86,14 +86,14 @@ https://peps.python.org/pep-0622/
 #+begin_src python
   def compare_items(a, b):
       match a, b:
-      case None, None:
-      print('both none')
-      case int(), int():
-      print(f'{a} and {b} are both ints.')
-      case list(), list():
-      print('a and b are both lists')
-      case _:
-      print('something else')
+          case None, None:
+              print('both none')
+          case int(), int():
+              print(f'{a} and {b} are both ints.')
+          case list(), list():
+              print('a and b are both lists')
+          case _:
+              print('something else')
 #+end_src
 
 * lists
