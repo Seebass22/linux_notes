@@ -552,6 +552,17 @@
       }
     #+end_src
   
+* let else
+  bind variables in surrounding scope or return/continue/etc
+  #+begin_src rust
+    for targeted_enemy in query.iter() {
+        let Some(entity) = targeted_enemy.0 else {
+            continue;
+        };
+        // do something with entity
+    }
+ #+end_src
+
 * mutability
   variables are immutable by default
   #+begin_src rust
