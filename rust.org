@@ -561,6 +561,16 @@
         };
         // do something with entity
     }
+
+    // works for slice destructuring too ofc
+    let winning_and_own_numbers: Vec<Vec<&str>> = line
+        .split('|')
+        .map(|s| s.trim())
+        .map(|s| s.split_whitespace().collect())
+        .collect();
+    let [winning_numbers, own_numbers] = &winning_and_own_numbers[..] else {
+        unreachable!();
+    };
  #+end_src
 
 * mutability
@@ -716,6 +726,12 @@
      }
    #+end_src
    - there are array slices too, which work in the same way
+*** =split_once=
+    splits a &str into two, returning =Option<(&str, &str)>=
+    #+begin_src rust
+      // ignore everything before ':'
+      let (_, line) = line.split_once(':').unwrap();
+    #+end_src
 
 ** =OsString= and =OsStr=
    A string in the OS' native encoding (which is not guaranteed to be UTF-8, like the =String= type is)
@@ -1784,7 +1800,6 @@
 
 ** cargo flamegraph
    generate flamegraphs (profile performance)
-
 
 * cross compiling for windows
 ** install toolchain
