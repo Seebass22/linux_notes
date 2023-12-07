@@ -1331,6 +1331,7 @@
        }
 
        let a = ["1", "two", "NaN", "four", "5"];
+       // .ok() converts a Result to an Option
        let mut iter = a.iter().filter_map(|s| s.parse().ok());
      #+end_src
 
@@ -1507,6 +1508,30 @@
       if let [first, second, third] = chunk {
           // do something with first, second, third
       }
+  }
+#+end_src
+
+** reference patterns
+https://doc.rust-lang.org/reference/patterns.html#reference-patterns
+#+begin_src rust
+  let numbers = [4, 2, 5, 1, 6];
+  // use & to dereference references, like destructuring
+  // -> number: u32
+  for &number in numbers.iter() {
+      if *number == 1 {
+      }
+  }
+  // or dereference them yourself
+  // -> number: &u32
+  for number in numbers.iter() {
+      if *number == 1 {
+      }
+  }
+
+  fn replace_joker(&self) -> Hand {
+      let mut without_jokers: Vec<char> =
+      // dereference double char reference
+          self.cards.iter().filter(|&&c| c != 'J').copied().collect();
   }
 #+end_src
 
