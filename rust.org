@@ -340,6 +340,22 @@
    - use =unwrap= to return value (only if you're sure a value is present)
      - will panic if None
    - use =as_ref= to return option with reference to value
+*** =and_then=
+    use to chain fallibile operations that return none
+    #+begin_src rust
+      if let Some(item) = grid.get(*y).and_then(|row| row.get(*x)) {
+          item
+      }
+    #+end_src
+*** =is_some_and=
+    returns true if some and matches predicate
+    #+begin_src rust
+      if grid[y].get(x2).is_some_and(|x| x.is_ascii_digit()) {
+          grid[y][x2]
+      }
+    #+end_src
+*** =map=
+    turn an =Option<T>= into an =Option<U>=
   
 * functions
   - names in =snake_case=
