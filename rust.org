@@ -892,7 +892,7 @@
     - returns value inside Ok to expression if Ok
     - returns Err from the whole function if Err
       - uses =From= trait to convert between error types
-      - can only be used in functions that return =Result= enum
+      - can only be used in functions that return =Result= or =Option=
     #+begin_src rust
       use std::io;
       use std::io::Read;
@@ -1403,7 +1403,7 @@
 * patterns
   - irrefutable patterns match any possible value
   - refutable patterns can fail
-  - =_= ignores a values
+  - =_= matches anything
 ** matching literals
    #+begin_src rust
      let x = 1;
@@ -1534,7 +1534,7 @@ https://doc.rust-lang.org/reference/patterns.html#reference-patterns
   // use & to dereference references, like destructuring
   // -> number: u32
   for &number in numbers.iter() {
-      if *number == 1 {
+      if number == 1 {
       }
   }
   // or dereference them yourself
@@ -1833,7 +1833,6 @@ https://doc.rust-lang.org/reference/patterns.html#reference-patterns
 * useful crates
 ** argument parsing
    - clap
-   - structopt
 
 * other dev tools
 ** cargo tarpaulin
