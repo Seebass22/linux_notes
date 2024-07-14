@@ -340,6 +340,9 @@
    - use =unwrap= to return value (only if you're sure a value is present)
      - will panic if None
    - use =as_ref= to return option with reference to value
+   - use =as_deref= to return option with reference to value using [[https://doc.rust-lang.org/std/ops/trait.Deref.html][Deref]]
+     - turns =Option<String>= to =Option<&str>= (and not &String like as_ref would do)
+   https://stackoverflow.com/a/76396693
 *** =and_then=
     use to chain fallibile operations that return none
     #+begin_src rust
