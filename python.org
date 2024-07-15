@@ -240,6 +240,14 @@ https://peps.python.org/pep-0622/
      out_file.unlink(missing_ok=True)
    #+end_src
 
+** iterate over files recursively
+#+begin_src python
+  from pathlib import Path
+
+  for path in Path('.').glob('**/*.tex'):
+      print(path)
+#+end_src
+
 * classes
   #+begin_src python
     Class dog():
@@ -363,11 +371,17 @@ https://peps.python.org/pep-0622/
      # => magent
    #+end_src
 ** strip leading and trailing whitespace
-   #+begin_src perl
+   #+begin_src python
      a = " magenta bags \n"
      s.strip()
      # => magenta bags
    #+end_src
+** string contains
+#+begin_src python
+  string = 'TODO: asdf'
+  if 'TODO' in string:
+      pass
+#+end_src
 
 * time and date
   #+begin_src python
