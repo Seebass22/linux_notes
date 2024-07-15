@@ -422,6 +422,25 @@ https://peps.python.org/pep-0622/
 	 json.dump(a, output, indent=4)
    #+end_src
 
+* type hints
+https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+- only used by static checkers, linters, etc
+- collection types imported from =typing= module
+- use =|= when type could be one of multiple
+#+begin_src python
+  from typing import Tuple, Self
+
+  class interval:
+      def __init__(self, lower: Tuple[int, int], upper: Tuple[int, int]) -> None:
+          self.lower = lower
+          self.upper = upper
+
+      def intersects(self, other: Self) -> bool:
+          pass
+#+end_src
+** protocols
+https://typing.readthedocs.io/en/latest/spec/protocol.html
+
 * argument parsing
   #+begin_src python
     import argparse
@@ -552,6 +571,15 @@ https://peps.python.org/pep-0622/
 	 result = history.to_time_string(seconds)
 	 assert result == expected
    #+end_src
+
+** assert that exceptions were raised
+#+begin_src python
+  import pytest
+
+  def test_zero_division():
+      with pytest.raises(ZeroDivisionError):
+          1 / 0
+#+end_src
 
 * virtual environments
 ** creating a virtual environment
